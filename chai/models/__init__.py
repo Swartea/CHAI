@@ -613,6 +613,23 @@ from chai.models.chapter_self_check import (
     ChapterSelfCheckRequest,
     ChapterSelfCheckResult,
 )
+from chai.models.full_book_polishing import (
+    PolishingStatus,
+    PolishingType,
+    PolishingSeverity,
+    PolishingIssue,
+    PolishingResult,
+    VolumePolishingProfile,
+    ChapterPolishingProfile,
+    BookPolishingConfig,
+    PolishingPlan,
+    VolumePolishingReport,
+    BookPolishingReport,
+    PolishingSummary,
+    FullBookPolishingRequest,
+    FullBookPolishingResult,
+    PolishingIssueTracker,
+)
 
 # Rebuild models to resolve forward references after all imports
 # Pydantic v2: model_rebuild() without arguments when types are imported
@@ -1200,6 +1217,22 @@ __all__ = [
     "NovelSelfCheckSummary",
     "ChapterSelfCheckRequest",
     "ChapterSelfCheckResult",
+    # Full book polishing models
+    "PolishingStatus",
+    "PolishingType",
+    "PolishingSeverity",
+    "PolishingIssue",
+    "PolishingResult",
+    "VolumePolishingProfile",
+    "ChapterPolishingProfile",
+    "BookPolishingConfig",
+    "PolishingPlan",
+    "VolumePolishingReport",
+    "BookPolishingReport",
+    "PolishingSummary",
+    "FullBookPolishingRequest",
+    "FullBookPolishingResult",
+    "PolishingIssueTracker",
 ]
 
 # Pydantic v1/v2 compatibility - add model_dump and model_validate if not present
