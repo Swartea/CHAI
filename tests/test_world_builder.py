@@ -4,7 +4,7 @@ import pytest
 from unittest.mock import AsyncMock, MagicMock, patch
 
 from chai.models import WorldSetting, MagicSystem, SocialStructure
-from chai.engines import WorldBuilder
+from chai.engines import WorldBuilder, WorldSystem
 from chai.services import AIService
 
 
@@ -462,3 +462,436 @@ class TestAIServiceWorldMethods:
                     os.environ["ANTHROPIC_API_KEY"] = original_key
                 else:
                     os.environ.pop("ANTHROPIC_API_KEY", None)
+
+
+class TestWorldSystem:
+    """Tests for WorldSystem class."""
+
+    def test_world_system_init(self):
+        """Test WorldSystem initialization."""
+        world = WorldSetting(
+            name="测试世界",
+            genre="玄幻",
+            geography={"countries": [{"name": "王国A"}]},
+            politics={"governments": [{"name": "王国A政府"}]},
+            culture={"religions": [{"name": "圣光教"}]},
+            history={"eras": [{"name": "第一纪元"}]},
+        )
+        system = WorldSystem(world)
+
+        assert system.world == world
+        assert system._relationships == {}
+
+    def test_analyze_relationships(self):
+        """Test relationship analysis."""
+        world = WorldSetting(
+            name="测试世界",
+            genre="玄幻",
+            geography={
+                "countries": [{"name": "王国A"}, {"name": "王国B"}],
+                "landmarks": [{"name": "圣山"}],
+                "cities": [{"name": "首都"}],
+            },
+            politics={
+                "governments": [{"name": "王国A政府"}],
+                "factions": [{"name": "武士团"}],
+                "conflicts": [{"name": "边境战争"}],
+            },
+            culture={
+                "religions": [{"name": "圣光教"}],
+                "traditions": [{"name": "成年礼"}],
+            },
+            history={
+                "eras": [{"name": "第一纪元"}],
+                "major_events": [{"name": "建国"}],
+            },
+        )
+        system = WorldSystem(world)
+        relationships = system.analyze_relationships()
+
+        assert "geography_politics" in relationships
+        assert "politics_culture" in relationships
+        assert "culture_history" in relationships
+        assert "history_geography" in relationships
+        assert "cross_influences" in relationships
+
+        # Verify geo-politics analysis
+        geo_pol = relationships["geography_politics"]
+        assert geo_pol["country_count"] == 2
+        assert geo_pol["government_count"] == 1
+        assert geo_pol["territorial_claims"] == 1
+
+    def test_analyze_geo_politics(self):
+        """Test geography-politics relationship analysis."""
+        world = WorldSetting(
+            name="测试",
+            genre="玄幻",
+            geography={"countries": [{"name": "A"}], "landmarks": []},
+            politics={"governments": [{"name": "Gov1"}], "factions": [], "conflicts": []},
+            culture={},
+            history={},
+        )
+        system = WorldSystem(world)
+        result = system._analyze_geo_politics()
+
+        assert result["country_count"] == 1
+        assert result["government_count"] == 1
+        assert "Geography shapes political" in result["influence"]
+
+    def test_analyze_politics_culture(self):
+        """Test politics-culture relationship analysis."""
+        world = WorldSetting(
+            name="测试",
+            genre="玄幻",
+            geography={},
+            politics={"factions": [{"name": "F1"}], "governments": []},
+            culture={"religions": [{"name": "R1"}], "traditions": []},
+            history={},
+        )
+        system = WorldSystem(world)
+        result = system._analyze_politics_culture()
+
+        assert result["faction_count"] == 1
+        assert result["religion_count"] == 1
+        assert "Political power" in result["influence"]
+
+    def test_get_cross_influences(self):
+        """Test cross-influences retrieval."""
+        world = WorldSetting(
+            name="测试",
+            genre="玄幻",
+            geography={},
+            politics={},
+            culture={},
+            history={},
+        )
+        system = WorldSystem(world)
+        influences = system._get_cross_influences()
+
+        assert "geography → politics" in influences
+        assert "politics → culture" in influences
+        assert "culture → history" in influences
+        assert "history → geography" in influences
+
+    def test_get_consistency_report_empty_world(self):
+        """Test consistency report for minimal world."""
+        world = WorldSetting(name="测试", genre="玄幻")
+        system = WorldSystem(world)
+        report = system.get_consistency_report()
+
+        assert "issues" in report
+        assert "recommendations" in report
+        assert "status" in report
+
+    def test_get_consistency_report_with_mismatches(self):
+        """Test consistency report detects mismatches."""
+        world = WorldSetting(
+            name="测试",
+            genre="玄幻",
+            geography={"countries": [{"name": "A"}, {"name": "B"}, {"name": "C"}]},
+            politics={"governments": [{"name": "Gov1"}]},
+            culture={"religions": []},
+            history={"eras": [], "major_events": [{"name": "E1"}, {"name": "E2"}]},
+        )
+        system = WorldSystem(world)
+        report = system.get_consistency_report()
+
+        # Should have issues about country/government mismatch
+        assert len(report["issues"]) > 0
+        assert any("Mismatch" in issue for issue in report["issues"])
+
+    def test_get_consistency_report_good_world(self):
+        """Test consistency report for well-structured world."""
+        world = WorldSetting(
+            name="测试",
+            genre="玄幻",
+            geography={
+                "countries": [{"name": "A"}],
+                "landmarks": [{"name": "L1"}, {"name": "L2"}, {"name": "L3"}],
+                "cities": [{"name": "C1"}, {"name": "C2"}, {"name": "C3"}],
+            },
+            politics={"governments": [{"name": "Gov1"}], "factions": []},
+            culture={"religions": [{"name": "R1"}], "traditions": []},
+            history={"eras": [{"name": "E1"}], "major_events": [{"name": "E1"}, {"name": "E2"}, {"name": "E3"}]},
+        )
+        system = WorldSystem(world)
+        report = system.get_consistency_report()
+
+        assert report["status"] == "consistent"
+        assert len(report["issues"]) == 0
+
+
+class TestWorldBuilderCore:
+    """Tests for WorldBuilder core world building methods."""
+
+    @pytest.mark.asyncio
+    async def test_build_core_world(self):
+        """Test building core world without magic/social."""
+        mock_ai = MagicMock(spec=AIService)
+        mock_ai.generate_world_setting = AsyncMock(return_value={
+            "name": "测试核心世界",
+            "genre": "都市",
+        })
+        mock_ai.generate_geography = AsyncMock(return_value={
+            "continents": [{"name": "亚洲"}],
+            "countries": [{"name": "中国"}],
+            "cities": [],
+            "landmarks": [],
+        })
+        mock_ai.generate_politics = AsyncMock(return_value={
+            "governments": [{"name": "政府"}],
+            "factions": [],
+        })
+        mock_ai.generate_culture = AsyncMock(return_value={
+            "religions": [],
+            "traditions": [],
+        })
+        mock_ai.generate_history = AsyncMock(return_value={
+            "eras": [],
+            "major_events": [],
+        })
+
+        builder = WorldBuilder(mock_ai)
+        world = await builder.build_core_world("都市", "现代都市")
+
+        assert world.name == "测试核心世界"
+        assert world.genre == "都市"
+        assert world.magic_system is None
+        assert world.social_structure is None
+        assert world.geography is not None
+        assert world.politics is not None
+        assert world.culture is not None
+        assert world.history is not None
+
+    @pytest.mark.asyncio
+    async def test_build_core_world_references_components(self):
+        """Test that core world builds components with cross-references."""
+        mock_ai = MagicMock(spec=AIService)
+        mock_ai.generate_world_setting = AsyncMock(return_value={"name": "测试", "genre": "都市"})
+        mock_ai.generate_geography = AsyncMock(return_value={"countries": []})
+        mock_ai.generate_politics = AsyncMock(return_value={"governments": []})
+        mock_ai.generate_culture = AsyncMock(return_value={"religions": []})
+        mock_ai.generate_history = AsyncMock(return_value={"eras": []})
+
+        builder = WorldBuilder(mock_ai)
+        await builder.build_core_world("都市", "现代")
+
+        # Verify politics gets geography context
+        mock_ai.generate_politics.assert_called_once()
+        call_kwargs = mock_ai.generate_politics.call_args[1]
+        assert "geography" in call_kwargs
+
+        # Verify culture gets geography and politics context
+        mock_ai.generate_culture.assert_called_once()
+        call_kwargs = mock_ai.generate_culture.call_args[1]
+        assert "geography" in call_kwargs
+        assert "politics" in call_kwargs
+
+        # Verify history gets all context
+        mock_ai.generate_history.assert_called_once()
+        call_kwargs = mock_ai.generate_history.call_args[1]
+        assert "geography" in call_kwargs
+        assert "politics" in call_kwargs
+        assert "culture" in call_kwargs
+
+
+class TestWorldBuilderSystem:
+    """Tests for WorldBuilder system methods."""
+
+    def test_build_world_system(self):
+        """Test building world system."""
+        world = WorldSetting(
+            name="测试",
+            genre="玄幻",
+            geography={"countries": []},
+            politics={"governments": []},
+            culture={"religions": []},
+            history={"eras": []},
+        )
+        mock_ai = MagicMock(spec=AIService)
+        builder = WorldBuilder(mock_ai)
+
+        system = builder.build_world_system(world)
+
+        assert isinstance(system, WorldSystem)
+        assert system.world == world
+        assert len(system._relationships) > 0
+
+    @pytest.mark.asyncio
+    async def test_build_complete_world_system(self):
+        """Test building complete world and system."""
+        mock_ai = MagicMock(spec=AIService)
+        mock_ai.generate_world_setting = AsyncMock(return_value={"name": "完整世界", "genre": "玄幻"})
+        mock_ai.generate_geography = AsyncMock(return_value={"continents": []})
+        mock_ai.generate_politics = AsyncMock(return_value={"governments": []})
+        mock_ai.generate_culture = AsyncMock(return_value={"religions": []})
+        mock_ai.generate_history = AsyncMock(return_value={"eras": []})
+        mock_ai.generate_magic_system = AsyncMock(return_value=MagicSystem(
+            name="Test", system_type="magic", rules=[], limitations=[], levels=[]
+        ))
+        mock_ai.generate_social_structure = AsyncMock(return_value=SocialStructure(
+            classes=[], factions=[], power_distribution={}
+        ))
+
+        builder = WorldBuilder(mock_ai)
+        world, system = await builder.build_complete_world_system("玄幻", "奇幻")
+
+        assert isinstance(world, WorldSetting)
+        assert isinstance(system, WorldSystem)
+        assert system.world == world
+
+
+class TestWorldBuilderValidation:
+    """Tests for WorldBuilder validation methods."""
+
+    def test_validate_world_consistency(self):
+        """Test world consistency validation."""
+        world = WorldSetting(
+            name="测试",
+            genre="玄幻",
+            geography={
+                "countries": [{"name": "A"}, {"name": "B"}],
+                "landmarks": [{"name": "L1"}],
+                "cities": [{"name": "C1"}],
+            },
+            politics={"governments": [{"name": "Gov1"}], "factions": []},
+            culture={"religions": [], "traditions": []},
+            history={"eras": [], "major_events": []},
+        )
+        mock_ai = MagicMock(spec=AIService)
+        builder = WorldBuilder(mock_ai)
+
+        report = builder.validate_world_consistency(world)
+
+        assert "issues" in report
+        assert "recommendations" in report
+        assert "status" in report
+
+    def test_validate_good_world(self):
+        """Test validation of well-structured world."""
+        world = WorldSetting(
+            name="测试",
+            genre="玄幻",
+            geography={
+                "countries": [{"name": "A"}],
+                "landmarks": [{"name": "L1"}, {"name": "L2"}, {"name": "L3"}],
+                "cities": [{"name": "C1"}, {"name": "C2"}, {"name": "C3"}],
+            },
+            politics={"governments": [{"name": "Gov1"}], "factions": []},
+            culture={"religions": [{"name": "R1"}], "traditions": []},
+            history={"eras": [{"name": "E1"}], "major_events": [{"name": "E1"}, {"name": "E2"}, {"name": "E3"}]},
+        )
+        mock_ai = MagicMock(spec=AIService)
+        builder = WorldBuilder(mock_ai)
+
+        report = builder.validate_world_consistency(world)
+
+        assert report["status"] == "consistent"
+
+
+class TestWorldBuilderSummary:
+    """Tests for WorldBuilder summary and export methods."""
+
+    def test_get_world_summary(self):
+        """Test getting world summary."""
+        world = WorldSetting(
+            name="测试世界",
+            genre="玄幻",
+            geography={
+                "continents": [{"name": "大陆A"}],
+                "countries": [{"name": "王国A"}, {"name": "王国B"}],
+                "cities": [{"name": "首都"}],
+                "landmarks": [{"name": "圣山"}],
+            },
+            politics={
+                "governments": [{"name": "王国A政府"}],
+                "factions": [{"name": "武士团"}],
+                "conflicts": [],
+            },
+            culture={
+                "religions": [{"name": "圣光教"}],
+                "traditions": [{"name": "成年礼"}],
+                "languages": [{"name": "通用语"}],
+            },
+            history={
+                "eras": [{"name": "第一纪元"}],
+                "major_events": [{"name": "建国"}],
+                "historical_figures": [{"name": "始祖"}],
+            },
+            magic_system=MagicSystem(
+                name="元素魔法",
+                system_type="magic",
+                rules=["规则1"],
+                limitations=["限制1"],
+                levels=["初级"],
+            ),
+            social_structure=SocialStructure(
+                classes=[{"name": "贵族"}],
+                factions=[{"name": "议会"}],
+                power_distribution={},
+            ),
+        )
+        mock_ai = MagicMock(spec=AIService)
+        builder = WorldBuilder(mock_ai)
+
+        summary = builder.get_world_summary(world)
+
+        assert "测试世界" in summary
+        assert "玄幻" in summary
+        assert "大陆A" in summary
+        assert "王国A" in summary
+        assert "圣光教" in summary
+        assert "第一纪元" in summary
+        assert "元素魔法" in summary
+
+    def test_get_world_summary_empty_world(self):
+        """Test getting summary for empty world."""
+        world = WorldSetting(name="空世界", genre="玄幻")
+        mock_ai = MagicMock(spec=AIService)
+        builder = WorldBuilder(mock_ai)
+
+        summary = builder.get_world_summary(world)
+
+        assert "空世界" in summary
+        assert "(未设定)" in summary
+
+    def test_export_world_system(self):
+        """Test exporting world system."""
+        world = WorldSetting(
+            name="导出世界",
+            genre="玄幻",
+            geography={"countries": []},
+            politics={"governments": []},
+            culture={"religions": []},
+            history={"eras": []},
+        )
+        mock_ai = MagicMock(spec=AIService)
+        builder = WorldBuilder(mock_ai)
+
+        export = builder.export_world_system(world)
+
+        assert "world" in export
+        assert "summary" in export
+        assert "relationships" in export
+        assert "consistency" in export
+        assert export["world"]["name"] == "导出世界"
+
+    def test_export_world_system_without_relationships(self):
+        """Test exporting world without relationships."""
+        world = WorldSetting(
+            name="导出世界",
+            genre="玄幻",
+            geography={},
+            politics={},
+            culture={},
+            history={},
+        )
+        mock_ai = MagicMock(spec=AIService)
+        builder = WorldBuilder(mock_ai)
+
+        export = builder.export_world_system(world, include_relationships=False)
+
+        assert "world" in export
+        assert "summary" in export
+        assert "relationships" not in export
+        assert "consistency" not in export

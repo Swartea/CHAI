@@ -6,7 +6,7 @@ from chai.engines.editor import Editor
 from chai.engines.novel_engine import NovelEngine
 from chai.engines.deconstructor import BookDeconstructor
 from chai.engines.style_engine import StyleEngine, StyleProfile
-from chai.engines.world_builder import WorldBuilder
+from chai.engines.world_builder import WorldBuilder, WorldSystem
 
 __all__ = [
     "StoryPlanner",
@@ -17,4 +17,5 @@ __all__ = [
     "StyleEngine",
     "StyleProfile",
     "WorldBuilder",
+    "WorldSystem",
 ]
