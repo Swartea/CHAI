@@ -270,6 +270,18 @@ from chai.models.style_consistency import (
     StyleConsistencyDraft,
     CharacterVoiceProfile,
 )
+from chai.models.tone_unification import (
+    ToneUnificationType,
+    ToneShiftType,
+    ToneShiftSeverity,
+    ChapterToneProfile,
+    ToneShift,
+    UnifiedToneProfile,
+    ToneUnificationAnalysis,
+    ToneUnificationRevision,
+    ToneUnificationPlan,
+    ToneUnificationReport,
+)
 
 # Rebuild models to resolve forward references after all imports
 Novel.model_rebuild()
@@ -535,4 +547,15 @@ __all__ = [
     "StyleConsistencyTemplate",
     "StyleConsistencyDraft",
     "CharacterVoiceProfile",
+    # Tone unification models
+    "ToneUnificationType",
+    "ToneShiftType",
+    "ToneShiftSeverity",
+    "ChapterToneProfile",
+    "ToneShift",
+    "UnifiedToneProfile",
+    "ToneUnificationAnalysis",
+    "ToneUnificationRevision",
+    "ToneUnificationPlan",
+    "ToneUnificationReport",
 ]

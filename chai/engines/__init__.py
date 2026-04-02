@@ -25,6 +25,7 @@ from chai.engines.chapter_body_engine import ChapterBodyEngine
 from chai.engines.scene_description_engine import SceneDescriptionEngine
 from chai.engines.dialogue_engine import DialogueEngine
 from chai.engines.action_plot_engine import ActionPlotEngine
+from chai.engines.tone_unification_engine import ToneUnificationEngine
 
 __all__ = [
     "StoryPlanner",
@@ -56,4 +57,5 @@ __all__ = [
     "SceneDescriptionEngine",
     "DialogueEngine",
     "ActionPlotEngine",
+    "ToneUnificationEngine",
 ]
