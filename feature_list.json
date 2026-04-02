@@ -211,9 +211,9 @@
         "Implement or refine the repo behavior needed for '各章节概要与情节点安排'.",
         "Verify '各章节概要与情节点安排' through repository smoke tests or targeted checks."
       ],
-      "passes": false,
-      "notes": null,
-      "last_updated": null
+      "passes": true,
+      "notes": "Created chapter synopsis models: SynopsisPlotPoint, SynopsisPlotPointType (16 types), ChapterSynopsisSection, ChapterSynopsis, PlotPointArrangement, ChapterSynopsisAnalysis. Created ChapterSynopsisEngine with generate_synopsis(), generate_all_synopses(), arrange_plot_points(), link_to_story_beats(), analyze_synopsis(), get_synopsis_summary(), export_synopsis(), export_arrangement(). Added 25 unit tests (21 pass, 4 async skipped). Total 315 tests pass.",
+      "last_updated": "2026-04-02T13:10:00+00:00"
     },
     {
       "id": "feat-017",

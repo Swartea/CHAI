@@ -394,3 +394,19 @@ Agent execution note: returncode=1
 - Verification: returncode=0; stdout=/Users/swarteachou/Desktop/CHAI | ?? .agent_harness/session_prompts/20260402T124815Z.md | No automated smoke test detected - baseline inspection only.
 - Risks: None recorded.
 - Next: Pick the next unfinished feature in the next session.
+## 2026-04-02T13:10:00+00:00 | Session 20260402T130243Z
+- Session: 20260402T130243Z
+- Feature: feat-016
+- Summary: Implemented chapter synopsis and plot point arrangement for CHAI novel writing.
+- What changed:
+  - Created chai/models/chapter_synopsis.py with models: SynopsisPlotPoint (16 types: turning_point, climax, key_event, etc.), SynopsisPlotPointType, SynopsisPlotPointStatus, PlotPointImportance, ChapterSynopsisSection, ChapterSynopsis, PlotPointArrangement, ChapterSynopsisAnalysis
+  - Created chai/engines/chapter_synopsis_engine.py with ChapterSynopsisEngine class supporting: generate_synopsis() for single chapter synopsis, generate_all_synopses() for all chapters, arrange_plot_points() for plot point arrangement, link_to_story_beats() for structure integration, analyze_synopsis() for quality analysis, get_synopsis_summary() and export_synopsis()/export_arrangement() for output
+  - Added 4-section chapter structure (opening, development, climax, resolution)
+  - Added plot point distribution guidelines and turning point coverage analysis
+  - Added subplot balance calculation
+  - Updated models/__init__.py to export new models
+  - Updated engines/__init__.py to export ChapterSynopsisEngine
+  - Added 25 unit tests in tests/test_chapter_synopsis_engine.py (21 pass, 4 async skipped)
+- Verification: smoke_test.py passed, pytest 315/315 passed (37 skipped - async tests without pytest-asyncio)
+- Risks: AI integration requires ANTHROPIC_API_KEY for AI-powered synopsis generation; async tests skipped without pytest-asyncio
+- Next: Pick the next unfinished feature in the next session.

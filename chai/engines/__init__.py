@@ -17,6 +17,7 @@ from chai.engines.character_relationship_network_engine import CharacterRelation
 from chai.engines.character_growth_arc_engine import CharacterGrowthArcEngine
 from chai.engines.story_outline_engine import StoryOutlineEngine
 from chai.engines.main_story_structure_engine import MainStoryStructureEngine
+from chai.engines.chapter_synopsis_engine import ChapterSynopsisEngine
 
 __all__ = [
     "StoryPlanner",
@@ -41,4 +42,5 @@ __all__ = [
     "CharacterGrowthArcEngine",
     "StoryOutlineEngine",
     "MainStoryStructureEngine",
+    "ChapterSynopsisEngine",
 ]

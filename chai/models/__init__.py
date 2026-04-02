@@ -129,6 +129,16 @@ from chai.models.main_story_structure import (
     ActStructure,
     StructureAnalysis,
 )
+from chai.models.chapter_synopsis import (
+    SynopsisPlotPoint,
+    SynopsisPlotPointType,
+    SynopsisPlotPointStatus,
+    PlotPointImportance,
+    ChapterSynopsisSection,
+    ChapterSynopsis,
+    PlotPointArrangement,
+    ChapterSynopsisAnalysis,
+)
 
 # Rebuild models to resolve forward references after all imports
 Novel.model_rebuild()
@@ -262,4 +272,13 @@ __all__ = [
     "StoryBeat",
     "ActStructure",
     "StructureAnalysis",
+    # Chapter synopsis models
+    "SynopsisPlotPoint",
+    "SynopsisPlotPointType",
+    "SynopsisPlotPointStatus",
+    "PlotPointImportance",
+    "ChapterSynopsisSection",
+    "ChapterSynopsis",
+    "PlotPointArrangement",
+    "ChapterSynopsisAnalysis",
 ]
