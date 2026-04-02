@@ -37,6 +37,7 @@ from chai.engines.markdown_manuscript_engine import MarkdownManuscriptEngine
 from chai.engines.epub_manuscript_engine import EPUBManuscriptEngine
 from chai.engines.pdf_manuscript_engine import PDFManuscriptEngine
 from chai.engines.volume_split_engine import VolumeSplitEngine
+from chai.engines.chapter_word_count_engine import ChapterWordCountEngine
 
 __all__ = [
     "StoryPlanner",
@@ -80,4 +81,5 @@ __all__ = [
     "EPUBManuscriptEngine",
     "PDFManuscriptEngine",
     "VolumeSplitEngine",
+    "ChapterWordCountEngine",
 ]

@@ -424,6 +424,15 @@ from chai.models.volume_split import (
     VolumeSplitResult,
     BookBinding,
 )
+from chai.models.chapter_word_count import (
+    WordCountStatus,
+    WordCountSeverity,
+    ChapterWordCountProfile,
+    ChapterWordCountIssue,
+    ChapterWordCountAnalysis,
+    ChapterWordCountRevision,
+    ChapterWordCountReport,
+)
 
 # Rebuild models to resolve forward references after all imports
 # Pydantic v2: model_rebuild() without arguments when types are imported
@@ -835,6 +844,14 @@ __all__ = [
     "VolumeBookInfo",
     "VolumeSplitResult",
     "BookBinding",
+    # Chapter word count models
+    "WordCountStatus",
+    "WordCountSeverity",
+    "ChapterWordCountProfile",
+    "ChapterWordCountIssue",
+    "ChapterWordCountAnalysis",
+    "ChapterWordCountRevision",
+    "ChapterWordCountReport",
 ]
 
 # Pydantic v1/v2 compatibility - add model_dump and model_validate if not present
