@@ -542,6 +542,21 @@ from chai.models.outline_import import (
     OutlineAnalysis,
     OutlineMergeRequest,
 )
+from chai.models.incremental_writing import (
+    WritingSessionStatus,
+    CheckpointType,
+    CheckpointStatus,
+    RecoveryStatus,
+    WritingPhase,
+    Checkpoint,
+    WritingSession,
+    IncrementalWritingProject,
+    ChapterProgress,
+    ResumeContext,
+    IncrementalWritingRecovery,
+    AutoSaveConfig,
+    IncrementalWritingSummary,
+)
 
 # Rebuild models to resolve forward references after all imports
 # Pydantic v2: model_rebuild() without arguments when types are imported
@@ -1063,6 +1078,20 @@ __all__ = [
     "ContinuationContext",
     "OutlineAnalysis",
     "OutlineMergeRequest",
+    # Incremental writing models
+    "WritingSessionStatus",
+    "CheckpointType",
+    "CheckpointStatus",
+    "RecoveryStatus",
+    "WritingPhase",
+    "Checkpoint",
+    "WritingSession",
+    "IncrementalWritingProject",
+    "ChapterProgress",
+    "ResumeContext",
+    "IncrementalWritingRecovery",
+    "AutoSaveConfig",
+    "IncrementalWritingSummary",
 ]
 
 # Pydantic v1/v2 compatibility - add model_dump and model_validate if not present
