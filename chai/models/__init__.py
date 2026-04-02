@@ -200,6 +200,27 @@ from chai.models.chapter_body import (
     ManuscriptGenerationResult,
     ChapterBodyAnalysis,
 )
+from chai.models.scene_description import (
+    EnvironmentType,
+    LightingCondition,
+    WeatherCondition,
+    TimeOfDay,
+    AtmosphereType,
+    VisualDetailType,
+    SensoryDetailType,
+    SpatialLayout,
+    EnvironmentDetail,
+    LightingDetail,
+    WeatherDetail,
+    VisualDetail,
+    SensoryDetail,
+    AtmosphereDetail,
+    SceneDescriptionPlan,
+    SceneDescriptionDraft,
+    SceneDescriptionRevision,
+    SceneDescriptionAnalysis,
+    SceneDescriptionTemplate,
+)
 
 # Rebuild models to resolve forward references after all imports
 Novel.model_rebuild()
@@ -399,4 +420,24 @@ __all__ = [
     "ManuscriptGenerationRequest",
     "ManuscriptGenerationResult",
     "ChapterBodyAnalysis",
+    # Scene description models
+    "EnvironmentType",
+    "LightingCondition",
+    "WeatherCondition",
+    "TimeOfDay",
+    "AtmosphereType",
+    "VisualDetailType",
+    "SensoryDetailType",
+    "SpatialLayout",
+    "EnvironmentDetail",
+    "LightingDetail",
+    "WeatherDetail",
+    "VisualDetail",
+    "SensoryDetail",
+    "AtmosphereDetail",
+    "SceneDescriptionPlan",
+    "SceneDescriptionDraft",
+    "SceneDescriptionRevision",
+    "SceneDescriptionAnalysis",
+    "SceneDescriptionTemplate",
 ]

@@ -505,3 +505,17 @@ Agent execution note: returncode=1
 - Verification: returncode=0; stdout=/Users/swarteachou/Desktop/CHAI | ?? .agent_harness/session_prompts/20260402T135459Z.md | No automated smoke test detected - baseline inspection only.
 - Risks: None recorded.
 - Next: Pick the next unfinished feature in the next session.
+## 2026-04-02T14:20:00+00:00 | Session 20260402T141930Z
+- Session: 20260402T141930Z
+- Feature: feat-021
+- Summary: Implemented scene description system for CHAI novel writing.
+- What changed:
+  - Created chai/models/scene_description.py with comprehensive models: EnvironmentType (8 types), LightingCondition (10 types), WeatherCondition (11 types), TimeOfDay (7 types), AtmosphereType (17 types), VisualDetailType (9 types), SensoryDetailType (5 types), SpatialLayout (8 types), EnvironmentDetail, LightingDetail, WeatherDetail, VisualDetail, SensoryDetail, AtmosphereDetail, SceneDescriptionPlan, SceneDescriptionDraft, SceneDescriptionRevision, SceneDescriptionAnalysis, SceneDescriptionTemplate
+  - Created chai/engines/scene_description_engine.py with SceneDescriptionEngine class supporting: generate_description(), generate_from_template(), revise_description(), analyze_description(), get_template(), get_all_templates(), export_draft()
+  - Added 10 pre-built scene templates (dark_forest, grand_hall, peaceful_meadow, mysterious_castle, busy_market, stormy_sea, romantic_garden, tense_negotiation, battlefield, cozy_tavern)
+  - Updated models/__init__.py to export all new models
+  - Updated engines/__init__.py to export SceneDescriptionEngine
+  - Added 28 unit tests in tests/test_scene_description_engine.py (26 pass, 2 async skipped)
+- Verification: smoke_test.py passed, pytest 447/447 passed (59 skipped - async tests without pytest-asyncio)
+- Risks: AI integration requires ANTHROPIC_API_KEY for AI-powered scene description generation; async tests skipped without pytest-asyncio
+- Next: Pick the next unfinished feature in the next session.
