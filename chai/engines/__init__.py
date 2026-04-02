@@ -51,6 +51,7 @@ from chai.engines.complete_outline_engine import CompleteOutlineEngine
 from chai.engines.sequential_writing_engine import SequentialWritingEngine
 from chai.engines.chapter_self_check_engine import ChapterSelfCheckEngine
 from chai.engines.full_book_polishing_engine import FullBookPolishingEngine
+from chai.engines.final_export_engine import FinalExportEngine
 
 __all__ = [
     "StoryPlanner",
@@ -108,4 +109,5 @@ __all__ = [
     "SequentialWritingEngine",
     "ChapterSelfCheckEngine",
     "FullBookPolishingEngine",
+    "FinalExportEngine",
 ]

@@ -630,6 +630,25 @@ from chai.models.full_book_polishing import (
     FullBookPolishingResult,
     PolishingIssueTracker,
 )
+from chai.models.final_export import (
+    ExportFormat,
+    ExportStatus,
+    ValidationStatus,
+    ExportQuality,
+    ExportTemplate,
+    ValidationIssue,
+    ManuscriptValidation,
+    ExportFormatConfig,
+    ExportProgress,
+    ExportMetadata,
+    ExportResult,
+    ExportPackage,
+    FinalExportConfig,
+    FinalExportRequest,
+    FinalExportResult,
+    FinalExportSummary,
+    ExportChecklist,
+)
 
 # Rebuild models to resolve forward references after all imports
 # Pydantic v2: model_rebuild() without arguments when types are imported
@@ -1233,6 +1252,24 @@ __all__ = [
     "FullBookPolishingRequest",
     "FullBookPolishingResult",
     "PolishingIssueTracker",
+    # Final export models
+    "ExportFormat",
+    "ExportStatus",
+    "ValidationStatus",
+    "ExportQuality",
+    "ExportTemplate",
+    "ValidationIssue",
+    "ManuscriptValidation",
+    "ExportFormatConfig",
+    "ExportProgress",
+    "ExportMetadata",
+    "ExportResult",
+    "ExportPackage",
+    "FinalExportConfig",
+    "FinalExportRequest",
+    "FinalExportResult",
+    "FinalExportSummary",
+    "ExportChecklist",
 ]
 
 # Pydantic v1/v2 compatibility - add model_dump and model_validate if not present
