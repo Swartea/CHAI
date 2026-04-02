@@ -13,3 +13,18 @@
 Agent execution note: returncode=1
 - Risks: No implementation occurred during this session.
 - Next: Configure AGENT_HARNESS_AGENT_COMMAND and rerun the harness.
+## 2026-04-02T10:10:00+00:00 | Session 20260402T100925Z
+- Session: 20260402T100925Z
+- Feature: feat-001
+- Summary: Implemented core CHAI AI novel writing system with models, AI service, engines, and export.
+- What changed:
+  - Created project structure: chai/{models,services,engines,export,utils,cli}
+  - Implemented data models: WorldSetting, Character, PlotOutline, Novel, Volume, Chapter, Scene
+  - Implemented AIService for Claude AI integration
+  - Implemented StoryPlanner, ChapterWriter, and Editor engines
+  - Implemented export module: MarkdownExporter, EPUBExporter, PDFExporter
+  - Created CLI interface and utilities
+  - Created smoke_test.py and 15 unit tests
+- Verification: smoke_test.py passed (all 5 test suites), pytest passed (15/15 tests)
+- Risks: AI integration requires ANTHROPIC_API_KEY; full novel workflow not end-to-end tested
+- Next: Run agent harness for feat-002 or enhance existing implementation
