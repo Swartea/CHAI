@@ -445,6 +445,23 @@ from chai.models.dialogue_naturalness import (
     DialogueNaturalnessRevision,
     DialogueNaturalnessReport,
 )
+from chai.models.scene_vividness import (
+    SceneVividnessType,
+    SceneVividnessSeverity,
+    SceneVividnessIssue,
+    SceneVividnessProfile,
+    SceneVividnessAnalysis,
+    SceneVividnessRevision,
+    SceneVividnessReport,
+    SceneVividnessTemplate,
+    ImageryClarity,
+    SensoryEngagement,
+    ShowDontTellLevel,
+    VisualDetailCheck,
+    SensoryDetailCheck,
+    ShowDontTellCheck,
+    LanguageQualityCheck,
+)
 
 # Rebuild models to resolve forward references after all imports
 # Pydantic v2: model_rebuild() without arguments when types are imported
@@ -875,6 +892,22 @@ __all__ = [
     "DialogueNaturalnessAnalysis",
     "DialogueNaturalnessRevision",
     "DialogueNaturalnessReport",
+    # Scene vividness models
+    "SceneVividnessType",
+    "SceneVividnessSeverity",
+    "SceneVividnessIssue",
+    "SceneVividnessProfile",
+    "SceneVividnessAnalysis",
+    "SceneVividnessRevision",
+    "SceneVividnessReport",
+    "SceneVividnessTemplate",
+    "ImageryClarity",
+    "SensoryEngagement",
+    "ShowDontTellLevel",
+    "VisualDetailCheck",
+    "SensoryDetailCheck",
+    "ShowDontTellCheck",
+    "LanguageQualityCheck",
 ]
 
 # Pydantic v1/v2 compatibility - add model_dump and model_validate if not present

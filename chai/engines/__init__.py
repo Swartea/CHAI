@@ -39,6 +39,7 @@ from chai.engines.pdf_manuscript_engine import PDFManuscriptEngine
 from chai.engines.volume_split_engine import VolumeSplitEngine
 from chai.engines.chapter_word_count_engine import ChapterWordCountEngine
 from chai.engines.dialogue_naturalness_engine import DialogueNaturalnessEngine
+from chai.engines.scene_vividness_engine import SceneVividnessEngine
 
 __all__ = [
     "StoryPlanner",
@@ -84,4 +85,5 @@ __all__ = [
     "VolumeSplitEngine",
     "ChapterWordCountEngine",
     "DialogueNaturalnessEngine",
+    "SceneVividnessEngine",
 ]
