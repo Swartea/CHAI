@@ -486,6 +486,24 @@ from chai.models.payoff_completeness import (
     PayoffCompletenessPlan,
     PayoffCompletenessReport,
 )
+from chai.models.novel_genre import (
+    NovelGenreType,
+    WorldSettingType,
+    MagicTechnologyLevel,
+    PlotStructureType,
+    RomanceType,
+    ConflictType,
+    TargetAudience,
+    GenreWorldConfig,
+    GenreCharacterTemplate,
+    GenrePlotConfig,
+    GenreStyleConfig,
+    GenreToneConfig,
+    NovelGenreProfile,
+    GenreAnalysisResult,
+    GenreTemplate,
+    GenreRecommendation,
+)
 
 # Rebuild models to resolve forward references after all imports
 # Pydantic v2: model_rebuild() without arguments when types are imported
@@ -954,6 +972,23 @@ __all__ = [
     "PayoffCompletenessRevision",
     "PayoffCompletenessPlan",
     "PayoffCompletenessReport",
+    # Novel genre models
+    "NovelGenreType",
+    "WorldSettingType",
+    "MagicTechnologyLevel",
+    "PlotStructureType",
+    "RomanceType",
+    "ConflictType",
+    "TargetAudience",
+    "GenreWorldConfig",
+    "GenreCharacterTemplate",
+    "GenrePlotConfig",
+    "GenreStyleConfig",
+    "GenreToneConfig",
+    "NovelGenreProfile",
+    "GenreAnalysisResult",
+    "GenreTemplate",
+    "GenreRecommendation",
 ]
 
 # Pydantic v1/v2 compatibility - add model_dump and model_validate if not present

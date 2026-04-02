@@ -42,6 +42,7 @@ from chai.engines.dialogue_naturalness_engine import DialogueNaturalnessEngine
 from chai.engines.scene_vividness_engine import SceneVividnessEngine
 from chai.engines.plot_logic_engine import PlotLogicEngine
 from chai.engines.payoff_completeness_engine import PayoffCompletenessEngine
+from chai.engines.novel_genre_engine import NovelGenreEngine
 
 __all__ = [
     "StoryPlanner",
@@ -90,4 +91,5 @@ __all__ = [
     "SceneVividnessEngine",
     "PlotLogicEngine",
     "PayoffCompletenessEngine",
+    "NovelGenreEngine",
 ]
