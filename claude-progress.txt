@@ -693,3 +693,19 @@ Agent execution note: returncode=1
 - Verification: returncode=0; stdout=/Users/swarteachou/Desktop/CHAI | ?? .agent_harness/session_prompts/20260402T152232Z.md | No automated smoke test detected - baseline inspection only.
 - Risks: None recorded.
 - Next: Pick the next unfinished feature in the next session.
+## 2026-04-02T15:35:00+00:00 | Session 20260402T153203Z
+- Session: 20260402T153203Z
+- Feature: feat-030
+- Summary: Implemented grammar and typo check system for quality assurance.
+- What changed:
+  - Created chai/models/grammar_check.py with 11 comprehensive models
+  - Created chai/engines/grammar_check_engine.py with GrammarCheckEngine
+  - Added methods: check_novel_grammar(), check_chapter_grammar(), create_revision_plan(), generate_check_report(), get_grammar_summary()
+  - Added detection for: typo errors, 的/地/得 confusion, 了 repeated errors, punctuation issues, incomplete sentences, redundant words
+  - Added common Chinese typos and grammar patterns for detection
+  - Updated models/__init__.py to export new models
+  - Updated engines/__init__.py to export GrammarCheckEngine
+  - Added 26 unit tests in tests/test_grammar_check_engine.py
+- Verification: smoke_test.py passed, pytest 655/655 passed (64 skipped - async tests without pytest-asyncio)
+- Risks: AI integration requires ANTHROPIC_API_KEY for AI-powered revision suggestions; async tests skipped without pytest-asyncio
+- Next: Pick the next unfinished feature in the next session.

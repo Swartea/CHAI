@@ -324,6 +324,19 @@ from chai.models.foreshadowing_check import (
     ForeshadowingCheckPlan,
     ForeshadowingCheckReport,
 )
+from chai.models.grammar_check import (
+    GrammarErrorType,
+    GrammarErrorSeverity,
+    GrammarError,
+    GrammarCheckResult,
+    ChapterGrammarProfile,
+    GrammarCheckAnalysis,
+    GrammarCheckRevision,
+    GrammarCheckPlan,
+    GrammarCheckReport,
+    TypoPattern,
+    GrammarPattern,
+)
 
 # Rebuild models to resolve forward references after all imports
 Novel.model_rebuild()
@@ -639,4 +652,16 @@ __all__ = [
     "ForeshadowingCheckRevision",
     "ForeshadowingCheckPlan",
     "ForeshadowingCheckReport",
+    # Grammar check models
+    "GrammarErrorType",
+    "GrammarErrorSeverity",
+    "GrammarError",
+    "GrammarCheckResult",
+    "ChapterGrammarProfile",
+    "GrammarCheckAnalysis",
+    "GrammarCheckRevision",
+    "GrammarCheckPlan",
+    "GrammarCheckReport",
+    "TypoPattern",
+    "GrammarPattern",
 ]

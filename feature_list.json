@@ -380,9 +380,9 @@
         "Implement or refine the repo behavior needed for '语法与错别字检查'.",
         "Verify '语法与错别字检查' through repository smoke tests or targeted checks."
       ],
-      "passes": false,
-      "notes": null,
-      "last_updated": null
+      "passes": true,
+      "notes": "Created GrammarCheckEngine with comprehensive grammar and typo checking. Models: GrammarErrorType, GrammarErrorSeverity, GrammarError, GrammarCheckResult, ChapterGrammarProfile, GrammarCheckAnalysis, GrammarCheckRevision, GrammarCheckPlan, GrammarCheckReport, TypoPattern, GrammarPattern. Engine supports: check_novel_grammar(), check_chapter_grammar(), create_revision_plan(), generate_check_report(), get_grammar_summary(). Detects: typo errors, 的/地/得 confusion, 了 repeated errors, punctuation issues, incomplete sentences, redundant words. 26 new tests pass. Total 655 tests pass.",
+      "last_updated": "2026-04-02T15:35:00+00:00"
     },
     {
       "id": "feat-031",
