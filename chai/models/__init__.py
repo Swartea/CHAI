@@ -296,6 +296,21 @@ from chai.models.description_density import (
     DescriptionDensityReport,
     DescriptionDensityTemplate,
 )
+from chai.models.chapter_transition import (
+    TransitionType,
+    TransitionQuality,
+    TransitionSmoothness,
+    ChapterEndingType,
+    ChapterOpeningType,
+    TransitionElement,
+    ChapterTransitionProfile,
+    TransitionIssue,
+    TransitionConnection,
+    TransitionAnalysis,
+    TransitionRevision,
+    TransitionPlan,
+    TransitionReport,
+)
 
 # Rebuild models to resolve forward references after all imports
 Novel.model_rebuild()
@@ -585,4 +600,18 @@ __all__ = [
     "DescriptionDensityPlan",
     "DescriptionDensityReport",
     "DescriptionDensityTemplate",
+    # Chapter transition models
+    "TransitionType",
+    "TransitionQuality",
+    "TransitionSmoothness",
+    "ChapterEndingType",
+    "ChapterOpeningType",
+    "TransitionElement",
+    "ChapterTransitionProfile",
+    "TransitionIssue",
+    "TransitionConnection",
+    "TransitionAnalysis",
+    "TransitionRevision",
+    "TransitionPlan",
+    "TransitionReport",
 ]
