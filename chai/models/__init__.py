@@ -433,6 +433,18 @@ from chai.models.chapter_word_count import (
     ChapterWordCountRevision,
     ChapterWordCountReport,
 )
+from chai.models.dialogue_naturalness import (
+    DialogueNaturalnessType,
+    DialogueNaturalnessSeverity,
+    CharacterDialogueProfile,
+    DialogueLineCheck,
+    DialogueExchangeCheck,
+    ChapterDialogueProfile,
+    DialogueNaturalnessIssue,
+    DialogueNaturalnessAnalysis,
+    DialogueNaturalnessRevision,
+    DialogueNaturalnessReport,
+)
 
 # Rebuild models to resolve forward references after all imports
 # Pydantic v2: model_rebuild() without arguments when types are imported
@@ -852,6 +864,17 @@ __all__ = [
     "ChapterWordCountAnalysis",
     "ChapterWordCountRevision",
     "ChapterWordCountReport",
+    # Dialogue naturalness models
+    "DialogueNaturalnessType",
+    "DialogueNaturalnessSeverity",
+    "CharacterDialogueProfile",
+    "DialogueLineCheck",
+    "DialogueExchangeCheck",
+    "ChapterDialogueProfile",
+    "DialogueNaturalnessIssue",
+    "DialogueNaturalnessAnalysis",
+    "DialogueNaturalnessRevision",
+    "DialogueNaturalnessReport",
 ]
 
 # Pydantic v1/v2 compatibility - add model_dump and model_validate if not present

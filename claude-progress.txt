@@ -944,3 +944,19 @@ Agent execution note: returncode=1
 - Verification: returncode=0; stdout=/Users/swarteachou/Desktop/CHAI | ?? .agent_harness/session_prompts/20260402T171806Z.md | No automated smoke test detected - baseline inspection only.
 - Risks: None recorded.
 - Next: Pick the next unfinished feature in the next session.
+## 2026-04-03T05:00:00+00:00 | Session 20260403T050000Z
+- Session: 20260403T050000Z
+- Feature: feat-042
+- Summary: Implemented dialogue naturalness engine for validating character dialogue quality.
+- What changed:
+  - Created chai/models/dialogue_naturalness.py with 11 models: DialogueNaturalnessType, DialogueNaturalnessSeverity, CharacterDialogueProfile, DialogueLineCheck, DialogueExchangeCheck, ChapterDialogueProfile, DialogueNaturalnessIssue, DialogueNaturalnessAnalysis, DialogueNaturalnessRevision, DialogueNaturalnessReport
+  - Created chai/engines/dialogue_naturalness_engine.py with DialogueNaturalnessEngine class
+  - Added methods: build_character_profile(), _extract_dialogue_lines(), _check_line_naturalness(), _check_conversation_flow(), analyze_chapter_dialogue(), analyze_novel_dialogue(), create_revision_plan(), get_summary()
+  - Added detection for: robotic speech patterns, AI-generated patterns, formality inconsistencies, conversation flow issues, response mismatches
+  - Added character profile building from Character model
+  - Updated models/__init__.py to export new dialogue_naturalness models
+  - Updated engines/__init__.py to export DialogueNaturalnessEngine
+  - Added 23 unit tests in tests/test_dialogue_naturalness_engine.py
+- Verification: smoke_test.py passed, pytest 865/865 passed (66 skipped - async tests without pytest-asyncio)
+- Risks: AI integration not required for this feature; async tests skipped without pytest-asyncio
+- Next: Pick the next unfinished feature in the next session.
