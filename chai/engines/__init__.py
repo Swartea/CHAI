@@ -28,6 +28,7 @@ from chai.engines.action_plot_engine import ActionPlotEngine
 from chai.engines.tone_unification_engine import ToneUnificationEngine
 from chai.engines.description_density_engine import DescriptionDensityEngine
 from chai.engines.chapter_transition_engine import ChapterTransitionEngine
+from chai.engines.foreshadowing_check_engine import ForeshadowingCheckEngine
 
 __all__ = [
     "StoryPlanner",
@@ -62,4 +63,5 @@ __all__ = [
     "ToneUnificationEngine",
     "DescriptionDensityEngine",
     "ChapterTransitionEngine",
+    "ForeshadowingCheckEngine",
 ]

@@ -367,9 +367,9 @@
         "Implement or refine the repo behavior needed for '伏笔与呼应检查'.",
         "Verify '伏笔与呼应检查' through repository smoke tests or targeted checks."
       ],
-      "passes": false,
-      "notes": null,
-      "last_updated": null
+      "passes": true,
+      "notes": "Created ForeshadowingCheckEngine with comprehensive callback verification. Models: CallbackStatus, CallbackQuality, ForeshadowingCheckIssue, PlantedForeshadowing, CallbackMatch, ForeshadowingCheckResult, ChapterForeshadowingProfile, ForeshadowingCheckAnalysis, ForeshadowingCheckRevision, ForeshadowingCheckPlan, ForeshadowingCheckReport. Engine supports: check_novel_foreshadowing(), check_chapter_foreshadowing(), create_revision_plan(), generate_check_report(), get_callback_summary(). Auto-detection of plants and callbacks with keyword/pattern matching. 32 new tests pass. Total 629 tests pass.",
+      "last_updated": "2026-04-02T15:30:00+00:00"
     },
     {
       "id": "feat-030",

@@ -311,6 +311,19 @@ from chai.models.chapter_transition import (
     TransitionPlan,
     TransitionReport,
 )
+from chai.models.foreshadowing_check import (
+    CallbackStatus,
+    CallbackQuality,
+    ForeshadowingCheckIssue,
+    PlantedForeshadowing,
+    CallbackMatch,
+    ForeshadowingCheckResult,
+    ChapterForeshadowingProfile,
+    ForeshadowingCheckAnalysis,
+    ForeshadowingCheckRevision,
+    ForeshadowingCheckPlan,
+    ForeshadowingCheckReport,
+)
 
 # Rebuild models to resolve forward references after all imports
 Novel.model_rebuild()
@@ -614,4 +627,16 @@ __all__ = [
     "TransitionRevision",
     "TransitionPlan",
     "TransitionReport",
+    # Foreshadowing check models
+    "CallbackStatus",
+    "CallbackQuality",
+    "ForeshadowingCheckIssue",
+    "PlantedForeshadowing",
+    "CallbackMatch",
+    "ForeshadowingCheckResult",
+    "ChapterForeshadowingProfile",
+    "ForeshadowingCheckAnalysis",
+    "ForeshadowingCheckRevision",
+    "ForeshadowingCheckPlan",
+    "ForeshadowingCheckReport",
 ]
