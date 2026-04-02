@@ -23,6 +23,7 @@ from chai.engines.climax_ending_engine import ClimaxEndingEngine
 from chai.engines.chapter_content_engine import ChapterContentEngine
 from chai.engines.chapter_body_engine import ChapterBodyEngine
 from chai.engines.scene_description_engine import SceneDescriptionEngine
+from chai.engines.dialogue_engine import DialogueEngine
 
 __all__ = [
     "StoryPlanner",
@@ -53,4 +54,5 @@ __all__ = [
     "ChapterContentEngine",
     "ChapterBodyEngine",
     "SceneDescriptionEngine",
+    "DialogueEngine",
 ]

@@ -221,6 +221,19 @@ from chai.models.scene_description import (
     SceneDescriptionAnalysis,
     SceneDescriptionTemplate,
 )
+from chai.models.dialogue import (
+    DialoguePurpose,
+    DialogueType,
+    DialogueTone,
+    CharacterDialogueStyle,
+    DialogueLine,
+    DialogueExchange,
+    DialoguePlan,
+    DialogueDraft,
+    DialogueRevision,
+    DialogueAnalysis,
+    DialogueTemplate,
+)
 
 # Rebuild models to resolve forward references after all imports
 Novel.model_rebuild()
@@ -440,4 +453,16 @@ __all__ = [
     "SceneDescriptionRevision",
     "SceneDescriptionAnalysis",
     "SceneDescriptionTemplate",
+    # Dialogue models
+    "DialoguePurpose",
+    "DialogueType",
+    "DialogueTone",
+    "CharacterDialogueStyle",
+    "DialogueLine",
+    "DialogueExchange",
+    "DialoguePlan",
+    "DialogueDraft",
+    "DialogueRevision",
+    "DialogueAnalysis",
+    "DialogueTemplate",
 ]
