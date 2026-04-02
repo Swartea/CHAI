@@ -11,6 +11,8 @@ from chai.engines.magic_system_engine import MagicSystemEngine
 from chai.engines.social_system_engine import SocialSystemEngine
 from chai.engines.character_system_engine import CharacterSystemEngine
 from chai.engines.main_character_engine import MainCharacterEngine
+from chai.engines.supporting_character_engine import SupportingCharacterEngine
+from chai.engines.antagonist_engine import AntagonistEngine
 
 __all__ = [
     "StoryPlanner",
@@ -29,4 +31,6 @@ __all__ = [
     "SocialSystemEngine",
     "CharacterSystemEngine",
     "MainCharacterEngine",
+    "SupportingCharacterEngine",
+    "AntagonistEngine",
 ]

@@ -261,3 +261,20 @@ Agent execution note: returncode=1
 - Verification: returncode=0; stdout=/Users/swarteachou/Desktop/CHAI | ?? .agent_harness/session_prompts/20260402T114431Z.md | No automated smoke test detected - baseline inspection only.
 - Risks: None recorded.
 - Next: Pick the next unfinished feature in the next session.
+## 2026-04-02T11:55:00+00:00 | Session 20260402T115303Z
+- Session: 20260402T115303Z
+- Feature: feat-011
+- Summary: Implemented supporting characters and antagonists design for CHAI novel writing.
+- What changed:
+  - Created SupportingCharacter model with specialized fields for supporting roles (14 role types: mentor, sidekick, best_friend, love_interest, ally, contact, expert, comic_relief, wisdom_keeper, foil, fallen_ally, retired_hero, mentee, informant)
+  - Created Antagonist model with specialized fields for villain roles (15 antagonist types: villain, dark_hero, temporary_antagonist, eternal_rival, tyrant, manipulator, revenge_seeker, corrupted, ideological, tragic_antagonist, minion, big_bad, tempter, shadow, nemesis)
+  - Added new supporting character models: SupportingArchetype, SupportingCharacterAppearance, SupportingCharacterPersonality, SupportingCharacterBackground, SupportingCharacterMotivation, SupportingCharacterRelationship, SupportingCharacterArc, SupportingCharacterSkill, SupportingCharacterConflict, SupportingCharacterProfile, SupportingCharacterSystem
+  - Added new antagonist models: AntagonistAppearance, AntagonistPersonality, AntagonistBackground, AntagonistMotivation, AntagonistRelationship, AntagonistPower, AntagonistOrganization, AntagonistArc, AntagonistConflict, AntagonistTactics, AntagonistProfile, AntagonistSystem
+  - Created SupportingCharacterEngine with generate_supporting_character(), generate_supporting_cast(), create_profile(), to_character(), get_supporting_character_summary(), export_supporting_character(), validate_supporting_character()
+  - Created AntagonistEngine with generate_antagonist(), generate_antagonist_system(), create_profile(), to_character(), get_antagonist_summary(), export_antagonist(), validate_antagonist()
+  - Updated models/__init__.py to export all new models
+  - Updated engines/__init__.py to export SupportingCharacterEngine and AntagonistEngine
+  - Added 38 new unit tests in tests/test_supporting_character_engine.py and tests/test_antagonist_engine.py (38 pass, all pass)
+- Verification: smoke_test.py passed, pytest 177/177 passed (33 skipped - async tests without pytest-asyncio)
+- Risks: AI integration requires ANTHROPIC_API_KEY; async tests skipped without pytest-asyncio
+- Next: Pick the next unfinished feature in the next session.
