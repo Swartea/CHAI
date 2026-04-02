@@ -351,6 +351,21 @@ from chai.models.sentence_quality_check import (
     RedundancyPattern,
     SentenceQualityTemplate,
 )
+from chai.models.dialogue_tag_check import (
+    DialogueTagType,
+    DialogueTagIssueType,
+    DialogueTagSeverity,
+    DialogueTagStyle,
+    DialogueTagPattern,
+    DialogueTagIssue,
+    DialogueTagCheckResult,
+    ChapterDialogueTagProfile,
+    DialogueTagCheckAnalysis,
+    DialogueTagCheckRevision,
+    DialogueTagCheckPlan,
+    DialogueTagCheckReport,
+    DialogueTagTemplate,
+)
 
 # Rebuild models to resolve forward references after all imports
 Novel.model_rebuild()
@@ -691,4 +706,18 @@ __all__ = [
     "DiseaseSentencePattern",
     "RedundancyPattern",
     "SentenceQualityTemplate",
+    # Dialogue tag check models
+    "DialogueTagType",
+    "DialogueTagIssueType",
+    "DialogueTagSeverity",
+    "DialogueTagStyle",
+    "DialogueTagPattern",
+    "DialogueTagIssue",
+    "DialogueTagCheckResult",
+    "ChapterDialogueTagProfile",
+    "DialogueTagCheckAnalysis",
+    "DialogueTagCheckRevision",
+    "DialogueTagCheckPlan",
+    "DialogueTagCheckReport",
+    "DialogueTagTemplate",
 ]
