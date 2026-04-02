@@ -337,6 +337,20 @@ from chai.models.grammar_check import (
     TypoPattern,
     GrammarPattern,
 )
+from chai.models.sentence_quality_check import (
+    SentenceQualityType,
+    SentenceQualitySeverity,
+    SentenceQualityIssue,
+    SentenceQualityResult,
+    ChapterSentenceQualityProfile,
+    SentenceQualityAnalysis,
+    SentenceQualityRevision,
+    SentenceQualityPlan,
+    SentenceQualityReport,
+    DiseaseSentencePattern,
+    RedundancyPattern,
+    SentenceQualityTemplate,
+)
 
 # Rebuild models to resolve forward references after all imports
 Novel.model_rebuild()
@@ -664,4 +678,17 @@ __all__ = [
     "GrammarCheckReport",
     "TypoPattern",
     "GrammarPattern",
+    # Sentence quality check models
+    "SentenceQualityType",
+    "SentenceQualitySeverity",
+    "SentenceQualityIssue",
+    "SentenceQualityResult",
+    "ChapterSentenceQualityProfile",
+    "SentenceQualityAnalysis",
+    "SentenceQualityRevision",
+    "SentenceQualityPlan",
+    "SentenceQualityReport",
+    "DiseaseSentencePattern",
+    "RedundancyPattern",
+    "SentenceQualityTemplate",
 ]

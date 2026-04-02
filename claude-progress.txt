@@ -716,3 +716,19 @@ Agent execution note: returncode=1
 - Verification: returncode=0; stdout=/Users/swarteachou/Desktop/CHAI | ?? .agent_harness/session_prompts/20260402T153203Z.md | No automated smoke test detected - baseline inspection only.
 - Risks: None recorded.
 - Next: Pick the next unfinished feature in the next session.
+## 2026-04-02T15:45:00+00:00 | Session 20260402T154500Z
+- Session: 20260402T154500Z
+- Feature: feat-031
+- Summary: Implemented sentence quality check system for defective and redundant sentence optimization.
+- What changed:
+  - Created chai/models/sentence_quality_check.py with 12 comprehensive models
+  - Created chai/engines/sentence_quality_engine.py with SentenceQualityEngine
+  - Added methods: check_novel_quality(), check_chapter_quality(), create_revision_plan(), generate_quality_report(), get_quality_summary()
+  - Added detection for: missing subject/predicate/object, collocation errors (主谓不搭配, 动宾不搭配), structural confusion (句式杂糅), pronoun ambiguity, vague expressions, redundant descriptions, filler phrases, repetitive meanings
+  - Added DiseaseSentencePattern and RedundancyPattern for pattern-based detection
+  - Updated models/__init__.py to export new models
+  - Updated engines/__init__.py to export SentenceQualityEngine
+  - Added 23 unit tests in tests/test_sentence_quality_engine.py
+- Verification: smoke_test.py passed, pytest 678/678 passed (64 skipped - async tests without pytest-asyncio)
+- Risks: AI integration requires ANTHROPIC_API_KEY for AI-powered revision suggestions; async tests skipped without pytest-asyncio
+- Next: Pick the next unfinished feature in the next session.

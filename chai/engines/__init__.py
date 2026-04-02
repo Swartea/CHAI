@@ -30,6 +30,7 @@ from chai.engines.description_density_engine import DescriptionDensityEngine
 from chai.engines.chapter_transition_engine import ChapterTransitionEngine
 from chai.engines.foreshadowing_check_engine import ForeshadowingCheckEngine
 from chai.engines.grammar_check_engine import GrammarCheckEngine
+from chai.engines.sentence_quality_engine import SentenceQualityEngine
 
 __all__ = [
     "StoryPlanner",
@@ -66,4 +67,5 @@ __all__ = [
     "ChapterTransitionEngine",
     "ForeshadowingCheckEngine",
     "GrammarCheckEngine",
+    "SentenceQualityEngine",
 ]
