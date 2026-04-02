@@ -107,9 +107,9 @@
         "Implement or refine the repo behavior needed for '设计社会结构与势力分布'.",
         "Verify '设计社会结构与势力分布' through repository smoke tests or targeted checks."
       ],
-      "passes": false,
-      "notes": null,
-      "last_updated": null
+      "passes": true,
+      "notes": "Enhanced SocialStructure model with comprehensive fields (classes, factions, guilds, criminal_organizations, religious_institutions, secret_societies, faction_relationships, social_conflicts, social_norms, taboos, regional_variations). Added new models: SocialClass, Faction, FactionRelationship, Guild, CriminalOrganization, ReligiousInstitution, SecretSociety, SocialConflict. Created SocialSystemEngine with build_social_system(), generate_faction(), analyze_faction_relationships(), analyze_social_consistency(), get_social_summary(), export_social_system(), expand_social_system(). Added SocialSystemBuilder to WorldBuilder. Added 14 new tests (14 pass, 5 async skipped). Total 102 tests pass.",
+      "last_updated": "2026-04-02T11:30:00+00:00"
     },
     {
       "id": "feat-009",

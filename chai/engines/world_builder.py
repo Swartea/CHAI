@@ -65,6 +65,68 @@ class PowerSystemBuilder:
         return self._engine.get_system_summary(magic_system)
 
 
+class SocialSystemBuilder:
+    """Builder for social structures and factions using SocialSystemEngine."""
+
+    def __init__(self, ai_service: AIService):
+        """Initialize with AI service."""
+        from chai.engines.social_system_engine import SocialSystemEngine
+        self._engine = SocialSystemEngine(ai_service)
+
+    async def build(
+        self,
+        genre: str,
+        theme: str,
+        geography: Optional[dict] = None,
+        politics: Optional[dict] = None,
+        culture: Optional[dict] = None,
+        magic_system: Optional[Any] = None,
+    ) -> "SocialStructure":
+        """Build a complete social system.
+
+        Args:
+            genre: Novel genre
+            theme: Central theme
+            geography: Geography data for context
+            politics: Politics data for context
+            culture: Culture data for context
+            magic_system: Magic/tech system for context
+
+        Returns:
+            Complete SocialStructure
+        """
+        return await self._engine.build_social_system(
+            genre=genre,
+            theme=theme,
+            geography=geography,
+            politics=politics,
+            culture=culture,
+            magic_system=magic_system,
+        )
+
+    def analyze(self, social_structure: "SocialStructure") -> dict[str, Any]:
+        """Analyze social structure consistency.
+
+        Args:
+            social_structure: Social structure to analyze
+
+        Returns:
+            Analysis results
+        """
+        return self._engine.analyze_social_consistency(social_structure)
+
+    def summarize(self, social_structure: "SocialStructure") -> str:
+        """Get social structure summary.
+
+        Args:
+            social_structure: Social structure to summarize
+
+        Returns:
+            Formatted summary string
+        """
+        return self._engine.get_social_summary(social_structure)
+
+
 class WorldSystem:
     """Represents a complete world system with interconnected components.
 
@@ -294,7 +356,9 @@ class WorldBuilder:
                 world_context=world_context,
             )
 
-        social_structure = await self.ai_service.generate_social_structure(
+        # Use SocialSystemBuilder for comprehensive social structure generation
+        social_builder = SocialSystemBuilder(self.ai_service)
+        social_structure = await social_builder.build(
             genre=genre,
             theme=theme,
             geography=geography,
@@ -400,16 +464,27 @@ class WorldBuilder:
                 )
 
         elif expansion_type == "social":
-            new_social = await self.ai_service.generate_social_structure(
-                genre=world_setting.genre,
-                theme="",
-                geography=world_setting.geography,
-                politics=world_setting.politics,
-                culture=world_setting.culture,
-                magic_system=world_setting.magic_system,
-                expand=True,
-            )
-            world_setting.social_structure = new_social
+            if world_setting.social_structure is None:
+                # Build new social structure using SocialSystemBuilder
+                social_builder = SocialSystemBuilder(self.ai_service)
+                world_setting.social_structure = await social_builder.build(
+                    genre=world_setting.genre,
+                    theme="",
+                    geography=world_setting.geography,
+                    politics=world_setting.politics,
+                    culture=world_setting.culture,
+                    magic_system=world_setting.magic_system,
+                )
+            else:
+                # Expand existing social structure using SocialSystemEngine
+                from chai.engines.social_system_engine import SocialSystemEngine
+                engine = SocialSystemEngine(self.ai_service)
+                world_setting.social_structure = await engine.expand_social_system(
+                    social_structure=world_setting.social_structure,
+                    expansion_type="factions",
+                    genre=world_setting.genre,
+                    theme="",
+                )
 
         return world_setting
 

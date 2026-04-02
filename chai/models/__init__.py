@@ -1,6 +1,20 @@
 """Data models for CHAI novel writing system."""
 
-from chai.models.world import WorldSetting, MagicSystem, SocialStructure, PowerTechnique, PowerConflict
+from chai.models.world import (
+    WorldSetting,
+    MagicSystem,
+    SocialStructure,
+    PowerTechnique,
+    PowerConflict,
+    SocialClass,
+    Faction,
+    FactionRelationship,
+    Guild,
+    CriminalOrganization,
+    ReligiousInstitution,
+    SecretSociety,
+    SocialConflict,
+)
 from chai.models.character import Character, CharacterRelationship, CharacterRole
 from chai.models.plot import PlotOutline, PlotArc, PlotPoint, PlotPointType, PlotStructure
 from chai.models.novel import Novel, Volume, Chapter, Scene, SceneType
@@ -28,6 +42,14 @@ __all__ = [
     "SocialStructure",
     "PowerTechnique",
     "PowerConflict",
+    "SocialClass",
+    "Faction",
+    "FactionRelationship",
+    "Guild",
+    "CriminalOrganization",
+    "ReligiousInstitution",
+    "SecretSociety",
+    "SocialConflict",
     "Character",
     "CharacterRelationship",
     "CharacterRole",
