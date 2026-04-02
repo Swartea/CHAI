@@ -524,6 +524,24 @@ from chai.models.world_view_template import (
     TemplateApplicationResult,
     TemplateCustomizationRequest,
 )
+from chai.models.outline_import import (
+    ImportFormat,
+    ImportSource,
+    OutlineValidationStatus,
+    ChapterWritingStatus,
+    ImportedVolume,
+    ImportedChapter,
+    ImportedScene,
+    ImportedPlotThread,
+    ImportedForeshadowing,
+    ImportedCharacter,
+    ImportedWorldSetting,
+    RawOutlineData,
+    OutlineImportResult,
+    ContinuationContext,
+    OutlineAnalysis,
+    OutlineMergeRequest,
+)
 
 # Rebuild models to resolve forward references after all imports
 # Pydantic v2: model_rebuild() without arguments when types are imported
@@ -1028,6 +1046,23 @@ __all__ = [
     "WorldViewTemplateLibrary",
     "TemplateApplicationResult",
     "TemplateCustomizationRequest",
+    # Outline import models
+    "ImportFormat",
+    "ImportSource",
+    "OutlineValidationStatus",
+    "ChapterWritingStatus",
+    "ImportedVolume",
+    "ImportedChapter",
+    "ImportedScene",
+    "ImportedPlotThread",
+    "ImportedForeshadowing",
+    "ImportedCharacter",
+    "ImportedWorldSetting",
+    "RawOutlineData",
+    "OutlineImportResult",
+    "ContinuationContext",
+    "OutlineAnalysis",
+    "OutlineMergeRequest",
 ]
 
 # Pydantic v1/v2 compatibility - add model_dump and model_validate if not present
