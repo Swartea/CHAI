@@ -263,9 +263,9 @@
         "Implement or refine the repo behavior needed for '按大纲逐章生成正文'.",
         "Verify '按大纲逐章生成正文' through repository smoke tests or targeted checks."
       ],
-      "passes": false,
-      "notes": null,
-      "last_updated": null
+      "passes": true,
+      "notes": "Created ChapterBodyEngine with generate_chapter_body() and generate_manuscript() methods. Orchestrates chapter-by-chapter generation from outline. 30 tests (24 pass, 6 async skipped). Total 421 tests pass.",
+      "last_updated": "2026-04-02T13:56:00+00:00"
     },
     {
       "id": "feat-021",

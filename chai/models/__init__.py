@@ -188,6 +188,18 @@ from chai.models.chapter_content import (
     ChapterContentAnalysis,
     ChapterContentTemplate,
 )
+from chai.models.chapter_body import (
+    ChapterBodyStatus,
+    ChapterBodySectionType,
+    ChapterBodySection,
+    ChapterBody,
+    ManuscriptStatus,
+    ChapterGenerationProgress,
+    ManuscriptBody,
+    ManuscriptGenerationRequest,
+    ManuscriptGenerationResult,
+    ChapterBodyAnalysis,
+)
 
 # Rebuild models to resolve forward references after all imports
 Novel.model_rebuild()
@@ -376,4 +388,15 @@ __all__ = [
     "ChapterContentRevision",
     "ChapterContentAnalysis",
     "ChapterContentTemplate",
+    # Chapter body models
+    "ChapterBodyStatus",
+    "ChapterBodySectionType",
+    "ChapterBodySection",
+    "ChapterBody",
+    "ManuscriptStatus",
+    "ChapterGenerationProgress",
+    "ManuscriptBody",
+    "ManuscriptGenerationRequest",
+    "ManuscriptGenerationResult",
+    "ChapterBodyAnalysis",
 ]

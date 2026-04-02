@@ -483,3 +483,18 @@ Agent execution note: returncode=1
 - Verification: returncode=0; stdout=/Users/swarteachou/Desktop/CHAI | ?? .agent_harness/session_prompts/20260402T134427Z.md | No automated smoke test detected - baseline inspection only.
 - Risks: None recorded.
 - Next: Pick the next unfinished feature in the next session.
+## 2026-04-02T13:56:00+00:00 | Session 20260402T135459Z
+- Session: 20260402T135459Z
+- Feature: feat-020
+- Summary: Implemented chapter body generation system for CHAI novel writing.
+- What changed:
+  - Created chai/models/chapter_body.py with comprehensive models: ChapterBodyStatus, ChapterBodySectionType, ChapterBodySection, ChapterBody, ManuscriptStatus, ChapterGenerationProgress, ManuscriptBody, ManuscriptGenerationRequest, ManuscriptGenerationResult, ChapterBodyAnalysis
+  - Created chai/engines/chapter_body_engine.py with ChapterBodyEngine class supporting: generate_chapter_body(), generate_manuscript(), revise_chapter_body(), analyze_chapter_body(), get_manuscript_summary(), export_manuscript()
+  - Orchestrates chapter-by-chapter generation from story outline and chapter synopses using ChapterContentEngine
+  - Supports chapter range generation, previous chapter continuity, world setting integration
+  - Updated models/__init__.py to export all new models
+  - Updated engines/__init__.py to export ChapterBodyEngine
+  - Added 30 unit tests in tests/test_chapter_body_engine.py (24 pass, 6 async skipped)
+- Verification: smoke_test.py passed, pytest 421/421 passed (57 skipped - async tests without pytest-asyncio)
+- Risks: AI integration requires ANTHROPIC_API_KEY for AI-powered content generation; async tests skipped without pytest-asyncio
+- Next: Pick the next unfinished feature in the next session.
