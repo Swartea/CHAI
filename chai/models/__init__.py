@@ -139,6 +139,25 @@ from chai.models.chapter_synopsis import (
     PlotPointArrangement,
     ChapterSynopsisAnalysis,
 )
+from chai.models.subplot_foreshadowing import (
+    SubplotType,
+    SubplotStatus,
+    SubplotImportance,
+    SubplotConnection,
+    ForeshadowingTechnique,
+    ForeshadowingStrength,
+    ForeshadowingPattern,
+    ForeshadowingPlanting,
+    ForeshadowingPayoff,
+    SubplotChapterBeat,
+    SubplotArc,
+    Subplot,
+    ForeshadowingElementDetail,
+    SubplotForeshadowingSystem,
+    SubplotAnalysis,
+    ForeshadowingAnalysis,
+    SubplotForeshadowingDesign,
+)
 
 # Rebuild models to resolve forward references after all imports
 Novel.model_rebuild()
@@ -281,4 +300,22 @@ __all__ = [
     "ChapterSynopsis",
     "PlotPointArrangement",
     "ChapterSynopsisAnalysis",
+    # Subplot and foreshadowing models
+    "SubplotType",
+    "SubplotStatus",
+    "SubplotImportance",
+    "SubplotConnection",
+    "ForeshadowingTechnique",
+    "ForeshadowingStrength",
+    "ForeshadowingPattern",
+    "ForeshadowingPlanting",
+    "ForeshadowingPayoff",
+    "SubplotChapterBeat",
+    "SubplotArc",
+    "Subplot",
+    "ForeshadowingElementDetail",
+    "SubplotForeshadowingSystem",
+    "SubplotAnalysis",
+    "ForeshadowingAnalysis",
+    "SubplotForeshadowingDesign",
 ]
