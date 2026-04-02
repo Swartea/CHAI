@@ -445,9 +445,9 @@
         "Implement or refine the repo behavior needed for '导出为 EPUB 电子书'.",
         "Verify '导出为 EPUB 电子书' through repository smoke tests or targeted checks."
       ],
-      "passes": false,
-      "notes": null,
-      "last_updated": null
+      "passes": true,
+      "notes": "Created EPUBManuscriptEngine with 3 templates (SIMPLE, STANDARD, DETAILED). Supports: EPUB 2.0/3.0 structure, NCX navigation, nav.xhtml, CSS styling, front/back matter, chapter summaries, word count statistics, scene content. 24 new tests pass. Total 779 tests pass.",
+      "last_updated": "2026-04-03T01:00:00+00:00"
     },
     {
       "id": "feat-037",
