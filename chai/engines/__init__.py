@@ -34,6 +34,7 @@ from chai.engines.sentence_quality_engine import SentenceQualityEngine
 from chai.engines.dialogue_tag_check_engine import DialogueTagCheckEngine
 from chai.engines.punctuation_check_engine import PunctuationCheckEngine
 from chai.engines.markdown_manuscript_engine import MarkdownManuscriptEngine
+from chai.engines.epub_manuscript_engine import EPUBManuscriptEngine
 
 __all__ = [
     "StoryPlanner",
@@ -74,4 +75,5 @@ __all__ = [
     "DialogueTagCheckEngine",
     "PunctuationCheckEngine",
     "MarkdownManuscriptEngine",
+    "EPUBManuscriptEngine",
 ]

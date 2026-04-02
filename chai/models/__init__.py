@@ -393,6 +393,19 @@ from chai.models.manuscript_export import (
     VolumeManuscript,
     ChapterManuscriptSection,
 )
+from chai.models.epub_export import (
+    EPUBTemplate,
+    EPUBExportConfig,
+    EPUBExportResult,
+    EPUBMetadata,
+    EPUBChapterRef,
+    EPUBVolumeRef,
+    EPUBNavPoint,
+    EPUBSpineItem,
+    EPUBManifestItem,
+    EPUBTemplateStyles,
+    EPUBCSSStyle,
+)
 
 # Rebuild models to resolve forward references after all imports
 Novel.model_rebuild()
@@ -772,4 +785,16 @@ __all__ = [
     "ChapterManuscript",
     "VolumeManuscript",
     "ChapterManuscriptSection",
+    # EPUB export models
+    "EPUBTemplate",
+    "EPUBExportConfig",
+    "EPUBExportResult",
+    "EPUBMetadata",
+    "EPUBChapterRef",
+    "EPUBVolumeRef",
+    "EPUBNavPoint",
+    "EPUBSpineItem",
+    "EPUBManifestItem",
+    "EPUBTemplateStyles",
+    "EPUBCSSStyle",
 ]

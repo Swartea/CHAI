@@ -822,3 +822,19 @@ Agent execution note: returncode=1
 - Verification: returncode=0; stdout=/Users/swarteachou/Desktop/CHAI | ?? .agent_harness/session_prompts/20260402T163127Z.md | No automated smoke test detected - baseline inspection only.
 - Risks: None recorded.
 - Next: Pick the next unfinished feature in the next session.
+## 2026-04-03T01:00:00+00:00 | Session 20260403T010000Z
+- Session: 20260403T010000Z
+- Feature: feat-036
+- Summary: Implemented EPUB manuscript export system for generating formatted EPUB ebooks.
+- What changed:
+  - Created chai/models/epub_export.py with 14 comprehensive models: EPUBTemplate, EPUBExportConfig, EPUBExportResult, EPUBMetadata, EPUBChapterRef, EPUBVolumeRef, EPUBNavPoint, EPUBSpineItem, EPUBManifestItem, EPUBTemplateStyles, EPUBCSSStyle
+  - Created chai/engines/epub_manuscript_engine.py with EPUBManuscriptEngine
+  - Added 3 templates: SIMPLE (basic formatting), STANDARD (with TOC and summaries), DETAILED (full styling)
+  - Added methods: generate_manuscript(), export_to_file(), export_chapters_separate(), get_manuscript_summary()
+  - Added features: proper EPUB 2.0/3.0 structure, NCX navigation, nav.xhtml, CSS styling, front/back matter, chapter summaries, word count statistics, scene content export
+  - Updated models/__init__.py to export new EPUB models
+  - Updated engines/__init__.py to export EPUBManuscriptEngine
+  - Added 24 unit tests in tests/test_epub_manuscript_engine.py
+- Verification: smoke_test.py passed, pytest 779/779 passed (65 skipped - async tests without pytest-asyncio)
+- Risks: AI integration not required for this feature; async tests skipped without pytest-asyncio
+- Next: Pick the next unfinished feature in the next session.
