@@ -557,6 +557,18 @@ from chai.models.incremental_writing import (
     AutoSaveConfig,
     IncrementalWritingSummary,
 )
+from chai.models.project_init import (
+    ProjectType,
+    ProjectStatus,
+    WritingMode,
+    ProjectBasicInfo,
+    ProjectSettings,
+    ProjectTypeConfig,
+    ProjectProfile,
+    ProjectInitializationRequest,
+    ProjectInitializationResult,
+    ProjectSummary,
+)
 
 # Rebuild models to resolve forward references after all imports
 # Pydantic v2: model_rebuild() without arguments when types are imported
@@ -1092,6 +1104,17 @@ __all__ = [
     "IncrementalWritingRecovery",
     "AutoSaveConfig",
     "IncrementalWritingSummary",
+    # Project initialization models
+    "ProjectType",
+    "ProjectStatus",
+    "WritingMode",
+    "ProjectBasicInfo",
+    "ProjectSettings",
+    "ProjectTypeConfig",
+    "ProjectProfile",
+    "ProjectInitializationRequest",
+    "ProjectInitializationResult",
+    "ProjectSummary",
 ]
 
 # Pydantic v1/v2 compatibility - add model_dump and model_validate if not present

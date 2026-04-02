@@ -46,6 +46,7 @@ from chai.engines.novel_genre_engine import NovelGenreEngine
 from chai.engines.world_view_template_engine import WorldViewTemplateEngine
 from chai.engines.outline_import_engine import OutlineImportEngine
 from chai.engines.incremental_writing_engine import IncrementalWritingEngine
+from chai.engines.project_init_engine import ProjectInitializationEngine
 
 __all__ = [
     "StoryPlanner",
@@ -98,4 +99,5 @@ __all__ = [
     "WorldViewTemplateEngine",
     "OutlineImportEngine",
     "IncrementalWritingEngine",
+    "ProjectInitializationEngine",
 ]
