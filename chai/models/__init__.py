@@ -462,6 +462,18 @@ from chai.models.scene_vividness import (
     ShowDontTellCheck,
     LanguageQualityCheck,
 )
+from chai.models.plot_logic import (
+    PlotLogicType,
+    PlotLogicSeverity,
+    PlotTimelineEvent,
+    CharacterKnowledgeState,
+    PlotLogicIssue,
+    ChapterPlotLogicProfile,
+    PlotLogicAnalysis,
+    PlotLogicRevision,
+    PlotLogicReport,
+    PlotConsistencyTemplate,
+)
 
 # Rebuild models to resolve forward references after all imports
 # Pydantic v2: model_rebuild() without arguments when types are imported
@@ -908,6 +920,17 @@ __all__ = [
     "SensoryDetailCheck",
     "ShowDontTellCheck",
     "LanguageQualityCheck",
+    # Plot logic models
+    "PlotLogicType",
+    "PlotLogicSeverity",
+    "PlotTimelineEvent",
+    "CharacterKnowledgeState",
+    "PlotLogicIssue",
+    "ChapterPlotLogicProfile",
+    "PlotLogicAnalysis",
+    "PlotLogicRevision",
+    "PlotLogicReport",
+    "PlotConsistencyTemplate",
 ]
 
 # Pydantic v1/v2 compatibility - add model_dump and model_validate if not present
