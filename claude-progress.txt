@@ -28,3 +28,10 @@ Agent execution note: returncode=1
 - Verification: smoke_test.py passed (all 5 test suites), pytest passed (15/15 tests)
 - Risks: AI integration requires ANTHROPIC_API_KEY; full novel workflow not end-to-end tested
 - Next: Run agent harness for feat-002 or enhance existing implementation
+## 2026-04-02T10:19:43+00:00 | Session needs_attention
+- Session: 20260402T100925Z
+- Feature: feat-001
+- Summary: Feature feat-001 did not reach a verified passing state.
+- Verification: returncode=0; stdout=/Users/swarteachou/Desktop/CHAI |  M run_agent.sh | ?? .agent_harness/session_prompts/20260402T100925Z.md | No automated smoke test detected - baseline inspection only.
+- Risks: The selected feature is still failing or the repo baseline regressed.
+- Next: Inspect the session prompt, progress notes, and smoke test output before rerunning.
