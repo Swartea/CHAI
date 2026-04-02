@@ -120,6 +120,15 @@ from chai.models.story_outline import (
     ScenePurpose,
     StoryOutlineAnalysis,
 )
+from chai.models.main_story_structure import (
+    MainStoryStructure,
+    MainStoryStructureType,
+    StoryBeatType,
+    StoryBeatStatus,
+    StoryBeat,
+    ActStructure,
+    StructureAnalysis,
+)
 
 # Rebuild models to resolve forward references after all imports
 Novel.model_rebuild()
@@ -245,4 +254,12 @@ __all__ = [
     "TensionLevel",
     "ScenePurpose",
     "StoryOutlineAnalysis",
+    # Main story structure models
+    "MainStoryStructure",
+    "MainStoryStructureType",
+    "StoryBeatType",
+    "StoryBeatStatus",
+    "StoryBeat",
+    "ActStructure",
+    "StructureAnalysis",
 ]

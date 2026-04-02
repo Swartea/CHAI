@@ -16,6 +16,7 @@ from chai.engines.antagonist_engine import AntagonistEngine
 from chai.engines.character_relationship_network_engine import CharacterRelationshipNetworkEngine
 from chai.engines.character_growth_arc_engine import CharacterGrowthArcEngine
 from chai.engines.story_outline_engine import StoryOutlineEngine
+from chai.engines.main_story_structure_engine import MainStoryStructureEngine
 
 __all__ = [
     "StoryPlanner",
@@ -39,4 +40,5 @@ __all__ = [
     "CharacterRelationshipNetworkEngine",
     "CharacterGrowthArcEngine",
     "StoryOutlineEngine",
+    "MainStoryStructureEngine",
 ]
