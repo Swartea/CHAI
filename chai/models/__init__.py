@@ -600,6 +600,19 @@ from chai.models.sequential_writing import (
     SequentialWritingSummary,
     CheckpointInfo,
 )
+from chai.models.chapter_self_check import (
+    SelfCheckStatus,
+    SelfCheckType,
+    SelfCheckSeverity,
+    SelfCheckResult,
+    ChapterSelfCheckProfile,
+    ChapterSelfCheckConfig,
+    SelfCheckPlan,
+    ChapterSelfCheckReport,
+    NovelSelfCheckSummary,
+    ChapterSelfCheckRequest,
+    ChapterSelfCheckResult,
+)
 
 # Rebuild models to resolve forward references after all imports
 # Pydantic v2: model_rebuild() without arguments when types are imported
@@ -1175,6 +1188,18 @@ __all__ = [
     "SequentialWritingResult",
     "SequentialWritingSummary",
     "CheckpointInfo",
+    # Chapter self-check models
+    "SelfCheckStatus",
+    "SelfCheckType",
+    "SelfCheckSeverity",
+    "SelfCheckResult",
+    "ChapterSelfCheckProfile",
+    "ChapterSelfCheckConfig",
+    "SelfCheckPlan",
+    "ChapterSelfCheckReport",
+    "NovelSelfCheckSummary",
+    "ChapterSelfCheckRequest",
+    "ChapterSelfCheckResult",
 ]
 
 # Pydantic v1/v2 compatibility - add model_dump and model_validate if not present

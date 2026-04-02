@@ -49,6 +49,7 @@ from chai.engines.incremental_writing_engine import IncrementalWritingEngine
 from chai.engines.project_init_engine import ProjectInitializationEngine
 from chai.engines.complete_outline_engine import CompleteOutlineEngine
 from chai.engines.sequential_writing_engine import SequentialWritingEngine
+from chai.engines.chapter_self_check_engine import ChapterSelfCheckEngine
 
 __all__ = [
     "StoryPlanner",
@@ -104,4 +105,5 @@ __all__ = [
     "ProjectInitializationEngine",
     "CompleteOutlineEngine",
     "SequentialWritingEngine",
+    "ChapterSelfCheckEngine",
 ]
