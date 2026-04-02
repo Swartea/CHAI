@@ -1131,3 +1131,10 @@ Agent execution note: returncode=1
 - Verification: smoke_test.py passed, pytest 1058/1058 passed (71 skipped - async tests without pytest-asyncio)
 - Risks: AI integration not required for this feature; async tests skipped without pytest-asyncio
 - Next: Pick the next unfinished feature in the next session.
+## 2026-04-02T18:43:39+00:00 | Session needs_attention
+- Session: 20260402T183137Z
+- Feature: feat-050
+- Summary: Feature feat-050 did not reach a verified passing state.
+- Verification: returncode=0; stdout=/Users/swarteachou/Desktop/CHAI | ?? .agent_harness/session_prompts/20260402T183137Z.md | No automated smoke test detected - baseline inspection only.
+- Risks: The selected feature is still failing or the repo baseline regressed.
+- Next: Inspect the session prompt, progress notes, and smoke test output before rerunning.
