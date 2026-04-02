@@ -67,6 +67,18 @@ from chai.models.antagonist import (
     AntagonistConflict,
     AntagonistTactics,
 )
+from chai.models.character_relationship_network import (
+    CharacterRelationshipNetwork,
+    CharacterNode,
+    RelationshipEdge,
+    RelationshipStrength,
+    RelationshipDirection,
+    NetworkMetricType,
+    CommunityDetectionMethod,
+    NetworkAnalysisResult,
+    ShortestPathResult,
+    CommunityResult,
+)
 from chai.models.plot import PlotOutline, PlotArc, PlotPoint, PlotPointType, PlotStructure
 from chai.models.novel import Novel, Volume, Chapter, Scene, SceneType
 from chai.models.deconstruct import (
@@ -147,6 +159,17 @@ __all__ = [
     "AntagonistArc",
     "AntagonistConflict",
     "AntagonistTactics",
+    # Character relationship network models
+    "CharacterRelationshipNetwork",
+    "CharacterNode",
+    "RelationshipEdge",
+    "RelationshipStrength",
+    "RelationshipDirection",
+    "NetworkMetricType",
+    "CommunityDetectionMethod",
+    "NetworkAnalysisResult",
+    "ShortestPathResult",
+    "CommunityResult",
     # Plot models
     "PlotOutline",
     "PlotArc",

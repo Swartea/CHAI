@@ -285,3 +285,27 @@ Agent execution note: returncode=1
 - Verification: returncode=0; stdout=/Users/swarteachou/Desktop/CHAI | ?? .agent_harness/session_prompts/20260402T115303Z.md | No automated smoke test detected - baseline inspection only.
 - Risks: None recorded.
 - Next: Pick the next unfinished feature in the next session.
+## 2026-04-02T12:15:00+00:00 | Session 20260402T121500Z
+- Session: 20260402T121500Z
+- Feature: feat-012
+- Summary: Implemented character relationship network graph for CHAI novel writing.
+- What changed:
+  - Created chai/models/character_relationship_network.py with models: CharacterRelationshipNetwork, CharacterNode, RelationshipEdge, RelationshipStrength, RelationshipDirection, NetworkMetricType, CommunityDetectionMethod, NetworkAnalysisResult, ShortestPathResult, CommunityResult
+  - Created chai/engines/character_relationship_network_engine.py with CharacterRelationshipNetworkEngine class supporting: build_network() for building network from characters, find_shortest_path() for path finding, analyze_network() for comprehensive analysis, detect_communities_detailed() for community detection, get_network_summary() and export_network() for output
+  - Added relationship type classification: conflict, romantic, family detection
+  - Added centrality metrics: degree, betweenness, closeness
+  - Added community detection using label propagation
+  - Added visualization data generation for graph rendering
+  - Updated models/__init__.py to export all new models
+  - Updated engines/__init__.py to export CharacterRelationshipNetworkEngine
+  - Added 30 new unit tests in tests/test_character_relationship_network_engine.py (30 pass)
+- Verification: smoke_test.py passed, pytest 207/207 passed (33 skipped - async tests without pytest-asyncio)
+- Risks: AI integration requires ANTHROPIC_API_KEY for AI-powered insights generation; async tests skipped without pytest-asyncio
+- Next: Pick the next unfinished feature in the next session.
+## 2026-04-02T12:15:00+00:00 | Session completed
+- Session: 20260402T121500Z
+- Feature: feat-012
+- Summary: Feature feat-012 passed verification.
+- Verification: returncode=0; stdout=/Users/swarteachou/Desktop/CHAI | ?? .agent_harness/session_prompts/20260402T121223Z.md | No automated smoke test detected - baseline inspection only.
+- Risks: None recorded.
+- Next: Pick the next unfinished feature in the next session.
