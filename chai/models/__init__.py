@@ -282,6 +282,20 @@ from chai.models.tone_unification import (
     ToneUnificationPlan,
     ToneUnificationReport,
 )
+from chai.models.description_density import (
+    DescriptionDensityType,
+    DescriptionDensityLevel,
+    DescriptionBalanceStatus,
+    SceneDescriptionMetrics,
+    ChapterDensityProfile,
+    DensityShift,
+    UnifiedDensityProfile,
+    DescriptionDensityAnalysis,
+    DescriptionDensityRevision,
+    DescriptionDensityPlan,
+    DescriptionDensityReport,
+    DescriptionDensityTemplate,
+)
 
 # Rebuild models to resolve forward references after all imports
 Novel.model_rebuild()
@@ -558,4 +572,17 @@ __all__ = [
     "ToneUnificationRevision",
     "ToneUnificationPlan",
     "ToneUnificationReport",
+    # Description density models
+    "DescriptionDensityType",
+    "DescriptionDensityLevel",
+    "DescriptionBalanceStatus",
+    "SceneDescriptionMetrics",
+    "ChapterDensityProfile",
+    "DensityShift",
+    "UnifiedDensityProfile",
+    "DescriptionDensityAnalysis",
+    "DescriptionDensityRevision",
+    "DescriptionDensityPlan",
+    "DescriptionDensityReport",
+    "DescriptionDensityTemplate",
 ]
