@@ -27,6 +27,15 @@ from chai.models.character import (
     CharacterGrowthStage,
     CharacterSystem,
 )
+from chai.models.main_character import (
+    MainCharacter,
+    MainCharacterProfile,
+    AppearanceDetail,
+    PersonalityDimension,
+    BackgroundDetail,
+    MotivationDetail,
+    MotivationType,
+)
 from chai.models.plot import PlotOutline, PlotArc, PlotPoint, PlotPointType, PlotStructure
 from chai.models.novel import Novel, Volume, Chapter, Scene, SceneType
 from chai.models.deconstruct import (
@@ -71,6 +80,13 @@ __all__ = [
     "CharacterConflict",
     "CharacterGrowthStage",
     "CharacterSystem",
+    "MainCharacter",
+    "MainCharacterProfile",
+    "AppearanceDetail",
+    "PersonalityDimension",
+    "BackgroundDetail",
+    "MotivationDetail",
+    "MotivationType",
     "PlotOutline",
     "PlotArc",
     "PlotPoint",

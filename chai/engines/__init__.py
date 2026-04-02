@@ -10,6 +10,7 @@ from chai.engines.world_builder import WorldBuilder, WorldSystem, SocialSystemBu
 from chai.engines.magic_system_engine import MagicSystemEngine
 from chai.engines.social_system_engine import SocialSystemEngine
 from chai.engines.character_system_engine import CharacterSystemEngine
+from chai.engines.main_character_engine import MainCharacterEngine
 
 __all__ = [
     "StoryPlanner",
@@ -27,4 +28,5 @@ __all__ = [
     "MagicSystemEngine",
     "SocialSystemEngine",
     "CharacterSystemEngine",
+    "MainCharacterEngine",
 ]
