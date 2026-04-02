@@ -4,6 +4,23 @@
   "project_summary": "CHAI - AI 小说自动化写作系统",
   "features": [
     {
+      "id": "feat-book-deconstruct",
+      "priority": 100,
+      "description": "拆书功能：根据番茄热词榜选词条，拆解热门书籍并融入大纲",
+      "steps": [
+        "实现番茄小说热词榜爬虫（fanqienovel.com）",
+        "抓取指定词条下的热门书籍列表",
+        "设计书籍拆解 Prompt 模板",
+        "实现批量拆解热门书籍的逻辑",
+        "将拆解结果（人物模板、情节模式、世界观设定）存入数据库",
+        "实现将拆解结果自动融入小说大纲的功能",
+        "添加单元测试验证"
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
       "id": "feat-001",
       "priority": 99,
       "description": "CHAI - AI 小说自动化写作系统",
