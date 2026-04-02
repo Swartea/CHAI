@@ -799,3 +799,19 @@ Agent execution note: returncode=1
 - Verification: returncode=0; stdout=/Users/swarteachou/Desktop/CHAI | ?? .agent_harness/logs/RepositoryHarness_20260403.log | ?? .agent_harness/session_prompts/20260402T162214Z.md | No automated smoke test detected - baseline inspection only.
 - Risks: None recorded.
 - Next: Pick the next unfinished feature in the next session.
+## 2026-04-03T00:35:00+00:00 | Session 20260403T003500Z
+- Session: 20260403T003500Z
+- Feature: feat-035
+- Summary: Implemented Markdown manuscript export system for generating formatted manuscripts.
+- What changed:
+  - Created chai/models/manuscript_export.py with 10 comprehensive models: ManuscriptTemplate, ManuscriptExportConfig, ManuscriptExportResult, FrontMatter, BackMatter, TableOfContentsEntry, ManuscriptTOC, ChapterManuscript, VolumeManuscript, ChapterManuscriptSection
+  - Created chai/engines/markdown_manuscript_engine.py with MarkdownManuscriptEngine
+  - Added 3 templates: SIMPLE (basic text), STANDARD (with TOC and summaries), DETAILED (with front/back matter and statistics)
+  - Added methods: generate_manuscript(), export_to_file(), export_chapters_separate(), get_manuscript_summary()
+  - Added features: table of contents with anchors, front/back matter, scene content export, chapter summaries, word count statistics, multiple formatting options
+  - Updated models/__init__.py to export new models
+  - Updated engines/__init__.py to export MarkdownManuscriptEngine
+  - Added 14 unit tests in tests/test_markdown_manuscript_engine.py
+- Verification: smoke_test.py passed, pytest 755/755 passed (65 skipped - async tests without pytest-asyncio)
+- Risks: AI integration not required for this feature; async tests skipped without pytest-asyncio
+- Next: Pick the next unfinished feature in the next session.

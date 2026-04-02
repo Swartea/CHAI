@@ -432,9 +432,9 @@
         "Implement or refine the repo behavior needed for '生成 Markdown 格式稿件'.",
         "Verify '生成 Markdown 格式稿件' through repository smoke tests or targeted checks."
       ],
-      "passes": false,
-      "notes": null,
-      "last_updated": null
+      "passes": true,
+      "notes": "Created MarkdownManuscriptEngine with 3 templates (SIMPLE, STANDARD, DETAILED). Supports: table of contents with anchors, front/back matter, scene content export, chapter summaries, word count statistics. 14 new tests pass. Total 755 tests pass.",
+      "last_updated": "2026-04-03T00:35:00+00:00"
     },
     {
       "id": "feat-036",

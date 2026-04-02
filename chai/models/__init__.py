@@ -381,6 +381,18 @@ from chai.models.punctuation_check import (
     PunctuationTemplate,
     STANDARD_TEMPLATES,
 )
+from chai.models.manuscript_export import (
+    ManuscriptTemplate,
+    ManuscriptExportConfig,
+    ManuscriptExportResult,
+    FrontMatter,
+    BackMatter,
+    TableOfContentsEntry,
+    ManuscriptTOC,
+    ChapterManuscript,
+    VolumeManuscript,
+    ChapterManuscriptSection,
+)
 
 # Rebuild models to resolve forward references after all imports
 Novel.model_rebuild()
@@ -749,4 +761,15 @@ __all__ = [
     "PunctuationCheckReport",
     "PunctuationTemplate",
     "STANDARD_TEMPLATES",
+    # Manuscript export models
+    "ManuscriptTemplate",
+    "ManuscriptExportConfig",
+    "ManuscriptExportResult",
+    "FrontMatter",
+    "BackMatter",
+    "TableOfContentsEntry",
+    "ManuscriptTOC",
+    "ChapterManuscript",
+    "VolumeManuscript",
+    "ChapterManuscriptSection",
 ]
