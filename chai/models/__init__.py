@@ -588,6 +588,18 @@ from chai.models.complete_outline import (
     OutlineValidationResult,
     NextChapterToWrite,
 )
+from chai.models.sequential_writing import (
+    SequentialWritingStatus,
+    WritingOrderMode,
+    ChapterWritingState,
+    SequentialWritingConfig,
+    SequentialChapterProgress,
+    SequentialWritingProgress,
+    SequentialWritingRequest,
+    SequentialWritingResult,
+    SequentialWritingSummary,
+    CheckpointInfo,
+)
 
 # Rebuild models to resolve forward references after all imports
 # Pydantic v2: model_rebuild() without arguments when types are imported
@@ -1152,6 +1164,17 @@ __all__ = [
     "OutlineValidationIssue",
     "OutlineValidationResult",
     "NextChapterToWrite",
+    # Sequential writing models
+    "SequentialWritingStatus",
+    "WritingOrderMode",
+    "ChapterWritingState",
+    "SequentialWritingConfig",
+    "SequentialChapterProgress",
+    "SequentialWritingProgress",
+    "SequentialWritingRequest",
+    "SequentialWritingResult",
+    "SequentialWritingSummary",
+    "CheckpointInfo",
 ]
 
 # Pydantic v1/v2 compatibility - add model_dump and model_validate if not present

@@ -640,9 +640,9 @@
         "Implement or refine the repo behavior needed for '按章节顺序自动写作'.",
         "Verify '按章节顺序自动写作' through repository smoke tests or targeted checks."
       ],
-      "passes": false,
-      "notes": null,
-      "last_updated": null
+      "passes": true,
+      "notes": "Created SequentialWritingEngine for auto-writing chapters in order. Models: SequentialWritingStatus, WritingOrderMode (SEQUENTIAL, VOLUME_FIRST, CUSTOM), ChapterWritingState, SequentialWritingConfig, SequentialChapterProgress, SequentialWritingProgress, SequentialWritingRequest/Result/Summary, CheckpointInfo. Methods: write_sequentially() for main orchestration, _determine_chapter_order() for order modes, _outline_plan_to_synopsis() for conversion, get_summary(), get_next_chapter(), export_writing_package(). Integrates with ChapterBodyEngine, IncrementalWritingEngine for checkpoint management. Supports sequential, volume-first, and custom writing orders. 24 unit tests passing.",
+      "last_updated": "2026-04-03T10:30:00+00:00"
     },
     {
       "id": "feat-055",
