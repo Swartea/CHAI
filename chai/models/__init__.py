@@ -504,6 +504,26 @@ from chai.models.novel_genre import (
     GenreTemplate,
     GenreRecommendation,
 )
+from chai.models.world_view_template import (
+    WorldViewTemplateType,
+    GeographyImportance,
+    PoliticsImportance,
+    CultureImportance,
+    HistoryImportance,
+    MagicSystemImportance,
+    SocialStructureImportance,
+    GeographyConfig,
+    PoliticsConfig,
+    CultureConfig,
+    HistoryConfig,
+    MagicSystemConfig,
+    SocialStructureConfig,
+    WorldViewTemplate,
+    WorldViewTemplateProfile,
+    WorldViewTemplateLibrary,
+    TemplateApplicationResult,
+    TemplateCustomizationRequest,
+)
 
 # Rebuild models to resolve forward references after all imports
 # Pydantic v2: model_rebuild() without arguments when types are imported
@@ -989,6 +1009,25 @@ __all__ = [
     "GenreAnalysisResult",
     "GenreTemplate",
     "GenreRecommendation",
+    # World view template models
+    "WorldViewTemplateType",
+    "GeographyImportance",
+    "PoliticsImportance",
+    "CultureImportance",
+    "HistoryImportance",
+    "MagicSystemImportance",
+    "SocialStructureImportance",
+    "GeographyConfig",
+    "PoliticsConfig",
+    "CultureConfig",
+    "HistoryConfig",
+    "MagicSystemConfig",
+    "SocialStructureConfig",
+    "WorldViewTemplate",
+    "WorldViewTemplateProfile",
+    "WorldViewTemplateLibrary",
+    "TemplateApplicationResult",
+    "TemplateCustomizationRequest",
 ]
 
 # Pydantic v1/v2 compatibility - add model_dump and model_validate if not present

@@ -43,6 +43,7 @@ from chai.engines.scene_vividness_engine import SceneVividnessEngine
 from chai.engines.plot_logic_engine import PlotLogicEngine
 from chai.engines.payoff_completeness_engine import PayoffCompletenessEngine
 from chai.engines.novel_genre_engine import NovelGenreEngine
+from chai.engines.world_view_template_engine import WorldViewTemplateEngine
 
 __all__ = [
     "StoryPlanner",
@@ -92,4 +93,5 @@ __all__ = [
     "PlotLogicEngine",
     "PayoffCompletenessEngine",
     "NovelGenreEngine",
+    "WorldViewTemplateEngine",
 ]
