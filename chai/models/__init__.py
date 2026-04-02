@@ -104,6 +104,22 @@ from chai.models.deconstruct import (
     DeconstructionResult,
     BookDeconstructTemplate,
 )
+from chai.models.story_outline import (
+    StoryOutline,
+    StoryOutlineType,
+    OutlineStatus,
+    VolumeOutline,
+    ChapterOutline,
+    SceneOutline,
+    PlotThread,
+    ForeshadowingElement,
+    ForeshadowingType,
+    ForeshadowingStatus,
+    PlotThreadType,
+    TensionLevel,
+    ScenePurpose,
+    StoryOutlineAnalysis,
+)
 
 # Rebuild models to resolve forward references after all imports
 Novel.model_rebuild()
@@ -214,4 +230,19 @@ __all__ = [
     "DeconstructSource",
     "DeconstructionResult",
     "BookDeconstructTemplate",
+    # Story outline models
+    "StoryOutline",
+    "StoryOutlineType",
+    "OutlineStatus",
+    "VolumeOutline",
+    "ChapterOutline",
+    "SceneOutline",
+    "PlotThread",
+    "ForeshadowingElement",
+    "ForeshadowingType",
+    "ForeshadowingStatus",
+    "PlotThreadType",
+    "TensionLevel",
+    "ScenePurpose",
+    "StoryOutlineAnalysis",
 ]
