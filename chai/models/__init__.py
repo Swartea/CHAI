@@ -406,12 +406,24 @@ from chai.models.epub_export import (
     EPUBTemplateStyles,
     EPUBCSSStyle,
 )
+from chai.models.pdf_export import (
+    PDFTemplate,
+    PDFExportConfig,
+    PDFExportResult,
+    PDFMetadata,
+    PDFChapterRef,
+    PDFVolumeRef,
+    PDFTableOfContentsEntry,
+    PDFPageSize,
+    PDFFont,
+)
 
 # Rebuild models to resolve forward references after all imports
-Novel.model_rebuild()
-Volume.model_rebuild()
-Chapter.model_rebuild()
-Scene.model_rebuild()
+WorldSetting.update_forward_refs(MagicSystem=MagicSystem, SocialStructure=SocialStructure)
+Novel.update_forward_refs(WorldSetting=WorldSetting, Character=Character, PlotOutline=PlotOutline)
+Volume.update_forward_refs()
+Chapter.update_forward_refs()
+Scene.update_forward_refs()
 
 __all__ = [
     "WorldSetting",
@@ -797,4 +809,23 @@ __all__ = [
     "EPUBManifestItem",
     "EPUBTemplateStyles",
     "EPUBCSSStyle",
+    # PDF export models
+    "PDFTemplate",
+    "PDFExportConfig",
+    "PDFExportResult",
+    "PDFMetadata",
+    "PDFChapterRef",
+    "PDFVolumeRef",
+    "PDFTableOfContentsEntry",
+    "PDFPageSize",
+    "PDFFont",
 ]
+
+# Pydantic v1/v2 compatibility - add model_dump and model_validate if not present
+from pydantic import BaseModel
+
+if not hasattr(BaseModel, 'model_dump'):
+    BaseModel.model_dump = lambda self, **kwargs: self.dict(**kwargs)
+
+if not hasattr(BaseModel, 'model_validate'):
+    BaseModel.model_validate = classmethod(lambda cls, v, **kwargs: cls.parse_obj(v))

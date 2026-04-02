@@ -10,7 +10,7 @@ def save_novel(novel: Novel, path: str | Path) -> Path:
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
 
-    data = novel.model_dump(mode='json')
+    data = novel.dict()
 
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
@@ -25,7 +25,7 @@ def load_novel(path: str | Path) -> Novel:
     with open(path, 'r', encoding='utf-8') as f:
         data = json.load(f)
 
-    return Novel.model_validate(data)
+    return Novel.parse_obj(data)
 
 
 def create_sample_novel() -> Novel:

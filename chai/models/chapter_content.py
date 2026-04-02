@@ -444,3 +444,13 @@ class ChapterContentTemplate(BaseModel):
         default=True,
         description="Should have scene breaks"
     )
+
+    # Word count targets
+    min_word_count: int = Field(
+        default=2000,
+        description="Minimum word count for chapter"
+    )
+    max_word_count: int = Field(
+        default=4000,
+        description="Maximum word count for chapter"
+    )

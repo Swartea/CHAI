@@ -458,9 +458,9 @@
         "Implement or refine the repo behavior needed for '导出为 PDF 打印版'.",
         "Verify '导出为 PDF 打印版' through repository smoke tests or targeted checks."
       ],
-      "passes": false,
-      "notes": null,
-      "last_updated": null
+      "passes": true,
+      "notes": "Created PDFManuscriptEngine with 3 templates (SIMPLE, STANDARD, DETAILED). Supports: page size (A4/A5/B5/Letter/Legal), margins, fonts, line spacing, table of contents, front/back matter, chapter summaries, word count statistics. 23 new tests pass. Total 806 tests pass.",
+      "last_updated": "2026-04-03T01:30:00+00:00"
     },
     {
       "id": "feat-038",

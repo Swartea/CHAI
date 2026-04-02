@@ -237,7 +237,7 @@ class ChapterBodyEngine:
 
             # Calculate foreshadowing coverage
             total_foreshadowing = sum(
-                len(c.foreshadowing_properly_planted) for c in manuscript.chapters
+                1 for c in manuscript.chapters if c.foreshadowing_properly_planted
             )
             manuscript.foreshadowing_coverage = min(1.0, total_foreshadowing / max(1, len(synopses)))
 

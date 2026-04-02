@@ -838,6 +838,25 @@ Agent execution note: returncode=1
 - Verification: smoke_test.py passed, pytest 779/779 passed (65 skipped - async tests without pytest-asyncio)
 - Risks: AI integration not required for this feature; async tests skipped without pytest-asyncio
 - Next: Pick the next unfinished feature in the next session.
+## 2026-04-03T01:30:00+00:00 | Session 20260403T013000Z
+- Session: 20260403T013000Z
+- Feature: feat-037
+- Summary: Implemented PDF manuscript export system for generating formatted PDF print versions.
+- What changed:
+  - Created chai/models/pdf_export.py with comprehensive models: PDFTemplate, PDFExportConfig, PDFExportResult, PDFMetadata, PDFChapterRef, PDFVolumeRef, PDFTableOfContentsEntry, PDFPageSize, PDFFont
+  - Created chai/engines/pdf_manuscript_engine.py with PDFManuscriptEngine
+  - Added 3 templates: SIMPLE (basic formatting), STANDARD (with TOC and metadata), DETAILED (full formatting with all features)
+  - Added methods: generate_manuscript(), export_to_file(), export_chapters_separate(), get_manuscript_summary()
+  - Added features: page size options (A4/A5/B5/Letter/Legal), margins, fonts, line spacing, table of contents, chapter summaries, word count statistics
+  - Updated models/__init__.py to export new PDF models
+  - Updated engines/__init__.py to export PDFManuscriptEngine
+  - Added 23 unit tests in tests/test_pdf_manuscript_engine.py
+  - Fixed baseline Pydantic v1/v2 compatibility issues (model_dump/model_validate compatibility, forward refs)
+  - Fixed missing fields in ChapterContentTemplate (min_word_count, max_word_count)
+  - Fixed foreshadowing calculation bug in ChapterBody
+- Verification: smoke_test.py passed, pytest 806/806 passed (37 skipped - async tests without AI API)
+- Risks: AI integration not required for this feature; async tests skipped without pytest-asyncio
+- Next: Pick the next unfinished feature in the next session.
 ## 2026-04-02T16:47:08+00:00 | Session completed
 - Session: 20260402T163820Z
 - Feature: feat-036
