@@ -158,6 +158,24 @@ from chai.models.subplot_foreshadowing import (
     ForeshadowingAnalysis,
     SubplotForeshadowingDesign,
 )
+from chai.models.climax_ending import (
+    ClimaxType,
+    ClimaxIntensity,
+    ClimaxStatus,
+    ClimaxElement,
+    ClimaxStructure,
+    ClimaxDesign,
+    EndingType,
+    EndingStatus,
+    EndingElement,
+    EndingStructure,
+    EndingDesign,
+    ClimaxEndingConnection,
+    ClimaxEndingSystem,
+    ClimaxAnalysis,
+    EndingAnalysis,
+    ClimaxEndingAnalysis,
+)
 
 # Rebuild models to resolve forward references after all imports
 Novel.model_rebuild()
@@ -318,4 +336,21 @@ __all__ = [
     "SubplotAnalysis",
     "ForeshadowingAnalysis",
     "SubplotForeshadowingDesign",
+    # Climax and ending models
+    "ClimaxType",
+    "ClimaxIntensity",
+    "ClimaxStatus",
+    "ClimaxElement",
+    "ClimaxStructure",
+    "ClimaxDesign",
+    "EndingType",
+    "EndingStatus",
+    "EndingElement",
+    "EndingStructure",
+    "EndingDesign",
+    "ClimaxEndingConnection",
+    "ClimaxEndingSystem",
+    "ClimaxAnalysis",
+    "EndingAnalysis",
+    "ClimaxEndingAnalysis",
 ]
