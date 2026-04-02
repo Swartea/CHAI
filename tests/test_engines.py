@@ -9,6 +9,13 @@ from chai.models import (
     Scene, SceneType, CharacterRole,
 )
 from chai.engines import StoryPlanner, ChapterWriter, Editor, NovelEngine, StyleEngine
+from chai.models.style_consistency import (
+    StyleProfile,
+    NarrativeTone,
+    DescriptiveDensity,
+    PacingLevel,
+    SentenceComplexity,
+)
 from chai.services import AIService
 
 
@@ -506,7 +513,7 @@ class TestStyleEngine:
         profile = engine.analyze_novel_style(novel)
 
         assert profile is not None
-        assert isinstance(profile.tone, list)
+        assert isinstance(profile.tones, list)
         assert 0 <= profile.dialogue_ratio <= 1
 
     def test_check_character_voice_consistency(self):
@@ -565,14 +572,13 @@ class TestStyleEngine:
             ],
         )
 
-        from chai.engines.style_engine import StyleProfile
-
         profile = StyleProfile(
-            tone=["epic", "dramatic"],
-            descriptive_density="high",
+            tones=[NarrativeTone.EPIC, NarrativeTone.DRAMATIC],
+            dominant_tone=NarrativeTone.EPIC,
+            descriptive_density=DescriptiveDensity.HIGH,
             dialogue_ratio=0.3,
-            pacing="moderate",
-            sentence_structure="mixed",
+            pacing=PacingLevel.MODERATE,
+            sentence_structure=SentenceComplexity.MIXED,
         )
 
         mock_ai = MagicMock(spec=AIService)

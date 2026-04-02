@@ -251,6 +251,25 @@ from chai.models.action_plot import (
     ActionPlotAnalysis,
     ActionPlotTemplate,
 )
+from chai.models.style_consistency import (
+    StyleConsistencyType,
+    NarrativeTone,
+    NarrativeVoice,
+    PacingLevel,
+    DescriptiveDensity,
+    SentenceComplexity,
+    VocabularyLevel,
+    StyleConsistencyIssue,
+    StyleConsistencyStatus,
+    StyleConsistencyCheck,
+    StyleProfile,
+    StyleConsistencyAnalysis,
+    StyleConsistencyPlan,
+    StyleConsistencyRevision,
+    StyleConsistencyTemplate,
+    StyleConsistencyDraft,
+    CharacterVoiceProfile,
+)
 
 # Rebuild models to resolve forward references after all imports
 Novel.model_rebuild()
@@ -498,4 +517,22 @@ __all__ = [
     "ActionPlotRevision",
     "ActionPlotAnalysis",
     "ActionPlotTemplate",
+    # Style consistency models
+    "StyleConsistencyType",
+    "NarrativeTone",
+    "NarrativeVoice",
+    "PacingLevel",
+    "DescriptiveDensity",
+    "SentenceComplexity",
+    "VocabularyLevel",
+    "StyleConsistencyIssue",
+    "StyleConsistencyStatus",
+    "StyleConsistencyCheck",
+    "StyleProfile",
+    "StyleConsistencyAnalysis",
+    "StyleConsistencyPlan",
+    "StyleConsistencyRevision",
+    "StyleConsistencyTemplate",
+    "StyleConsistencyDraft",
+    "CharacterVoiceProfile",
 ]
