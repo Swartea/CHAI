@@ -602,3 +602,14 @@ Agent execution note: returncode=1
 - Verification: returncode=0; stdout=/Users/swarteachou/Desktop/CHAI |  M claude-progress.txt | ?? .agent_harness/session_prompts/20260402T143258Z.md | No automated smoke test detected - baseline inspection only.
 - Risks: None recorded.
 - Next: Pick the next unfinished feature in the next session.
+## 2026-04-02T14:50:00+00:00 | Session 20260402T144750Z
+- Session: 20260402T144750Z
+- Feature: feat-025
+- Summary: Implemented tone unification system for maintaining consistent tone across full manuscript.
+- What changed:
+  - Created chai/models/tone_unification.py with 11 comprehensive models
+  - Created chai/engines/tone_unification_engine.py with ToneUnificationEngine
+  - Added 27 unit tests in tests/test_tone_unification_engine.py
+- Verification: smoke_test.py passed, pytest 543/543 passed (63 skipped - async tests without pytest-asyncio)
+- Risks: AI integration requires ANTHROPIC_API_KEY for AI-powered tone revision; async tests skipped without pytest-asyncio
+- Next: Pick the next unfinished feature in the next session.
