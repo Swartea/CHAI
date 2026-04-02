@@ -127,6 +127,132 @@ class SocialSystemBuilder:
         return self._engine.get_social_summary(social_structure)
 
 
+class CharacterSystemBuilder:
+    """Builder for character systems using CharacterSystemEngine."""
+
+    def __init__(self, ai_service: AIService):
+        """Initialize with AI service."""
+        from chai.engines.character_system_engine import CharacterSystemEngine
+        self._engine = CharacterSystemEngine(ai_service)
+
+    async def build_system(
+        self,
+        genre: str,
+        theme: str,
+        world_context: Optional[dict] = None,
+    ) -> "CharacterSystem":
+        """Build a complete character system.
+
+        Args:
+            genre: Novel genre
+            theme: Central theme
+            world_context: Optional world context
+
+        Returns:
+            Complete CharacterSystem
+        """
+        return await self._engine.build_character_system(
+            genre=genre,
+            theme=theme,
+            world_context=world_context,
+        )
+
+    async def build_characters(
+        self,
+        genre: str,
+        theme: str,
+        count: int = 5,
+        role_distribution: Optional[dict] = None,
+        world_context: Optional[dict] = None,
+        character_system: Optional["CharacterSystem"] = None,
+    ) -> list["Character"]:
+        """Build multiple characters.
+
+        Args:
+            genre: Novel genre
+            theme: Central theme
+            count: Number of characters to generate
+            role_distribution: Optional role distribution
+            world_context: Optional world context
+            character_system: Optional character system for guidance
+
+        Returns:
+            List of Character objects
+        """
+        return await self._engine.generate_characters_batch(
+            genre=genre,
+            theme=theme,
+            count=count,
+            role_distribution=role_distribution,
+            world_context=world_context,
+            character_system=character_system,
+        )
+
+    async def generate_character(
+        self,
+        role: str,
+        genre: str,
+        theme: str,
+        world_context: Optional[dict] = None,
+        existing_characters: Optional[list["Character"]] = None,
+        character_system: Optional["CharacterSystem"] = None,
+    ) -> "Character":
+        """Generate a specific character.
+
+        Args:
+            role: Character role
+            genre: Novel genre
+            theme: Central theme
+            world_context: Optional world context
+            existing_characters: Optional existing characters
+            character_system: Optional character system
+
+        Returns:
+            Character object
+        """
+        return await self._engine.generate_character(
+            role=role,
+            genre=genre,
+            theme=theme,
+            world_context=world_context,
+            existing_characters=existing_characters,
+            character_system=character_system,
+        )
+
+    def analyze(self, characters: list["Character"]) -> dict[str, Any]:
+        """Analyze character consistency.
+
+        Args:
+            characters: List of characters to analyze
+
+        Returns:
+            Analysis results
+        """
+        return self._engine.analyze_character_consistency(characters)
+
+    def summarize_character(self, character: "Character") -> str:
+        """Get character summary.
+
+        Args:
+            character: Character to summarize
+
+        Returns:
+            Formatted summary string
+        """
+        return self._engine.get_character_summary(character)
+
+    def summarize_system(self, character_system: "CharacterSystem") -> str:
+        """Get character system summary.
+
+        Args:
+            character_system: Character system to summarize
+
+        Returns:
+            Formatted summary string
+        """
+        return self._engine.get_character_system_summary(character_system)
+
+
 class WorldSystem:
     """Represents a complete world system with interconnected components.
 

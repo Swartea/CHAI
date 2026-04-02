@@ -15,7 +15,18 @@ from chai.models.world import (
     SecretSociety,
     SocialConflict,
 )
-from chai.models.character import Character, CharacterRelationship, CharacterRole
+from chai.models.character import (
+    Character,
+    CharacterRelationship,
+    CharacterRole,
+    CharacterRelationshipType,
+    CharacterArchetype,
+    CharacterSkill,
+    CharacterGroup,
+    CharacterConflict,
+    CharacterGrowthStage,
+    CharacterSystem,
+)
 from chai.models.plot import PlotOutline, PlotArc, PlotPoint, PlotPointType, PlotStructure
 from chai.models.novel import Novel, Volume, Chapter, Scene, SceneType
 from chai.models.deconstruct import (
@@ -53,6 +64,13 @@ __all__ = [
     "Character",
     "CharacterRelationship",
     "CharacterRole",
+    "CharacterRelationshipType",
+    "CharacterArchetype",
+    "CharacterSkill",
+    "CharacterGroup",
+    "CharacterConflict",
+    "CharacterGrowthStage",
+    "CharacterSystem",
     "PlotOutline",
     "PlotArc",
     "PlotPoint",

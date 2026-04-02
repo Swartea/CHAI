@@ -6,7 +6,7 @@ from dataclasses import dataclass
 
 import anthropic
 
-from chai.models import MagicSystem, SocialStructure
+from chai.models import MagicSystem, SocialStructure, Character, CharacterSystem
 
 
 @dataclass
