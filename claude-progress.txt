@@ -35,3 +35,19 @@ Agent execution note: returncode=1
 - Verification: returncode=0; stdout=/Users/swarteachou/Desktop/CHAI |  M run_agent.sh | ?? .agent_harness/session_prompts/20260402T100925Z.md | No automated smoke test detected - baseline inspection only.
 - Risks: The selected feature is still failing or the repo baseline regressed.
 - Next: Inspect the session prompt, progress notes, and smoke test output before rerunning.
+## 2026-04-02T10:30:00+00:00 | Session 20260402T102519Z
+- Session: 20260402T102519Z
+- Feature: feat-003
+- Summary: Implemented NovelEngine orchestration layer for autonomous end-to-end novel writing workflow.
+- What changed:
+  - Created chai/engines/novel_engine.py with NovelEngine class
+  - Added run_full_workflow() method orchestrating plan→write→proofread pipeline
+  - Added _expand_outline_to_volumes() to bridge plot outline to chapter structure
+  - Added get_novel_status() for progress tracking
+  - Added 'run' CLI command for full autonomous workflow
+  - Added 7 new tests in tests/test_engines.py
+  - Updated engines/__init__.py to export NovelEngine
+  - Updated smoke_test.py to include NovelEngine import test
+- Verification: smoke_test.py passed, pytest 22/22 tests passed
+- Risks: AI integration requires ANTHROPIC_API_KEY; full end-to-end workflow not tested without API
+- Next: Work on feat-004 or other feature enhancements

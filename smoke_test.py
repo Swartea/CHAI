@@ -32,7 +32,7 @@ def test_imports():
         PlotOutline,
     )
     from chai.services import AIService, AIConfig
-    from chai.engines import StoryPlanner, ChapterWriter, Editor
+    from chai.engines import StoryPlanner, ChapterWriter, Editor, NovelEngine
     from chai.export import MarkdownExporter, EPUBExporter, PDFExporter
     print("  All imports successful")
 

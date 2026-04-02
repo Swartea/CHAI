@@ -149,6 +149,39 @@ def export(novel_file: str, format: tuple, output: str):
 
 
 @cli.command()
+@click.option("--genre", default="玄幻", help="小说类型")
+@click.option("--theme", required=True, help="小说主题")
+@click.option("--output", "-o", default="output", help="输出目录")
+@click.option("--no-proofread", is_flag=True, default=False, help="跳过校对")
+def run(genre: str, theme: str, output: str, no_proofread: bool):
+    """运行完整的自动化写作流程（规划→写作→校对）"""
+    from chai.engines import NovelEngine
+
+    click.echo(f"启动 CHAI 全流程写作: {genre} - {theme}")
+
+    try:
+        ai_service = AIService()
+        engine = NovelEngine(ai_service)
+
+        novel = asyncio.run(
+            engine.run_full_workflow(
+                genre=genre,
+                theme=theme,
+                proofread=not no_proofread,
+            )
+        )
+
+        output_path = Path(output)
+        output_path.mkdir(parents=True, exist_ok=True)
+        save_novel(novel, output_path / "novel_complete.json")
+        click.echo(f"完成！保存到 {output_path / 'novel_complete.json'}")
+
+    except Exception as e:
+        click.echo(f"错误: {e}", err=True)
+        sys.exit(1)
+
+
+@cli.command()
 def init():
     """创建示例小说项目"""
     try:

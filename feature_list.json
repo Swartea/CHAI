@@ -12,9 +12,9 @@
         "Implement or refine the repo behavior needed for 'CHAI - AI 小说自动化写作系统'.",
         "Verify 'CHAI - AI 小说自动化写作系统' through repository smoke tests or targeted checks."
       ],
-      "passes": false,
-      "notes": null,
-      "last_updated": null
+      "passes": true,
+      "notes": "Core implementation completed. 15 tests passing.",
+      "last_updated": "2026-04-02T10:24:29+00:00"
     },
     {
       "id": "feat-003",
@@ -25,9 +25,9 @@
         "Implement or refine the repo behavior needed for 'CHAI 是一个基于 AI 的小说自动化写作引擎，能够自主规划、生成、校对全流程完成长篇小说创作。'.",
         "Verify 'CHAI 是一个基于 AI 的小说自动化写作引擎，能够自主规划、生成、校对全流程完成长篇小说创作。' through repository smoke tests or targeted checks."
       ],
-      "passes": false,
-      "notes": null,
-      "last_updated": null
+      "passes": true,
+      "notes": "NovelEngine orchestration class added. Full autonomous workflow (plan→write→proofread) implemented. CLI run command added. 22 tests passing.",
+      "last_updated": "2026-04-02T10:30:00+00:00"
     },
     {
       "id": "feat-004",
