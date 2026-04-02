@@ -6,6 +6,8 @@ from dataclasses import dataclass
 
 import anthropic
 
+from chai.models import MagicSystem, SocialStructure
+
 
 @dataclass
 class AIConfig:
@@ -69,6 +71,508 @@ voice, narrative style, and plot coherence."""
 以JSON格式输出，包含字段：name, genre, geography, politics, culture, history"""
         result = await self.generate(prompt)
         return self._parse_json(result)
+
+    async def generate_geography(
+        self,
+        genre: str,
+        theme: str,
+        base_geography: Optional[dict] = None,
+        expand: bool = False,
+    ) -> dict:
+        """Generate detailed geography for a world.
+
+        Args:
+            genre: Novel genre
+            theme: Central theme
+            base_geography: Existing geography data to expand on
+            expand: If True, expand the existing geography instead of creating new
+
+        Returns:
+            Geography dict with continents, countries, cities, landmarks, etc.
+        """
+        base_info = f"基础地理：{base_geography}" if base_geography else ""
+        expand_instruction = "请扩展现有地理设定，添加更多地区、地点和细节。" if expand else "请生成全新的详细地理设定。"
+
+        prompt = f"""为{genre}类型小说生成详细的地理环境设定。
+
+主题：{theme}
+{base_info}
+{expand_instruction}
+
+请生成包含以下方面的详细地理设定，以JSON格式输出：
+{{
+  "continents": [
+    {{
+      "name": "大陆名称",
+      "climate": "气候描述",
+      "terrain": "地形特征",
+      "major_regions": ["主要区域列表"],
+      "description": "整体描述"
+    }}
+  ],
+  "countries": [
+    {{
+      "name": "国家/势力名称",
+      "capital": "首都",
+      "territory": "领土范围",
+      "neighbors": ["邻国列表"],
+      "description": "国家描述"
+    }}
+  ],
+  "cities": [
+    {{
+      "name": "城市名称",
+      "country": "所属国家",
+      "population": "人口规模",
+      "industry": "主要产业",
+      "notable_features": ["著名地标/特色"],
+      "description": "城市描述"
+    }}
+  ],
+  "landmarks": [
+    {{
+      "name": "地标名称",
+      "location": "所在位置",
+      "type": "类型（山脉/河流/建筑等）",
+      "significance": "重要程度和意义",
+      "description": "描述"
+    }}
+  ],
+  "geopolitical_regions": ["地缘政治区域列表"]
+}}"""
+        result = await self.generate(prompt)
+        return self._parse_json(result)
+
+    async def generate_politics(
+        self,
+        genre: str,
+        theme: str,
+        geography: Optional[dict] = None,
+        expand: bool = False,
+    ) -> dict:
+        """Generate detailed political structures for a world.
+
+        Args:
+            genre: Novel genre
+            theme: Central theme
+            geography: Geography data to base politics on
+            expand: If True, expand existing politics
+
+        Returns:
+            Politics dict with governments, factions, alliances, etc.
+        """
+        geo_info = f"地理背景：{geography}" if geography else ""
+        expand_instruction = "请扩展现有政治设定，添加更多派系、冲突和细节。" if expand else "请生成全新的详细政治结构设定。"
+
+        prompt = f"""为{genre}类型小说生成详细的政治结构设定。
+
+主题：{theme}
+{geo_info}
+{expand_instruction}
+
+请生成包含以下方面的详细政治设定，以JSON格式输出：
+{{
+  "governments": [
+    {{
+      "name": "政府/政权名称",
+      "type": "政体类型（君主制/共和制/神权制等）",
+      "leader": "最高领导者",
+      "structure": "政府结构",
+      "territory": "控制区域",
+      "description": "描述"
+    }}
+  ],
+  "factions": [
+    {{
+      "name": "势力/组织名称",
+      "type": "类型（门派/家族/公会/秘密组织等）",
+      "leader": "首领",
+      "members": "成员规模",
+      "goals": ["主要目标"],
+      "ideology": "意识形态",
+      "relationships": ["与其他势力的关系"],
+      "description": "描述"
+    }}
+  ],
+  "alliances": [
+    {{
+      "name": "联盟名称",
+      "members": ["成员势力"],
+      "purpose": "联盟目的",
+      "leader": "主导势力",
+      "duration": "持续时间"
+    }}
+  ],
+  "conflicts": [
+    {{
+      "name": "冲突名称",
+      "parties": ["参与方"],
+      "cause": "起因",
+      "status": "状态（进行中/结束/酝酿中）",
+      "description": "描述"
+    }}
+  ],
+  "laws_and_rules": ["重要法律/规则列表"],
+  "power_distribution": {{"权力分布描述": "具体说明"}}
+}}"""
+        result = await self.generate(prompt)
+        return self._parse_json(result)
+
+    async def generate_culture(
+        self,
+        genre: str,
+        theme: str,
+        geography: Optional[dict] = None,
+        politics: Optional[dict] = None,
+        expand: bool = False,
+    ) -> dict:
+        """Generate detailed cultural elements for a world.
+
+        Args:
+            genre: Novel genre
+            theme: Central theme
+            geography: Geography data
+            politics: Politics data
+            expand: If True, expand existing culture
+
+        Returns:
+            Culture dict with religions, languages, traditions, etc.
+        """
+        context = ""
+        if geography:
+            context += f"地理背景：{geography}\n"
+        if politics:
+            context += f"政治背景：{politics}\n"
+        expand_instruction = "请扩展现有文化设定，添加更多细节。" if expand else "请生成全新的详细文化元素设定。"
+
+        prompt = f"""为{genre}类型小说生成详细的文化元素设定。
+
+主题：{theme}
+{context}
+{expand_instruction}
+
+请生成包含以下方面的详细文化设定，以JSON格式输出：
+{{
+  "religions": [
+    {{
+      "name": "宗教/信仰名称",
+      "type": "类型（多神教/一神教/自然崇拜等）",
+      "deities": ["主要神祇列表"],
+      "practices": ["主要仪式/习俗"],
+      "holy_places": ["圣地"],
+      "clergy": "神职人员",
+      "influence": "对社会的影响",
+      "description": "描述"
+    }}
+  ],
+  "languages": [
+    {{
+      "name": "语言名称",
+      "speakers": "使用地区/人群",
+      "script": "书写系统",
+      "official_status": "官方地位",
+      "description": "特点描述"
+    }}
+  ],
+  "traditions": [
+    {{
+      "name": "传统节日/习俗名称",
+      "origin": "起源",
+      "celebration": "庆祝方式",
+      "significance": "意义",
+      "associated_regions": ["关联地区"]
+    }}
+  ],
+  "arts": ["主要艺术形式列表"],
+  "cuisines": ["特色饮食列表"],
+  "customs": ["社会习俗列表"],
+  "values": ["核心价值观列表"],
+  "taboos": ["禁忌列表"],
+  "education_system": "教育体系描述",
+  "entertainment": ["娱乐方式列表"]
+}}"""
+        result = await self.generate(prompt)
+        return self._parse_json(result)
+
+    async def generate_history(
+        self,
+        genre: str,
+        theme: str,
+        geography: Optional[dict] = None,
+        politics: Optional[dict] = None,
+        culture: Optional[dict] = None,
+        expand: bool = False,
+    ) -> dict:
+        """Generate detailed history and timeline for a world.
+
+        Args:
+            genre: Novel genre
+            theme: Central theme
+            geography: Geography data
+            politics: Politics data
+            culture: Culture data
+            expand: If True, expand existing history
+
+        Returns:
+            History dict with eras, events, timeline, etc.
+        """
+        context = ""
+        if geography:
+            context += f"地理背景：{geography}\n"
+        if politics:
+            context += f"政治背景：{politics}\n"
+        if culture:
+            context += f"文化背景：{culture}\n"
+        expand_instruction = "请扩展现有历史设定，添加更多时代、事件和细节。" if expand else "请生成全新的详细历史设定。"
+
+        prompt = f"""为{genre}类型小说生成详细的历史背景设定。
+
+主题：{theme}
+{context}
+{expand_instruction}
+
+请生成包含以下方面的详细历史设定，以JSON格式输出：
+{{
+  "eras": [
+    {{
+      "name": "时代名称",
+      "time_period": "时间跨度",
+      "start_event": "开端事件",
+      "end_event": "结束事件",
+      "major_changes": ["主要变化"],
+      "description": "时代描述"
+    }}
+  ],
+  "major_events": [
+    {{
+      "name": "事件名称",
+      "year": "发生年代",
+      "location": "发生地点",
+      "parties_involved": ["参与方"],
+      "cause": "起因",
+      "course": "经过",
+      "result": "结果",
+      "significance": "历史意义"
+    }}
+  ],
+  "historical_figures": [
+    {{
+      "name": "历史人物名称",
+      "title": "头衔/称号",
+      "era": "所属时代",
+      "achievements": ["主要成就"],
+      "legacy": "历史遗产",
+      "description": "描述"
+    }}
+  ],
+  "myths_and_legends": [
+    {{
+      "name": "传说/神话名称",
+      "origin": "起源",
+      "content": "内容概要",
+      "cultural_significance": "文化意义",
+      "characters": ["涉及人物"]
+    }}
+  ],
+  "historical_conflicts": [
+    {{
+      "name": "历史战争/冲突名称",
+      "period": "时期",
+      "sides": ["参战方"],
+      "cause": "起因",
+      "outcome": "结局",
+      "impact": "影响"
+    }}
+  ],
+  "timeline_summary": "整体时间线概要"
+}}"""
+        result = await self.generate(prompt)
+        return self._parse_json(result)
+
+    async def generate_magic_system(
+        self,
+        genre: str,
+        theme: str,
+        world_context: Optional[dict] = None,
+    ) -> "MagicSystem":
+        """Generate a magic/tech/superpower system.
+
+        Args:
+            genre: Novel genre
+            theme: Central theme
+            world_context: Context about the world (geography, politics, culture)
+
+        Returns:
+            MagicSystem object
+        """
+        context = ""
+        if world_context:
+            context = f"世界观背景：{world_context}\n"
+
+        prompt = f"""为{genre}类型小说生成详细的魔法/科技/异能系统设定。
+
+主题：{theme}
+{context}
+请生成完整的系统设定，以JSON格式输出：
+{{
+  "name": "系统名称",
+  "system_type": "系统类型（magic=魔法/technology=科技/superpower=异能/mixed=混合）",
+  "rules": [
+    "规则1：系统运作的基本原理",
+    "规则2：魔法的使用条件",
+    "规则3：能量来源",
+    "规则4：施展方式"
+  ],
+  "limitations": [
+    "限制1：使用代价或副作用",
+    "限制2：使用条件限制",
+    "限制3：地理/时间限制",
+    "限制4：其他限制"
+  ],
+  "levels": [
+    "初级：基础能力描述",
+    "中级：进阶能力描述",
+    "高级：高级能力描述",
+    "大师：最高境界描述"
+  ],
+  "schools_or_types": [
+    {{
+      "name": "流派/类别名称",
+      "description": "描述",
+      "typical_users": ["典型使用者"],
+      "strengths": ["优势"],
+      "weaknesses": ["劣势"]
+    }}
+  ],
+  "source_of_power": "力量来源描述",
+  "world_influence": "对社会/世界的影响"
+}}"""
+        result = await self.generate(prompt)
+        data = self._parse_json(result)
+        return MagicSystem(
+            name=data.get("name", "未知系统"),
+            system_type=data.get("system_type", "mixed"),
+            rules=data.get("rules", []),
+            limitations=data.get("limitations", []),
+            levels=data.get("levels", []),
+        )
+
+    async def expand_magic_system(
+        self,
+        existing_magic: dict,
+        world_context: Optional[dict] = None,
+    ) -> dict:
+        """Expand an existing magic system.
+
+        Args:
+            existing_magic: Existing magic system data
+            world_context: Context about the world
+
+        Returns:
+            Expanded magic system dict
+        """
+        context = f"世界观背景：{world_context}" if world_context else ""
+        prompt = f"""请扩展以下现有的魔法/异能系统，添加更多细节。
+
+现有系统：{existing_magic}
+{context}
+
+请添加：
+1. 更多流派/类型
+2. 更多规则和限制
+3. 更多能力等级
+4. 与其他世界元素的互动
+
+以JSON格式输出完整扩展后的系统。"""
+        result = await self.generate(prompt)
+        return self._parse_json(result)
+
+    async def generate_social_structure(
+        self,
+        genre: str,
+        theme: str,
+        geography: Optional[dict] = None,
+        politics: Optional[dict] = None,
+        culture: Optional[dict] = None,
+        magic_system: Optional["MagicSystem"] = None,
+        expand: bool = False,
+    ) -> "SocialStructure":
+        """Generate social structure for a world.
+
+        Args:
+            genre: Novel genre
+            theme: Central theme
+            geography: Geography data
+            politics: Politics data
+            culture: Culture data
+            magic_system: Magic system data
+            expand: If True, expand existing social structure
+
+        Returns:
+            SocialStructure object
+        """
+        context = ""
+        if geography:
+            context += f"地理背景：{geography}\n"
+        if politics:
+            context += f"政治背景：{politics}\n"
+        if culture:
+            context += f"文化背景：{culture}\n"
+        if magic_system:
+            context += f"异能/魔法系统：{magic_system}\n"
+        expand_instruction = "请扩展现有社会结构，添加更多阶层、势力和细节。" if expand else "请生成全新的详细社会结构设定。"
+
+        prompt = f"""为{genre}类型小说生成详细的社会结构设定。
+
+主题：{theme}
+{context}
+{expand_instruction}
+
+请生成包含以下方面的详细社会结构设定，以JSON格式输出：
+{{
+  "classes": [
+    {{
+      "name": "阶层名称",
+      "description": "描述",
+      "typical_members": ["典型成员"],
+      "lifestyle": "生活方式",
+      "rights": ["享有的权利"],
+      "obligations": ["承担的义务"],
+      "relationship_with_other_classes": ["与其他阶层的关系"]
+    }}
+  ],
+  "factions": [
+    {{
+      "name": "势力名称",
+      "type": "类型",
+      "leader": "领导者",
+      "membership": "成员规模",
+      "goals": ["目标"],
+      "resources": ["资源"],
+      "influence": "影响力",
+      "description": "描述"
+    }}
+  ],
+  "power_distribution": {{
+    "military": "军事力量分布",
+    "economic": "经济力量分布",
+    "political": "政治力量分布",
+    "magical": "魔法力量分布（如适用）",
+    "information": "信息/知识力量分布"
+  }},
+  "social_mobility": "社会流动性描述",
+  "family_structures": ["主要家庭结构类型"],
+  "profession_distribution": ["主要职业分布"],
+  "wealth_distribution": "财富分布描述",
+  "conflict_lines": ["社会冲突的主要分界线"]
+}}"""
+        result = await self.generate(prompt)
+        data = self._parse_json(result)
+        return SocialStructure(
+            classes=data.get("classes", []),
+            factions=data.get("factions", []),
+            power_distribution=data.get("power_distribution", {}),
+        )
 
     async def generate_characters(
         self,

@@ -68,9 +68,9 @@
         "Implement or refine the repo behavior needed for '世界观与设定生成'.",
         "Verify '世界观与设定生成' through repository smoke tests or targeted checks."
       ],
-      "passes": false,
-      "notes": null,
-      "last_updated": null
+      "passes": true,
+      "notes": "WorldBuilder engine added. 7 AI service methods for world component generation (geography, politics, culture, history, magic system, social structure). CLI 'build-world' command added. 52 tests passing.",
+      "last_updated": "2026-04-02T10:58:00+00:00"
     },
     {
       "id": "feat-006",

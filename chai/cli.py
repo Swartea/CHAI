@@ -9,7 +9,7 @@ import click
 
 from chai.models import Novel
 from chai.services import AIService, AIConfig
-from chai.engines import StoryPlanner, ChapterWriter, Editor, BookDeconstructor
+from chai.engines import StoryPlanner, ChapterWriter, Editor, BookDeconstructor, WorldBuilder
 from chai.export import MarkdownExporter, EPUBExporter, PDFExporter
 from chai.utils import load_novel, save_novel, create_sample_novel
 from chai.db import get_default_db
@@ -20,6 +20,58 @@ from chai.db import get_default_db
 def cli():
     """CHAI - AI 小说自动化写作系统"""
     pass
+
+
+@cli.command()
+@click.option("--genre", default="玄幻", help="小说类型")
+@click.option("--theme", required=True, help="小说主题")
+@click.option("--output", "-o", default="output", help="输出目录")
+def build_world(genre: str, theme: str, output: str):
+    """生成完整的世界观设定（地理、政治、文化、历史、魔法/异能系统）"""
+    click.echo(f"正在生成世界观：{genre} - {theme}")
+
+    try:
+        ai_service = AIService()
+        builder = WorldBuilder(ai_service)
+
+        click.echo("正在生成地理环境...")
+        click.echo("正在生成政治结构...")
+        click.echo("正在生成文化元素...")
+        click.echo("正在生成历史背景...")
+        if builder._uses_magic_system(genre):
+            click.echo("正在生成魔法/异能系统...")
+        click.echo("正在生成社会结构...")
+
+        world = asyncio.run(builder.build_world(genre, theme))
+
+        output_path = Path(output)
+        output_path.mkdir(parents=True, exist_ok=True)
+
+        import json
+        world_file = output_path / "world_setting.json"
+        with open(world_file, "w", encoding="utf-8") as f:
+            json.dump(world.model_dump(), f, ensure_ascii=False, indent=2)
+
+        click.echo(f"\n世界观生成完成！")
+        click.echo(f"  世界名称: {world.name}")
+        click.echo(f"  类型: {world.genre}")
+        click.echo(f"  地理: {len(world.geography.get('continents', []))} 大陆, {len(world.geography.get('countries', []))} 国家")
+        click.echo(f"  政治: {len(world.politics.get('governments', []))} 政府, {len(world.politics.get('factions', []))} 势力")
+        click.echo(f"  文化: {len(world.culture.get('religions', []))} 宗教, {len(world.culture.get('traditions', []))} 传统")
+        click.echo(f"  历史: {len(world.history.get('eras', []))} 时代, {len(world.history.get('major_events', []))} 重大事件")
+        if world.magic_system:
+            click.echo(f"  魔法系统: {world.magic_system.name} ({world.magic_system.system_type})")
+        if world.social_structure:
+            click.echo(f"  社会结构: {len(world.social_structure.classes)} 阶层, {len(world.social_structure.factions)} 势力")
+        click.echo(f"\n已保存到 {world_file}")
+
+    except ValueError as e:
+        click.echo(f"错误: {e}", err=True)
+        click.echo("提示: 请设置 ANTHROPIC_API_KEY 环境变量", err=True)
+        sys.exit(1)
+    except Exception as e:
+        click.echo(f"错误: {e}", err=True)
+        sys.exit(1)
 
 
 @cli.command()
