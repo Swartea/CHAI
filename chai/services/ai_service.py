@@ -188,3 +188,208 @@ voice, narrative style, and plot coherence."""
                 pass
 
         return [{"raw": text}]
+
+    # --- Book Deconstruction Methods ---
+
+    async def deconstruct_book(
+        self,
+        book_title: str,
+        book_synopsis: str,
+        genre: str,
+        chapter_samples: Optional[list[str]] = None,
+    ) -> dict:
+        """Deconstruct a book and extract reusable templates.
+
+        Args:
+            book_title: Title of the book
+            book_synopsis: Book synopsis/description
+            genre: Book genre
+            chapter_samples: Optional list of chapter content samples
+
+        Returns:
+            Dict containing character_templates, plot_patterns, world_template, analysis
+        """
+        prompt = f"""请对以下小说进行深度拆解，提取可复用的模板和模式。
+
+小说名称：{book_title}
+类型：{genre}
+简介：{book_synopsis}
+{f'样章内容：\n' + '\\n---\\n'.join(chapter_samples) if chapter_samples else ''}
+
+请以JSON格式返回完整的拆解结果，包含以下部分：
+
+{{
+  "character_templates": [
+    {{
+      "name": "模板名称（如：草根逆袭型男主）",
+      "template_type": "protagonist|antagonist|supporting|mentor|love_interest|sidekick",
+      "age_range": "年龄范围",
+      "background_template": "背景模板描述",
+      "personality_traits": ["性格特点列表"],
+      "strengths": ["优点列表"],
+      "weaknesses": ["缺点列表"],
+      "speech_pattern": "说话风格描述",
+      "growth_arc_template": "成长弧线模板"
+    }}
+  ],
+  "plot_patterns": [
+    {{
+      "name": "模式名称（如：逆境崛起）",
+      "pattern_type": "heros_journey|three_act|save_the_cat|seven_point|mythic|subversion",
+      "description": "模式描述",
+      "structure_summary": "结构概要",
+      "key_beat_templates": ["关键情节点模板"],
+      "pacing_notes": "节奏特点",
+      "tension_curve": ["张力曲线描述"]
+    }}
+  ],
+  "world_template": {{
+    "name": "世界观模板名称",
+    "template_type": "fantasy|sci-fi|urban|historical|modern|post_apocalyptic",
+    "world_summary": "世界观概述",
+    "geography_template": {{"地理设置": "描述"}},
+    "political_template": {{"政治结构": "描述"}},
+    "cultural_template": {{"文化元素": "描述"}},
+    "magic_system_template": {{"魔法/异能系统": "描述"}},
+    "recurring_locations": ["典型地点"],
+    "typical_conflicts": ["典型冲突"]
+  }},
+  "genre_classification": "最终类型判定",
+  "tone_and_style": "文风语调特点",
+  "target_audience": "目标读者"
+}}"""
+        result = await self.generate(prompt)
+        return self._parse_json(result)
+
+    async def extract_character_templates(
+        self,
+        book_content: str,
+        genre: str,
+    ) -> list[dict]:
+        """Extract character templates from book content."""
+        prompt = f"""从以下小说内容中提取角色模板。
+
+类型：{genre}
+内容：
+{book_content[:5000]}
+
+请提取主要角色模板，以JSON数组格式返回。每个模板应包含：
+- name: 模板名称
+- template_type: 角色类型 (protagonist/antagonist/supporting/mentor/love_interest/sidekick)
+- age_range: 年龄范围
+- background_template: 背景模板
+- personality_traits: 性格特点列表
+- strengths: 优点列表
+- weaknesses: 缺点列表
+- speech_pattern: 说话风格
+- growth_arc_template: 成长弧线
+
+以JSON数组格式输出。"""
+        result = await self.generate(prompt)
+        return self._parse_json_array(result)
+
+    async def extract_plot_patterns(
+        self,
+        book_outline: str,
+        genre: str,
+    ) -> list[dict]:
+        """Extract plot patterns from book outline or content."""
+        prompt = f"""从以下小说大纲中提取情节模式。
+
+类型：{genre}
+大纲：
+{book_outline[:5000]}
+
+请提取主要情节模式，以JSON数组格式返回。每个模式应包含：
+- name: 模式名称
+- pattern_type: 模式类型 (heros_journey/three_act/save_the_cat/seven_point/mythic/subversion)
+- description: 模式描述
+- structure_summary: 结构概要
+- key_beat_templates: 关键情节点模板列表
+- pacing_notes: 节奏特点
+- tension_curve: 张力曲线描述
+
+以JSON数组格式输出。"""
+        result = await self.generate(prompt)
+        return self._parse_json_array(result)
+
+    async def extract_world_template(
+        self,
+        world_description: str,
+        genre: str,
+    ) -> dict:
+        """Extract world setting template from world description."""
+        prompt = f"""从以下世界观描述中提取可复用的模板。
+
+类型：{genre}
+世界观：
+{world_description[:3000]}
+
+请提取世界观模板，以JSON格式返回，包含：
+- name: 模板名称
+- template_type: 世界类型 (fantasy/sci-fi/urban/historical/modern/post_apocalyptic)
+- world_summary: 世界观概述
+- geography_template: 地理模板
+- political_template: 政治结构模板
+- cultural_template: 文化元素模板
+- magic_system_template: 魔法/科技系统模板（如适用）
+- recurring_locations: 典型地点列表
+- typical_conflicts: 典型冲突列表
+
+以JSON格式输出。"""
+        result = await self.generate(prompt)
+        return self._parse_json(result)
+
+    async def generate_outline_from_templates(
+        self,
+        genre: str,
+        theme: str,
+        character_templates: list[dict],
+        plot_patterns: list[dict],
+        world_template: Optional[dict] = None,
+    ) -> dict:
+        """Generate a novel outline using deconstructed templates.
+
+        Args:
+            genre: Novel genre
+            theme: Central theme
+            character_templates: Character templates to use
+            plot_patterns: Plot patterns to apply
+            world_template: World setting template (optional)
+
+        Returns:
+            Novel outline dict with world, characters, and plot structure
+        """
+        char_names = [c.get("name", "") for c in character_templates[:5]]
+        plot_names = [p.get("name", "") for p in plot_patterns[:3]]
+        world_name = world_template.get("name", "") if world_template else ""
+
+        prompt = f"""基于以下模板，生成小说大纲。
+
+类型：{genre}
+主题：{theme}
+
+使用的人物模板：
+{chr(10).join(f"- {n}" for n in char_names)}
+
+使用的情节模式：
+{chr(10).join(f"- {n}" for n in plot_names)}
+
+世界观模板：{world_name}
+
+请生成完整的小说大纲，包含：
+1. 世界观设定（基于模板调整）
+2. 主要角色设定（基于模板）
+3. 主线剧情结构（基于情节模式）
+4. 章节安排
+
+以JSON格式输出，包含字段：
+- world_setting: 世界观设定
+- characters: 角色列表
+- plot_outline: 情节大纲
+- structure_type: 结构类型
+- theme: 主题
+
+以JSON格式输出。"""
+        result = await self.generate(prompt)
+        return self._parse_json(result)

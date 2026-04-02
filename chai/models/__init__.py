@@ -4,6 +4,17 @@ from chai.models.world import WorldSetting, MagicSystem, SocialStructure
 from chai.models.character import Character, CharacterRelationship, CharacterRole
 from chai.models.plot import PlotOutline, PlotArc, PlotPoint, PlotPointType, PlotStructure
 from chai.models.novel import Novel, Volume, Chapter, Scene, SceneType
+from chai.models.deconstruct import (
+    CharacterTemplate,
+    CharacterTemplateType,
+    PlotPattern,
+    PlotPatternType,
+    WorldTemplate,
+    WorldTemplateType,
+    DeconstructSource,
+    DeconstructionResult,
+    BookDeconstructTemplate,
+)
 
 # Rebuild models to resolve forward references after all imports
 Novel.model_rebuild()
@@ -28,4 +39,14 @@ __all__ = [
     "Chapter",
     "Scene",
     "SceneType",
+    # Deconstruct models
+    "CharacterTemplate",
+    "CharacterTemplateType",
+    "PlotPattern",
+    "PlotPatternType",
+    "WorldTemplate",
+    "WorldTemplateType",
+    "DeconstructSource",
+    "DeconstructionResult",
+    "BookDeconstructTemplate",
 ]

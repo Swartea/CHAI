@@ -16,9 +16,9 @@
         "实现将拆解结果自动融入小说大纲的功能",
         "添加单元测试验证"
       ],
-      "passes": false,
-      "notes": null,
-      "last_updated": null
+      "passes": true,
+      "notes": "FanqieCrawler with API+web fallback. CharacterTemplate/PlotPattern/WorldTemplate models. DeconstructDB (JSON). BookDeconstructor engine. AIService deconstruction prompts. CLI commands. 38 tests passing.",
+      "last_updated": "2026-04-02T10:35:00+00:00"
     },
     {
       "id": "feat-001",

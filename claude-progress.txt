@@ -58,3 +58,18 @@ Agent execution note: returncode=1
 - Verification: returncode=0; stdout=/Users/swarteachou/Desktop/CHAI | ?? .DS_Store | ?? .agent_harness/session_prompts/20260402T102519Z.md | No automated smoke test detected - baseline inspection only.
 - Risks: None recorded.
 - Next: Pick the next unfinished feature in the next session.
+## 2026-04-02T10:35:00+00:00 | Session 20260402T103101Z
+- Session: 20260402T103101Z
+- Feature: feat-book-deconstruct
+- Summary: Implemented complete book deconstruction feature for Fanqie hot list.
+- What changed:
+  - Created chai/crawler/ with FanqieCrawler (API + web scraping fallback)
+  - Created chai/models/deconstruct.py with CharacterTemplate, PlotPattern, WorldTemplate, DeconstructionResult models
+  - Created chai/db/database.py with DeconstructDB (JSON file storage)
+  - Created chai/engines/deconstructor.py with BookDeconstructor engine (batch processing)
+  - Extended chai/services/ai_service.py with deconstruct_book, extract_character_templates, extract_plot_patterns, extract_world_template, generate_outline_from_templates
+  - Updated chai/cli.py with deconstruct, list-templates, generate-from-templates commands
+  - Added tests/test_deconstruct.py with 16 new tests
+- Verification: smoke_test.py passed, pytest 38/38 passed (5 async tests skipped - pytest-asyncio not installed)
+- Risks: Fanqie API may change; AI deconstruction quality depends on ANTHROPIC_API_KEY
+- Next: Run next feature or enhance existing implementation

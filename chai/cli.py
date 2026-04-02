@@ -9,9 +9,10 @@ import click
 
 from chai.models import Novel
 from chai.services import AIService, AIConfig
-from chai.engines import StoryPlanner, ChapterWriter, Editor
+from chai.engines import StoryPlanner, ChapterWriter, Editor, BookDeconstructor
 from chai.export import MarkdownExporter, EPUBExporter, PDFExporter
 from chai.utils import load_novel, save_novel, create_sample_novel
+from chai.db import get_default_db
 
 
 @click.group()
@@ -191,6 +192,111 @@ def init():
     except Exception as e:
         click.echo(f"错误: {e}", err=True)
         sys.exit(1)
+
+
+@cli.command()
+@click.option("--genre", default="", help="小说类型筛选")
+@click.option("--limit", default=50, help="返回数量")
+def list_templates(genre: str, limit: int):
+    """列出已存储的拆书模板"""
+    try:
+        db = get_default_db()
+        stats = db.get_stats()
+        click.echo(f"数据库统计:")
+        click.echo(f"  角色模板: {stats['character_templates']}")
+        click.echo(f"  情节模式: {stats['plot_patterns']}")
+        click.echo(f"  世界观模板: {stats['world_templates']}")
+        click.echo(f"  拆书结果: {stats['deconstruction_results']}")
+
+        if genre:
+            click.echo(f"\n类型 '{genre}' 的模板:")
+            chars = db.get_character_templates(genre=genre, limit=limit)
+            for c in chars:
+                click.echo(f"  [角色] {c.name} ({c.template_type.value}) - 使用{c.usage_count}次")
+            plots = db.get_plot_patterns(genre=genre, limit=limit)
+            for p in plots:
+                click.echo(f"  [情节] {p.name} ({p.pattern_type.value}) - 使用{p.usage_count}次")
+            worlds = db.get_world_templates(genre=genre, limit=limit)
+            for w in worlds:
+                click.echo(f"  [世界观] {w.name} ({w.template_type.value}) - 使用{w.usage_count}次")
+
+    except Exception as e:
+        click.echo(f"错误: {e}", err=True)
+        sys.exit(1)
+
+
+@cli.command()
+@click.option("--entry-id", default=None, help="番茄热词榜词条ID")
+@click.option("--entry-name", default=None, help="番茄热词榜词条名称")
+@click.option("--genre", default="", help="小说类型筛选（用于热门书籍）")
+@click.option("--max-books", default=5, help="最多拆解书籍数量")
+def deconstruct(entry_id: str, entry_name: str, genre: str, max_books: int):
+    """拆解番茄小说热门书籍，提取模板"""
+    async def _run():
+        try:
+            ai_service = AIService()
+        except ValueError:
+            click.echo("错误: 请设置 ANTHROPIC_API_KEY 环境变量", err=True)
+            sys.exit(1)
+
+        async with BookDeconstructor(ai_service) as deconstructor:
+            if entry_id or entry_name:
+                click.echo(f"正在从热词榜拆解书籍: {entry_name or entry_id}")
+                results = await deconstructor.deconstruct_from_hot_list(
+                    entry_id=entry_id,
+                    entry_name=entry_name,
+                    max_books=max_books,
+                )
+            else:
+                click.echo(f"正在拆解热门书籍 (类型: {genre or '全部'})")
+                results = await deconstructor.deconstruct_popular_books(
+                    genre=genre,
+                    limit=max_books,
+                )
+
+            click.echo(f"\n拆解完成！共处理 {len(results)} 本书:")
+            for result in results:
+                click.echo(f"  - {result.source.book_title}")
+                click.echo(f"    角色模板: {len(result.character_templates)}")
+                click.echo(f"    情节模式: {len(result.plot_patterns)}")
+                click.echo(f"    世界观: {'有' if result.world_template else '无'}")
+                click.echo(f"    状态: {result.status}")
+
+    asyncio.run(_run())
+
+
+@cli.command()
+@click.option("--genre", required=True, help="小说类型")
+@click.option("--theme", required=True, help="小说主题")
+@click.option("--output", "-o", default="output", help="输出目录")
+def generate_from_templates(genre: str, theme: str, output: str):
+    """基于拆书模板生成小说大纲"""
+    async def _run():
+        try:
+            ai_service = AIService()
+        except ValueError:
+            click.echo("错误: 请设置 ANTHROPIC_API_KEY 环境变量", err=True)
+            sys.exit(1)
+
+        deconstructor = BookDeconstructor(ai_service)
+        try:
+            click.echo(f"正在基于模板生成大纲: {genre} - {theme}")
+            outline = await deconstructor.generate_outline_with_templates(
+                genre=genre,
+                theme=theme,
+            )
+            output_path = Path(output)
+            output_path.mkdir(parents=True, exist_ok=True)
+
+            import json
+            outline_file = output_path / "outline_from_templates.json"
+            with open(outline_file, "w", encoding="utf-8") as f:
+                json.dump(outline, f, ensure_ascii=False, indent=2)
+            click.echo(f"大纲已保存到 {outline_file}")
+        finally:
+            await deconstructor.close()
+
+    asyncio.run(_run())
 
 
 if __name__ == "__main__":
