@@ -569,6 +569,25 @@ from chai.models.project_init import (
     ProjectInitializationResult,
     ProjectSummary,
 )
+from chai.models.complete_outline import (
+    CompleteOutlineMode,
+    CompleteOutlineStatus,
+    OutlineComponentStatus,
+    VolumeOutlinePlan,
+    ChapterOutlinePlan,
+    SubplotOutlinePlan,
+    ForeshadowingOutlinePlan,
+    ClimaxOutlinePlan,
+    EndingOutlinePlan,
+    CompleteOutlineComponents,
+    CompleteOutlineGenerationConfig,
+    CompleteOutlineRequest,
+    CompleteOutlineResult,
+    CompleteOutlineSummary,
+    OutlineValidationIssue,
+    OutlineValidationResult,
+    NextChapterToWrite,
+)
 
 # Rebuild models to resolve forward references after all imports
 # Pydantic v2: model_rebuild() without arguments when types are imported
@@ -1115,6 +1134,24 @@ __all__ = [
     "ProjectInitializationRequest",
     "ProjectInitializationResult",
     "ProjectSummary",
+    # Complete outline models
+    "CompleteOutlineMode",
+    "CompleteOutlineStatus",
+    "OutlineComponentStatus",
+    "VolumeOutlinePlan",
+    "ChapterOutlinePlan",
+    "SubplotOutlinePlan",
+    "ForeshadowingOutlinePlan",
+    "ClimaxOutlinePlan",
+    "EndingOutlinePlan",
+    "CompleteOutlineComponents",
+    "CompleteOutlineGenerationConfig",
+    "CompleteOutlineRequest",
+    "CompleteOutlineResult",
+    "CompleteOutlineSummary",
+    "OutlineValidationIssue",
+    "OutlineValidationResult",
+    "NextChapterToWrite",
 ]
 
 # Pydantic v1/v2 compatibility - add model_dump and model_validate if not present
