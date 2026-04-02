@@ -871,3 +871,22 @@ Agent execution note: returncode=1
 - Verification: returncode=0; stdout=/Users/swarteachou/Desktop/CHAI | ?? .agent_harness/session_prompts/20260402T164713Z.md | No automated smoke test detected - baseline inspection only.
 - Risks: None recorded.
 - Next: Pick the next unfinished feature in the next session.
+## 2026-04-03T02:00:00+00:00 | Session 20260403T020000Z
+- Session: 20260403T020000Z
+- Feature: feat-038
+- Summary: Implemented multi-volume/book export system for splitting novels into separate book files.
+- What changed:
+  - Created chai/models/volume_split.py with VolumeSplitConfig, VolumeSplitResult, VolumeBookInfo, VolumeSplitStrategy, BookBinding models
+  - Created chai/engines/volume_split_engine.py with VolumeSplitEngine for orchestration
+  - Added export_volumes_separate() method to MarkdownManuscriptEngine
+  - Added export_volumes_separate() method to EPUBManuscriptEngine
+  - Added export_volumes_separate() method to PDFManuscriptEngine
+  - Added 3 split strategies: ONE_VOLUME_PER_BOOK, MULTIPLE_VOLUMES_PER_BOOK, ALL_IN_ONE
+  - Added series info and master TOC generation
+  - Updated engines/__init__.py to export VolumeSplitEngine
+  - Updated models/__init__.py to export new volume_split models
+  - Added 13 unit tests in tests/test_volume_split_engine.py
+  - Fixed Pydantic v2 compatibility issue (update_forward_refs -> model_rebuild)
+- Verification: smoke_test.py passed, pytest 815/815 passed (66 skipped - async tests without pytest-asyncio)
+- Risks: AI integration not required for this feature; async tests skipped without pytest-asyncio
+- Next: Pick the next unfinished feature in the next session.

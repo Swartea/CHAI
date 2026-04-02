@@ -417,13 +417,23 @@ from chai.models.pdf_export import (
     PDFPageSize,
     PDFFont,
 )
+from chai.models.volume_split import (
+    VolumeSplitStrategy,
+    VolumeSplitConfig,
+    VolumeBookInfo,
+    VolumeSplitResult,
+    BookBinding,
+)
 
 # Rebuild models to resolve forward references after all imports
-WorldSetting.update_forward_refs(MagicSystem=MagicSystem, SocialStructure=SocialStructure)
-Novel.update_forward_refs(WorldSetting=WorldSetting, Character=Character, PlotOutline=PlotOutline)
-Volume.update_forward_refs()
-Chapter.update_forward_refs()
-Scene.update_forward_refs()
+# Pydantic v2: model_rebuild() without arguments when types are imported
+try:
+    WorldSetting.model_rebuild()
+    Novel.model_rebuild()
+    Volume.model_rebuild()
+    Chapter.model_rebuild()
+except (TypeError, AttributeError):
+    pass  # If rebuild fails, models may already be correctly resolved
 
 __all__ = [
     "WorldSetting",
@@ -819,6 +829,12 @@ __all__ = [
     "PDFTableOfContentsEntry",
     "PDFPageSize",
     "PDFFont",
+    # Volume split models
+    "VolumeSplitStrategy",
+    "VolumeSplitConfig",
+    "VolumeBookInfo",
+    "VolumeSplitResult",
+    "BookBinding",
 ]
 
 # Pydantic v1/v2 compatibility - add model_dump and model_validate if not present

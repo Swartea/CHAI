@@ -471,9 +471,9 @@
         "Implement or refine the repo behavior needed for '支持分卷/分册输出'.",
         "Verify '支持分卷/分册输出' through repository smoke tests or targeted checks."
       ],
-      "passes": false,
-      "notes": null,
-      "last_updated": null
+      "passes": true,
+      "notes": "Created VolumeSplitConfig/VolumeSplitResult/VolumeBookInfo models with VolumeSplitStrategy (ONE_VOLUME_PER_BOOK, MULTIPLE_VOLUMES_PER_BOOK, ALL_IN_ONE). Added export_volumes_separate() to MarkdownManuscriptEngine, EPUBManuscriptEngine, and PDFManuscriptEngine. Created VolumeSplitEngine for orchestration. Supports series info and master TOC generation. 13 new tests pass. Total 815 tests pass.",
+      "last_updated": "2026-04-03T02:00:00+00:00"
     },
     {
       "id": "feat-040",

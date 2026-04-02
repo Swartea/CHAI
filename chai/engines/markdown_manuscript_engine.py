@@ -470,6 +470,181 @@ class MarkdownManuscriptEngine:
 
         return paths
 
+    def export_volumes_separate(
+        self,
+        novel: Novel,
+        output_dir: str | Path,
+        filename_pattern: str = "{series_title}_第{book_number}册_{book_title}.md"
+    ) -> list[Path]:
+        """Export each volume as a separate Markdown book file.
+
+        Args:
+            novel: The novel to export.
+            output_dir: Directory to write book files.
+            filename_pattern: Pattern for filenames with {series_title}, {book_number}, {book_title} placeholders.
+
+        Returns:
+            List of created file paths.
+        """
+        from chai.models.volume_split import VolumeSplitConfig, VolumeBookInfo
+
+        output_dir = Path(output_dir)
+        output_dir.mkdir(parents=True, exist_ok=True)
+
+        paths = []
+        book_info_list = []
+
+        for book_num, volume in enumerate(novel.volumes, start=1):
+            # Generate volume content with its own front/back matter
+            content = self._generate_single_volume_book(novel, volume, book_num)
+
+            # Format filename
+            book_title = volume.title.replace(" ", "_").replace("/", "-")
+            series_title = novel.title.replace(" ", "_").replace("/", "-")
+            filename = filename_pattern.format(
+                series_title=series_title,
+                book_number=book_num,
+                book_title=book_title
+            )
+            path = output_dir / filename
+            path.write_text(content, encoding="utf-8")
+            paths.append(path)
+
+            # Track book info
+            book_info = VolumeBookInfo(
+                book_number=book_num,
+                book_title=volume.title,
+                volume_ids=[volume.id],
+                chapter_count=len(volume.chapters),
+                word_count=sum(c.word_count for c in volume.chapters),
+                file_path=str(path)
+            )
+            book_info_list.append(book_info)
+
+        return paths
+
+    def _generate_single_volume_book(
+        self,
+        novel: Novel,
+        volume: Volume,
+        book_number: int
+    ) -> str:
+        """Generate a single volume book with its own front/back matter.
+
+        Args:
+            novel: The original novel.
+            volume: The volume to export.
+            book_number: Book number in series (1-indexed).
+
+        Returns:
+            Complete book content as a string.
+        """
+        parts = []
+
+        # Book-level front matter (if not simple template)
+        if self.config.template != ManuscriptTemplate.SIMPLE:
+            parts.append(self._render_book_front_matter(novel, volume, book_number))
+
+        # Volume title page
+        if self.config.template != ManuscriptTemplate.SIMPLE:
+            parts.append(f"# {volume.title}")
+            if volume.description:
+                parts.append(f"*{volume.description}*")
+            parts.append("")
+
+        # Table of contents for this volume
+        if self.config.include_table_of_contents and self.config.template != ManuscriptTemplate.SIMPLE:
+            parts.append(self._render_book_toc(volume, book_number))
+
+        # Chapter content
+        for chapter in volume.chapters:
+            ch_content = self._generate_chapter(chapter, volume.number)
+            parts.append(ch_content)
+            if volume.chapters.index(chapter) < len(volume.chapters) - 1:
+                parts.append("")
+
+        # Book-level back matter
+        if self.config.template == ManuscriptTemplate.DETAILED:
+            parts.append(self._render_book_back_matter(novel, volume))
+
+        return "\n\n".join(parts)
+
+    def _render_book_front_matter(
+        self,
+        novel: Novel,
+        volume: Volume,
+        book_number: int
+    ) -> str:
+        """Render front matter for a single volume book."""
+        total_words = sum(c.word_count for c in volume.chapters)
+        total_chapters = len(volume.chapters)
+
+        lines = [
+            "---",
+            "",
+            f"# {novel.title}",
+            f"## 第{book_number}册：{volume.title}",
+            "",
+            f"**作者**: {getattr(novel, 'author', 'CHAI')}",
+            f"**类型**: {novel.genre}",
+            f"**本册字数**: {total_words:,} 字",
+            f"**本册章节**: {total_chapters} 章",
+            f"**创作日期**: {datetime.now().strftime('%Y-%m-%d')}",
+            "",
+            "---",
+            "",
+        ]
+
+        return "\n".join(lines)
+
+    def _render_book_toc(self, volume: Volume, book_number: int) -> str:
+        """Render table of contents for a single volume book."""
+        lines = [
+            "# 目录",
+            "",
+        ]
+
+        for chapter in volume.chapters:
+            if chapter.is_prologue:
+                title = f"序章：{chapter.title.replace('序章：', '')}"
+            elif chapter.is_epilogue:
+                title = f"尾声：{chapter.title.replace('尾声：', '')}"
+            else:
+                title = f"第{chapter.number}章 {chapter.title.replace(f'第{chapter.number}章 ', '')}"
+            lines.append(f"- {title}")
+
+        lines.append("")
+        lines.append("---")
+        lines.append("")
+
+        return "\n".join(lines)
+
+    def _render_book_back_matter(
+        self,
+        novel: Novel,
+        volume: Volume
+    ) -> str:
+        """Render back matter for a single volume book."""
+        lines = [
+            "---",
+            "",
+            "# 附录",
+            "",
+        ]
+
+        total_words = sum(c.word_count for c in volume.chapters)
+        lines.append(f"**本册总字数**: {total_words:,} 字")
+        lines.append("")
+
+        lines.append("## 本册章节字数统计")
+        lines.append("")
+        lines.append("| 章节 | 字数 |")
+        lines.append("|------|------:|")
+        for chapter in volume.chapters:
+            lines.append(f"| {chapter.title} | {chapter.word_count:,} |")
+
+        return "\n".join(lines)
+
     def get_manuscript_summary(self, novel: Novel) -> dict:
         """Get a summary of the manuscript that would be generated.
 

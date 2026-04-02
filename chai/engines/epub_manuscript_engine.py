@@ -601,6 +601,428 @@ class EPUBManuscriptEngine:
 
         return paths
 
+    def export_volumes_separate(
+        self,
+        novel: Novel,
+        output_dir: str | Path,
+        filename_pattern: str = "{series_title}_第{book_number}册_{book_title}.epub"
+    ) -> list[Path]:
+        """Export each volume as a separate EPUB book file.
+
+        Args:
+            novel: The novel to export.
+            output_dir: Directory to write EPUB files.
+            filename_pattern: Pattern for filenames with {series_title}, {book_number}, {book_title} placeholders.
+
+        Returns:
+            List of created EPUB file paths.
+        """
+        output_dir = Path(output_dir)
+        output_dir.mkdir(parents=True, exist_ok=True)
+
+        paths = []
+
+        for book_num, volume in enumerate(novel.volumes, start=1):
+            # Format filename
+            book_title = volume.title.replace(" ", "_").replace("/", "-")
+            series_title = novel.title.replace(" ", "_").replace("/", "-")
+            filename = filename_pattern.format(
+                series_title=series_title,
+                book_number=book_num,
+                book_title=book_title
+            )
+            path = output_dir / filename
+
+            # Export single volume as EPUB
+            self._export_single_volume_epub(novel, volume, book_num, path)
+            paths.append(path)
+
+        return paths
+
+    def _export_single_volume_epub(
+        self,
+        novel: Novel,
+        volume: Volume,
+        book_number: int,
+        output_path: Path
+    ) -> None:
+        """Export a single volume as a complete EPUB file.
+
+        Args:
+            novel: The original novel.
+            volume: The volume to export.
+            book_number: Book number in series (1-indexed).
+            output_path: Path for the output EPUB file.
+        """
+        import zipfile
+        import uuid
+
+        path = Path(output_path)
+        total_words = sum(c.word_count for c in volume.chapters)
+
+        with zipfile.ZipFile(path, 'w', zipfile.ZIP_DEFLATED) as epub:
+            self._write_mimetype(epub)
+            self._write_container(epub)
+
+            # Create book-specific metadata
+            metadata = EPUBMetadata(
+                title=novel.title,
+                subtitle=f"第{book_number}册：{volume.title}",
+                author=getattr(novel, 'author', 'CHAI'),
+                language="zh-CN",
+                publisher="CHAI - AI Novel Writer",
+                publish_date=datetime.now().strftime("%Y-%m-%d"),
+                genre=novel.genre,
+                description=f"{novel.title} 第{book_number}册：{volume.title}",
+                rights="© CHAI",
+                total_words=total_words,
+                total_chapters=len(volume.chapters),
+                total_volumes=1,
+                creation_date=datetime.now().strftime("%Y-%m-%d"),
+            )
+
+            # Create volume-specific result
+            result = EPUBExportResult(config=self.config)
+            result.metadata = metadata
+            result.word_count = total_words
+
+            # Create volume chapter refs
+            chapters = []
+            for chapter in volume.chapters:
+                chapters.append(EPUBChapterRef(
+                    chapter_id=f"ch_{chapter.number:03d}",
+                    chapter_number=chapter.number,
+                    chapter_title=chapter.title,
+                    is_prologue=chapter.is_prologue,
+                    is_epilogue=chapter.is_epilogue,
+                    file_path=f"chapter_{chapter.number:03d}.xhtml",
+                ))
+
+            result.volumes = [EPUBVolumeRef(
+                volume_id=f"vol_{volume.number:03d}",
+                volume_number=volume.number,
+                volume_title=volume.title,
+                description=volume.description or "",
+                chapters=chapters,
+            )]
+
+            # Write content.opf
+            self._write_volume_content_opf(epub, novel, volume, metadata, result, book_number)
+
+            # Write navigation document
+            if self.config.include_table_of_contents:
+                self._write_volume_navigation(epub, volume, result, book_number)
+
+            # Write NCX
+            self._write_volume_ncx(epub, volume, metadata, result, book_number)
+
+            # Write CSS
+            self._write_css(epub)
+
+            # Write front matter
+            if self.config.template != EPUBTemplate.SIMPLE:
+                self._write_volume_front_matter(epub, novel, volume, metadata, book_number)
+
+            # Write chapters
+            for chapter in volume.chapters:
+                chapter_xhtml = self._render_chapter_for_volume(chapter, volume, result)
+                epub.writestr(f"OEBPS/chapter_{chapter.number:03d}.xhtml", chapter_xhtml)
+
+            # Write back matter
+            if self.config.template == EPUBTemplate.DETAILED:
+                self._write_volume_back_matter(epub, volume, metadata)
+
+    def _write_volume_content_opf(
+        self,
+        epub: zipfile.ZipFile,
+        novel: Novel,
+        volume: Volume,
+        metadata: EPUBMetadata,
+        result: EPUBExportResult,
+        book_number: int
+    ) -> None:
+        """Write content.opf for a single volume EPUB."""
+        uuid_str = f"urn:uuid:{novel.id}-vol{volume.number}-{datetime.now().strftime('%Y%m%d%H%M%S')}"
+
+        # Build manifest
+        manifest_items = [
+            EPUBManifestItem(id="ncx", href="toc.ncx", media_type="application/x-dtbncx+xml"),
+            EPUBManifestItem(id="nav", href="nav.xhtml", media_type="application/xhtml+xml"),
+            EPUBManifestItem(id="css", href="styles.css", media_type="text/css"),
+        ]
+
+        if self.config.template != EPUBTemplate.SIMPLE:
+            manifest_items.append(EPUBManifestItem(id="front", href="front.xhtml", media_type="application/xhtml+xml"))
+
+        for chapter in volume.chapters:
+            manifest_items.append(EPUBManifestItem(
+                id=f"ch_{chapter.number:03d}",
+                href=f"chapter_{chapter.number:03d}.xhtml",
+                media_type="application/xhtml+xml",
+            ))
+
+        # Build spine
+        spine_items = [EPUBSpineItem(idref="nav", linear=False)]
+
+        if self.config.template != EPUBTemplate.SIMPLE:
+            spine_items.insert(0, EPUBSpineItem(idref="front", linear=True))
+
+        for chapter in volume.chapters:
+            spine_items.append(EPUBSpineItem(idref=f"ch_{chapter.number:03d}", linear=True))
+
+        # Render manifest
+        manifest_xml = []
+        for item in manifest_items:
+            manifest_xml.append(f'        <item id="{item.id}" href="{item.href}" media-type="{item.media_type}"/>')
+
+        # Render spine
+        spine_xml = []
+        for item in spine_items:
+            linear = "yes" if item.linear else "no"
+            spine_xml.append(f'        <itemref idref="{item.idref}" linear="{linear}"/>')
+
+        metadata_xml = f"""    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <dc:title>{html.escape(metadata.title)}</dc:title>
+        <dc:language>{metadata.language}</dc:language>
+        <dc:identifier id="BookId">{uuid_str}</dc:identifier>
+        <dc:creator>CHAI - AI Novel Writer</dc:creator>
+        <dc:publisher>{html.escape(metadata.publisher)}</dc:publisher>
+        <dc:subject>{html.escape(metadata.genre)}</dc:subject>
+        <dc:date>{metadata.publish_date}</dc:date>
+        <dc:rights>{html.escape(metadata.rights)}</dc:rights>
+    </metadata>"""
+
+        content_opf = f"""<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="BookId" version="2.0">
+{metadata_xml}
+    <manifest>
+{"\n".join(manifest_xml)}
+    </manifest>
+    <spine toc="ncx">
+{"\n".join(spine_xml)}
+    </spine>
+</package>"""
+
+        epub.writestr("OEBPS/content.opf", content_opf)
+
+    def _write_volume_navigation(
+        self,
+        epub: zipfile.ZipFile,
+        volume: Volume,
+        result: EPUBExportResult,
+        book_number: int
+    ) -> None:
+        """Write EPUB 3.0 navigation document for a single volume."""
+        nav_points = []
+
+        if self.config.template != EPUBTemplate.SIMPLE:
+            nav_points.append("""        <li><a href="front.xhtml">扉页</a></li>""")
+
+        for chapter in volume.chapters:
+            nav_points.append(f"""        <li><a href="chapter_{chapter.number:03d}.xhtml">{html.escape(chapter.title)}</a></li>""")
+
+        nav_content = f"""<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<head>
+    <title>目录</title>
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
+</head>
+<body>
+    <nav epub:type="toc" id="toc">
+        <h1>目录</h1>
+        <ol>
+{'\n'.join(nav_points)}
+        </ol>
+    </nav>
+</body>
+</html>"""
+
+        epub.writestr("OEBPS/nav.xhtml", nav_content)
+
+    def _write_volume_ncx(
+        self,
+        epub: zipfile.ZipFile,
+        volume: Volume,
+        metadata: EPUBMetadata,
+        result: EPUBExportResult,
+        book_number: int
+    ) -> None:
+        """Write NCX file for a single volume EPUB."""
+        nav_points = []
+        play_order = 1
+
+        if self.config.template != EPUBTemplate.SIMPLE:
+            nav_points.append(f"""        <navPoint id="navpoint-front" playOrder="{play_order}">
+            <navLabel><text>扉页</text></navLabel>
+            <content src="front.xhtml"/>
+        </navPoint>""")
+            play_order += 1
+
+        for chapter in volume.chapters:
+            title = chapter.title
+            if chapter.is_prologue:
+                title = f"序章：{title.replace('序章：', '')}"
+            elif chapter.is_epilogue:
+                title = f"尾声：{title.replace('尾声：', '')}"
+
+            nav_points.append(f"""        <navPoint id="navpoint-{chapter.number}" playOrder="{play_order}">
+            <navLabel><text>{html.escape(title)}</text></navLabel>
+            <content src="chapter_{chapter.number:03d}.xhtml"/>
+        </navPoint>""")
+            play_order += 1
+
+        nav_points_str = "\n".join(nav_points)
+
+        toc_ncx = f"""<?xml version="1.0" encoding="UTF-8"?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
+    <head>
+        <meta name="dtb:uid" content="urn:uuid:{metadata.title}"/>
+        <meta name="dtb:depth" content="2"/>
+        <meta name="dtb:totalPageCount" content="0"/>
+        <meta name="dtb:maxPageNumber" content="0"/>
+    </head>
+    <docTitle><text>{html.escape(metadata.title)} - {html.escape(metadata.subtitle)}</text></docTitle>
+    <navMap>
+{nav_points_str}
+    </navMap>
+</ncx>"""
+
+        epub.writestr("OEBPS/toc.ncx", toc_ncx)
+
+    def _write_volume_front_matter(
+        self,
+        epub: zipfile.ZipFile,
+        novel: Novel,
+        volume: Volume,
+        metadata: EPUBMetadata,
+        book_number: int
+    ) -> None:
+        """Write front matter for a single volume EPUB."""
+        content = f"""<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>{html.escape(metadata.title)}</title>
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
+</head>
+<body>
+    <div class="front-matter">
+        <h1>{html.escape(novel.title)}</h1>
+        <h2>{html.escape(metadata.subtitle)}</h2>
+        <p class="author">{html.escape(metadata.author)}</p>
+        <div class="meta">
+            <p>类型：{html.escape(metadata.genre)}</p>
+            <p>本册字数：{metadata.total_words:,} 字</p>
+            <p>本册章节：{metadata.total_chapters} 章</p>
+            <p>创作日期：{metadata.creation_date}</p>
+        </div>
+    </div>
+</body>
+</html>"""
+
+        epub.writestr("OEBPS/front.xhtml", content)
+
+    def _render_chapter_for_volume(
+        self,
+        chapter: Chapter,
+        volume: Volume,
+        result: EPUBExportResult
+    ) -> str:
+        """Render a single chapter as XHTML for volume-specific EPUB."""
+        # Build chapter title
+        if chapter.is_prologue:
+            title_display = f"序章：{chapter.title.replace('序章：', '')}"
+            title_class = "chapter-title prologue"
+        elif chapter.is_epilogue:
+            title_display = f"尾声：{chapter.title.replace('尾声：', '')}"
+            title_class = "chapter-title epilogue"
+        else:
+            title_display = chapter.title.replace(f"第{chapter.number}章 ", "")
+            title_class = "chapter-title"
+
+        title_section = f'<h1 class="{title_class}">{html.escape(title_display)}</h1>'
+
+        summary_section = ""
+        if self.config.include_chapter_summaries and chapter.summary and self.config.template != EPUBTemplate.SIMPLE:
+            summary_section = f'<p class="chapter-summary">{html.escape(chapter.summary)}</p>'
+
+        meta_section = ""
+        if self.config.include_word_counts and self.config.template != EPUBTemplate.SIMPLE:
+            meta_section = f'<p class="chapter-meta">{chapter.word_count:,} 字</p>'
+
+        if self.config.include_scene_content and chapter.scenes:
+            content_html = self._render_scene_content(chapter)
+        else:
+            content_html = self._render_paragraph_content(chapter.content)
+
+        chapter_xhtml = f"""<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>{html.escape(chapter.title)}</title>
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
+</head>
+<body>
+    {title_section}
+    {summary_section}
+    {meta_section}
+    <div class="chapter-content">
+        {content_html}
+    </div>
+</body>
+</html>"""
+
+        return chapter_xhtml
+
+    def _write_volume_back_matter(
+        self,
+        epub: zipfile.ZipFile,
+        volume: Volume,
+        metadata: EPUBMetadata
+    ) -> None:
+        """Write back matter for a single volume EPUB."""
+        table_rows = []
+        for chapter in volume.chapters:
+            table_rows.append(
+                f"""            <tr>
+                <td>第{chapter.number}章</td>
+                <td>{html.escape(chapter.title)}</td>
+                <td style="text-align: right;">{chapter.word_count:,}</td>
+            </tr>"""
+            )
+
+        table_content = "\n".join(table_rows)
+
+        back_content = f"""<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>附录</title>
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
+</head>
+<body>
+    <div class="back-matter">
+        <h2>章节字数统计</h2>
+        <p>本册总字数：{metadata.total_words:,} 字</p>
+        <table class="word-count-table">
+            <thead>
+                <tr>
+                    <th>章节</th>
+                    <th>标题</th>
+                    <th style="text-align: right;">字数</th>
+                </tr>
+            </thead>
+            <tbody>
+{table_content}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>"""
+
+        epub.writestr("OEBPS/back.xhtml", back_content)
+
     def get_manuscript_summary(self, novel: Novel) -> dict:
         """Get a summary of the EPUB that would be generated.
 

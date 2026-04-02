@@ -36,6 +36,7 @@ from chai.engines.punctuation_check_engine import PunctuationCheckEngine
 from chai.engines.markdown_manuscript_engine import MarkdownManuscriptEngine
 from chai.engines.epub_manuscript_engine import EPUBManuscriptEngine
 from chai.engines.pdf_manuscript_engine import PDFManuscriptEngine
+from chai.engines.volume_split_engine import VolumeSplitEngine
 
 __all__ = [
     "StoryPlanner",
@@ -78,4 +79,5 @@ __all__ = [
     "MarkdownManuscriptEngine",
     "EPUBManuscriptEngine",
     "PDFManuscriptEngine",
+    "VolumeSplitEngine",
 ]

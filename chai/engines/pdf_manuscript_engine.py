@@ -470,3 +470,163 @@ class PDFManuscriptEngine:
         ]
 
         return "\n".join(summary_parts)
+
+    def export_volumes_separate(
+        self,
+        novel: Novel,
+        output_dir: str | Path,
+        filename_pattern: str = "{series_title}_第{book_number}册_{book_title}.pdf"
+    ) -> list[Path]:
+        """Export each volume as a separate PDF book file.
+
+        Args:
+            novel: The novel to export.
+            output_dir: Directory to write PDF files.
+            filename_pattern: Pattern for filenames with {series_title}, {book_number}, {book_title} placeholders.
+
+        Returns:
+            List of created PDF file paths.
+        """
+        output_dir = Path(output_dir)
+        output_dir.mkdir(parents=True, exist_ok=True)
+
+        paths = []
+
+        for book_num, volume in enumerate(novel.volumes, start=1):
+            # Format filename
+            book_title = volume.title.replace(" ", "_").replace("/", "-")
+            series_title = novel.title.replace(" ", "_").replace("/", "-")
+            filename = filename_pattern.format(
+                series_title=series_title,
+                book_number=book_num,
+                book_title=book_title
+            )
+            path = output_dir / filename
+
+            # Export single volume as PDF
+            self._export_single_volume_pdf(novel, volume, book_num, path)
+            paths.append(path)
+
+        return paths
+
+    def _export_single_volume_pdf(
+        self,
+        novel: Novel,
+        volume: Volume,
+        book_number: int,
+        output_path: Path
+    ) -> Path:
+        """Export a single volume as a complete PDF file.
+
+        Args:
+            novel: The original novel.
+            volume: The volume to export.
+            book_number: Book number in series (1-indexed).
+            output_path: Path for the output PDF file.
+
+        Returns:
+            Path to the created PDF file.
+        """
+        try:
+            from reportlab.lib.pagesizes import A4, A5, B5, letter, legal
+            from reportlab.lib.styles import ParagraphStyle
+            from reportlab.lib.units import cm
+            from reportlab.platypus import (
+                SimpleDocTemplate, Paragraph, Spacer, PageBreak,
+                TableOfContents, KeepTogether
+            )
+            from reportlab.pdfgen import canvas
+        except ImportError:
+            raise ImportError(
+                "reportlab is required for PDF export. "
+                "Install it with: pip install reportlab"
+            )
+
+        path = Path(output_path)
+
+        # Map page size enum to reportlab pagesizes
+        page_size_map = {
+            PDFPageSize.A4: A4,
+            PDFPageSize.A5: A5,
+            PDFPageSize.B5: B5,
+            PDFPageSize.LETTER: letter,
+            PDFPageSize.LEGAL: legal,
+        }
+        page_size = page_size_map.get(self.config.page_size, A5)
+
+        # Create the document
+        doc = SimpleDocTemplate(
+            str(path),
+            pagesize=page_size,
+            leftMargin=self.config.left_margin * cm,
+            rightMargin=self.config.right_margin * cm,
+            topMargin=self.config.top_margin * cm,
+            bottomMargin=self.config.bottom_margin * cm,
+        )
+
+        # Build the story
+        story = []
+
+        # Add book front matter
+        if self.config.template != PDFTemplate.SIMPLE:
+            story.extend(self._build_volume_front_matter(novel, volume, book_number))
+
+        # Add table of contents for this volume
+        if self.config.include_table_of_contents and self.config.template != PDFTemplate.SIMPLE:
+            story.extend(self._build_volume_toc(volume))
+
+        # Add chapter content
+        for chapter in volume.chapters:
+            story.extend(self._build_chapter(chapter))
+
+        # Build the PDF
+        doc.build(story)
+        return path
+
+    def _build_volume_front_matter(
+        self,
+        novel: Novel,
+        volume: Volume,
+        book_number: int
+    ) -> list:
+        """Build front matter for a single volume PDF."""
+        from reportlab.platypus import Paragraph, Spacer
+
+        story = []
+        total_words = sum(c.word_count for c in volume.chapters)
+
+        # Book title page
+        story.append(Paragraph(novel.title, self._get_title_style()))
+        story.append(Spacer(1, 15))
+        story.append(Paragraph(f"第{book_number}册：{volume.title}", self._get_subtitle_style()))
+        story.append(Spacer(1, 30))
+
+        # Metadata
+        story.append(Paragraph(f"作者：{getattr(novel, 'author', 'CHAI')}", self._get_meta_style()))
+        story.append(Paragraph(f"类型：{novel.genre}", self._get_meta_style()))
+        story.append(Paragraph(f"本册字数：{total_words:,} 字", self._get_meta_style()))
+        story.append(Paragraph(f"本册章节：{len(volume.chapters)} 章", self._get_meta_style()))
+        story.append(Paragraph(f"日期：{datetime.now().strftime('%Y-%m-%d')}", self._get_meta_style()))
+        story.append(Spacer(1, 30))
+
+        if self.config.include_table_of_contents:
+            story.append(Paragraph("—— 目录 ——", self._get_toc_header_style()))
+            story.append(Spacer(1, 20))
+
+        return story
+
+    def _build_volume_toc(self, volume: Volume) -> list:
+        """Build table of contents for a single volume PDF."""
+        from reportlab.platypus import Paragraph, Spacer
+
+        story = []
+
+        for chapter in volume.chapters:
+            indent = "　　"
+            story.append(Paragraph(f"{indent}{chapter.title}", self._get_toc_chapter_style()))
+
+        story.append(Spacer(1, 20))
+        story.append(Paragraph("—— 正文 ——", self._get_toc_header_style()))
+        story.append(Spacer(1, 15))
+
+        return story
