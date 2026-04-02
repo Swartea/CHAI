@@ -474,6 +474,18 @@ from chai.models.plot_logic import (
     PlotLogicReport,
     PlotConsistencyTemplate,
 )
+from chai.models.payoff_completeness import (
+    PayoffCompletenessType,
+    PayoffCompletenessSeverity,
+    PayoffSatisfactionLevel,
+    PayoffCompletenessIssue,
+    PlantedElementPayoff,
+    ChapterPayoffProfile,
+    PayoffCompletenessAnalysis,
+    PayoffCompletenessRevision,
+    PayoffCompletenessPlan,
+    PayoffCompletenessReport,
+)
 
 # Rebuild models to resolve forward references after all imports
 # Pydantic v2: model_rebuild() without arguments when types are imported
@@ -931,6 +943,17 @@ __all__ = [
     "PlotLogicRevision",
     "PlotLogicReport",
     "PlotConsistencyTemplate",
+    # Payoff completeness models
+    "PayoffCompletenessType",
+    "PayoffCompletenessSeverity",
+    "PayoffSatisfactionLevel",
+    "PayoffCompletenessIssue",
+    "PlantedElementPayoff",
+    "ChapterPayoffProfile",
+    "PayoffCompletenessAnalysis",
+    "PayoffCompletenessRevision",
+    "PayoffCompletenessPlan",
+    "PayoffCompletenessReport",
 ]
 
 # Pydantic v1/v2 compatibility - add model_dump and model_validate if not present

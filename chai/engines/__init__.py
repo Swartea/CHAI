@@ -41,6 +41,7 @@ from chai.engines.chapter_word_count_engine import ChapterWordCountEngine
 from chai.engines.dialogue_naturalness_engine import DialogueNaturalnessEngine
 from chai.engines.scene_vividness_engine import SceneVividnessEngine
 from chai.engines.plot_logic_engine import PlotLogicEngine
+from chai.engines.payoff_completeness_engine import PayoffCompletenessEngine
 
 __all__ = [
     "StoryPlanner",
@@ -88,4 +89,5 @@ __all__ = [
     "DialogueNaturalnessEngine",
     "SceneVividnessEngine",
     "PlotLogicEngine",
+    "PayoffCompletenessEngine",
 ]
