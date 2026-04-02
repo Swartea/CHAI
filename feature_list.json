@@ -1,0 +1,670 @@
+{
+  "version": 1,
+  "generated_at": "2026-04-02T10:05:20+00:00",
+  "project_summary": "CHAI - AI 小说自动化写作系统",
+  "features": [
+    {
+      "id": "feat-001",
+      "priority": 99,
+      "description": "CHAI - AI 小说自动化写作系统",
+      "steps": [
+        "Inspect the current code paths related to 'CHAI - AI 小说自动化写作系统'.",
+        "Implement or refine the repo behavior needed for 'CHAI - AI 小说自动化写作系统'.",
+        "Verify 'CHAI - AI 小说自动化写作系统' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-003",
+      "priority": 97,
+      "description": "CHAI 是一个基于 AI 的小说自动化写作引擎，能够自主规划、生成、校对全流程完成长篇小说创作。",
+      "steps": [
+        "Inspect the current code paths related to 'CHAI 是一个基于 AI 的小说自动化写作引擎，能够自主规划、生成、校对全流程完成长篇小说创作。'.",
+        "Implement or refine the repo behavior needed for 'CHAI 是一个基于 AI 的小说自动化写作引擎，能够自主规划、生成、校对全流程完成长篇小说创作。'.",
+        "Verify 'CHAI 是一个基于 AI 的小说自动化写作引擎，能够自主规划、生成、校对全流程完成长篇小说创作。' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-004",
+      "priority": 96,
+      "description": "核心功能模块",
+      "steps": [
+        "Inspect the current code paths related to '核心功能模块'.",
+        "Implement or refine the repo behavior needed for '核心功能模块'.",
+        "Verify '核心功能模块' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-005",
+      "priority": 95,
+      "description": "世界观与设定生成",
+      "steps": [
+        "Inspect the current code paths related to '世界观与设定生成'.",
+        "Implement or refine the repo behavior needed for '世界观与设定生成'.",
+        "Verify '世界观与设定生成' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-006",
+      "priority": 94,
+      "description": "创建完整的世界观体系（地理、政治、文化、历史）",
+      "steps": [
+        "Inspect the current code paths related to '创建完整的世界观体系（地理、政治、文化、历史）'.",
+        "Implement or refine the repo behavior needed for '创建完整的世界观体系（地理、政治、文化、历史）'.",
+        "Verify '创建完整的世界观体系（地理、政治、文化、历史）' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-007",
+      "priority": 93,
+      "description": "定义魔法/科技/异能系统规则",
+      "steps": [
+        "Inspect the current code paths related to '定义魔法/科技/异能系统规则'.",
+        "Implement or refine the repo behavior needed for '定义魔法/科技/异能系统规则'.",
+        "Verify '定义魔法/科技/异能系统规则' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-008",
+      "priority": 92,
+      "description": "设计社会结构与势力分布",
+      "steps": [
+        "Inspect the current code paths related to '设计社会结构与势力分布'.",
+        "Implement or refine the repo behavior needed for '设计社会结构与势力分布'.",
+        "Verify '设计社会结构与势力分布' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-009",
+      "priority": 91,
+      "description": "角色体系构建",
+      "steps": [
+        "Inspect the current code paths related to '角色体系构建'.",
+        "Implement or refine the repo behavior needed for '角色体系构建'.",
+        "Verify '角色体系构建' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-010",
+      "priority": 90,
+      "description": "主要角色设定（外貌、性格、背景、动机）",
+      "steps": [
+        "Inspect the current code paths related to '主要角色设定（外貌、性格、背景、动机）'.",
+        "Implement or refine the repo behavior needed for '主要角色设定（外貌、性格、背景、动机）'.",
+        "Verify '主要角色设定（外貌、性格、背景、动机）' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-011",
+      "priority": 89,
+      "description": "配角与反派设计",
+      "steps": [
+        "Inspect the current code paths related to '配角与反派设计'.",
+        "Implement or refine the repo behavior needed for '配角与反派设计'.",
+        "Verify '配角与反派设计' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-012",
+      "priority": 88,
+      "description": "角色关系网络图谱",
+      "steps": [
+        "Inspect the current code paths related to '角色关系网络图谱'.",
+        "Implement or refine the repo behavior needed for '角色关系网络图谱'.",
+        "Verify '角色关系网络图谱' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-013",
+      "priority": 87,
+      "description": "角色成长弧线规划",
+      "steps": [
+        "Inspect the current code paths related to '角色成长弧线规划'.",
+        "Implement or refine the repo behavior needed for '角色成长弧线规划'.",
+        "Verify '角色成长弧线规划' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-014",
+      "priority": 86,
+      "description": "故事大纲规划",
+      "steps": [
+        "Inspect the current code paths related to '故事大纲规划'.",
+        "Implement or refine the repo behavior needed for '故事大纲规划'.",
+        "Verify '故事大纲规划' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-015",
+      "priority": 85,
+      "description": "主线剧情结构（三幕式/英雄之旅等）",
+      "steps": [
+        "Inspect the current code paths related to '主线剧情结构（三幕式/英雄之旅等）'.",
+        "Implement or refine the repo behavior needed for '主线剧情结构（三幕式/英雄之旅等）'.",
+        "Verify '主线剧情结构（三幕式/英雄之旅等）' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-016",
+      "priority": 84,
+      "description": "各章节概要与情节点安排",
+      "steps": [
+        "Inspect the current code paths related to '各章节概要与情节点安排'.",
+        "Implement or refine the repo behavior needed for '各章节概要与情节点安排'.",
+        "Verify '各章节概要与情节点安排' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-017",
+      "priority": 83,
+      "description": "支线剧情与伏笔设计",
+      "steps": [
+        "Inspect the current code paths related to '支线剧情与伏笔设计'.",
+        "Implement or refine the repo behavior needed for '支线剧情与伏笔设计'.",
+        "Verify '支线剧情与伏笔设计' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-018",
+      "priority": 82,
+      "description": "高潮与结局规划",
+      "steps": [
+        "Inspect the current code paths related to '高潮与结局规划'.",
+        "Implement or refine the repo behavior needed for '高潮与结局规划'.",
+        "Verify '高潮与结局规划' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-019",
+      "priority": 81,
+      "description": "章节内容生成",
+      "steps": [
+        "Inspect the current code paths related to '章节内容生成'.",
+        "Implement or refine the repo behavior needed for '章节内容生成'.",
+        "Verify '章节内容生成' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-020",
+      "priority": 80,
+      "description": "按大纲逐章生成正文",
+      "steps": [
+        "Inspect the current code paths related to '按大纲逐章生成正文'.",
+        "Implement or refine the repo behavior needed for '按大纲逐章生成正文'.",
+        "Verify '按大纲逐章生成正文' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-021",
+      "priority": 79,
+      "description": "场景描写（环境、氛围、视觉细节）",
+      "steps": [
+        "Inspect the current code paths related to '场景描写（环境、氛围、视觉细节）'.",
+        "Implement or refine the repo behavior needed for '场景描写（环境、氛围、视觉细节）'.",
+        "Verify '场景描写（环境、氛围、视觉细节）' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-022",
+      "priority": 78,
+      "description": "对话撰写（符合角色性格与情境）",
+      "steps": [
+        "Inspect the current code paths related to '对话撰写（符合角色性格与情境）'.",
+        "Implement or refine the repo behavior needed for '对话撰写（符合角色性格与情境）'.",
+        "Verify '对话撰写（符合角色性格与情境）' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-023",
+      "priority": 77,
+      "description": "动作与情节推进描写",
+      "steps": [
+        "Inspect the current code paths related to '动作与情节推进描写'.",
+        "Implement or refine the repo behavior needed for '动作与情节推进描写'.",
+        "Verify '动作与情节推进描写' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-024",
+      "priority": 76,
+      "description": "风格一致性保障",
+      "steps": [
+        "Inspect the current code paths related to '风格一致性保障'.",
+        "Implement or refine the repo behavior needed for '风格一致性保障'.",
+        "Verify '风格一致性保障' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-025",
+      "priority": 75,
+      "description": "全文语调统一",
+      "steps": [
+        "Inspect the current code paths related to '全文语调统一'.",
+        "Implement or refine the repo behavior needed for '全文语调统一'.",
+        "Verify '全文语调统一' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-026",
+      "priority": 74,
+      "description": "描写密度均衡",
+      "steps": [
+        "Inspect the current code paths related to '描写密度均衡'.",
+        "Implement or refine the repo behavior needed for '描写密度均衡'.",
+        "Verify '描写密度均衡' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-027",
+      "priority": 73,
+      "description": "章节之间过渡流畅",
+      "steps": [
+        "Inspect the current code paths related to '章节之间过渡流畅'.",
+        "Implement or refine the repo behavior needed for '章节之间过渡流畅'.",
+        "Verify '章节之间过渡流畅' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-028",
+      "priority": 72,
+      "description": "伏笔与呼应检查",
+      "steps": [
+        "Inspect the current code paths related to '伏笔与呼应检查'.",
+        "Implement or refine the repo behavior needed for '伏笔与呼应检查'.",
+        "Verify '伏笔与呼应检查' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-030",
+      "priority": 70,
+      "description": "语法与错别字检查",
+      "steps": [
+        "Inspect the current code paths related to '语法与错别字检查'.",
+        "Implement or refine the repo behavior needed for '语法与错别字检查'.",
+        "Verify '语法与错别字检查' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-031",
+      "priority": 69,
+      "description": "病句与冗余句子优化",
+      "steps": [
+        "Inspect the current code paths related to '病句与冗余句子优化'.",
+        "Implement or refine the repo behavior needed for '病句与冗余句子优化'.",
+        "Verify '病句与冗余句子优化' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-032",
+      "priority": 68,
+      "description": "对话标签规范统一",
+      "steps": [
+        "Inspect the current code paths related to '对话标签规范统一'.",
+        "Implement or refine the repo behavior needed for '对话标签规范统一'.",
+        "Verify '对话标签规范统一' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-033",
+      "priority": 67,
+      "description": "标点符号规范化",
+      "steps": [
+        "Inspect the current code paths related to '标点符号规范化'.",
+        "Implement or refine the repo behavior needed for '标点符号规范化'.",
+        "Verify '标点符号规范化' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-035",
+      "priority": 65,
+      "description": "生成 Markdown 格式稿件",
+      "steps": [
+        "Inspect the current code paths related to '生成 Markdown 格式稿件'.",
+        "Implement or refine the repo behavior needed for '生成 Markdown 格式稿件'.",
+        "Verify '生成 Markdown 格式稿件' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-036",
+      "priority": 64,
+      "description": "导出为 EPUB 电子书",
+      "steps": [
+        "Inspect the current code paths related to '导出为 EPUB 电子书'.",
+        "Implement or refine the repo behavior needed for '导出为 EPUB 电子书'.",
+        "Verify '导出为 EPUB 电子书' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-037",
+      "priority": 63,
+      "description": "导出为 PDF 打印版",
+      "steps": [
+        "Inspect the current code paths related to '导出为 PDF 打印版'.",
+        "Implement or refine the repo behavior needed for '导出为 PDF 打印版'.",
+        "Verify '导出为 PDF 打印版' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-038",
+      "priority": 62,
+      "description": "支持分卷/分册输出",
+      "steps": [
+        "Inspect the current code paths related to '支持分卷/分册输出'.",
+        "Implement or refine the repo behavior needed for '支持分卷/分册输出'.",
+        "Verify '支持分卷/分册输出' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-040",
+      "priority": 60,
+      "description": "单章节字数目标：2000-4000 字",
+      "steps": [
+        "Inspect the current code paths related to '单章节字数目标：2000-4000 字'.",
+        "Implement or refine the repo behavior needed for '单章节字数目标：2000-4000 字'.",
+        "Verify '单章节字数目标：2000-4000 字' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-041",
+      "priority": 59,
+      "description": "全书结构：章节目录完整，有序章与尾声",
+      "steps": [
+        "Inspect the current code paths related to '全书结构：章节目录完整，有序章与尾声'.",
+        "Implement or refine the repo behavior needed for '全书结构：章节目录完整，有序章与尾声'.",
+        "Verify '全书结构：章节目录完整，有序章与尾声' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-042",
+      "priority": 58,
+      "description": "角色对话自然，符合人物设定",
+      "steps": [
+        "Inspect the current code paths related to '角色对话自然，符合人物设定'.",
+        "Implement or refine the repo behavior needed for '角色对话自然，符合人物设定'.",
+        "Verify '角色对话自然，符合人物设定' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-043",
+      "priority": 57,
+      "description": "场景描写生动，有画面感",
+      "steps": [
+        "Inspect the current code paths related to '场景描写生动，有画面感'.",
+        "Implement or refine the repo behavior needed for '场景描写生动，有画面感'.",
+        "Verify '场景描写生动，有画面感' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-044",
+      "priority": 56,
+      "description": "情节逻辑自洽，无明显漏洞",
+      "steps": [
+        "Inspect the current code paths related to '情节逻辑自洽，无明显漏洞'.",
+        "Implement or refine the repo behavior needed for '情节逻辑自洽，无明显漏洞'.",
+        "Verify '情节逻辑自洽，无明显漏洞' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-045",
+      "priority": 55,
+      "description": "伏笔回收完整",
+      "steps": [
+        "Inspect the current code paths related to '伏笔回收完整'.",
+        "Implement or refine the repo behavior needed for '伏笔回收完整'.",
+        "Verify '伏笔回收完整' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-047",
+      "priority": 53,
+      "description": "支持多种小说类型（玄幻、科幻、都市、悬疑、言情等）",
+      "steps": [
+        "Inspect the current code paths related to '支持多种小说类型（玄幻、科幻、都市、悬疑、言情等）'.",
+        "Implement or refine the repo behavior needed for '支持多种小说类型（玄幻、科幻、都市、悬疑、言情等）'.",
+        "Verify '支持多种小说类型（玄幻、科幻、都市、悬疑、言情等）' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-048",
+      "priority": 52,
+      "description": "支持自定义世界观模板",
+      "steps": [
+        "Inspect the current code paths related to '支持自定义世界观模板'.",
+        "Implement or refine the repo behavior needed for '支持自定义世界观模板'.",
+        "Verify '支持自定义世界观模板' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-049",
+      "priority": 51,
+      "description": "支持导入已有大纲继续写作",
+      "steps": [
+        "Inspect the current code paths related to '支持导入已有大纲继续写作'.",
+        "Implement or refine the repo behavior needed for '支持导入已有大纲继续写作'.",
+        "Verify '支持导入已有大纲继续写作' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-050",
+      "priority": 50,
+      "description": "支持增量写作（断点续写）",
+      "steps": [
+        "Inspect the current code paths related to '支持增量写作（断点续写）'.",
+        "Implement or refine the repo behavior needed for '支持增量写作（断点续写）'.",
+        "Verify '支持增量写作（断点续写）' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-052",
+      "priority": 48,
+      "description": "初始化项目类型与基本信息",
+      "steps": [
+        "Inspect the current code paths related to '初始化项目类型与基本信息'.",
+        "Implement or refine the repo behavior needed for '初始化项目类型与基本信息'.",
+        "Verify '初始化项目类型与基本信息' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-053",
+      "priority": 47,
+      "description": "生成或导入完整大纲",
+      "steps": [
+        "Inspect the current code paths related to '生成或导入完整大纲'.",
+        "Implement or refine the repo behavior needed for '生成或导入完整大纲'.",
+        "Verify '生成或导入完整大纲' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-054",
+      "priority": 46,
+      "description": "按章节顺序自动写作",
+      "steps": [
+        "Inspect the current code paths related to '按章节顺序自动写作'.",
+        "Implement or refine the repo behavior needed for '按章节顺序自动写作'.",
+        "Verify '按章节顺序自动写作' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-055",
+      "priority": 45,
+      "description": "每章完成后进行自检",
+      "steps": [
+        "Inspect the current code paths related to '每章完成后进行自检'.",
+        "Implement or refine the repo behavior needed for '每章完成后进行自检'.",
+        "Verify '每章完成后进行自检' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-056",
+      "priority": 44,
+      "description": "全部完成后进行全书润色",
+      "steps": [
+        "Inspect the current code paths related to '全部完成后进行全书润色'.",
+        "Implement or refine the repo behavior needed for '全部完成后进行全书润色'.",
+        "Verify '全部完成后进行全书润色' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    },
+    {
+      "id": "feat-057",
+      "priority": 43,
+      "description": "导出最终成品",
+      "steps": [
+        "Inspect the current code paths related to '导出最终成品'.",
+        "Implement or refine the repo behavior needed for '导出最终成品'.",
+        "Verify '导出最终成品' through repository smoke tests or targeted checks."
+      ],
+      "passes": false,
+      "notes": null,
+      "last_updated": null
+    }
+  ]
+}
