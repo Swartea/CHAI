@@ -922,3 +922,18 @@ Agent execution note: returncode=1
 - Verification: returncode=0; stdout=/Users/swarteachou/Desktop/CHAI | ?? .agent_harness/session_prompts/20260402T171006Z.md | No automated smoke test detected - baseline inspection only.
 - Risks: None recorded.
 - Next: Pick the next unfinished feature in the next session.
+## 2026-04-03T04:00:00+00:00 | Session 20260403T040000Z
+- Session: 20260403T040000Z
+- Feature: feat-041
+- Summary: Implemented complete book structure with prologue/epilogue in table of contents.
+- What changed:
+  - Added is_prologue/is_epilogue fields to TableOfContentsEntry in manuscript_export.py
+  - Added is_prologue/is_epilogue fields to PDFTableOfContentsEntry in pdf_export.py
+  - Updated MarkdownManuscriptEngine._create_toc() to set prologue/epilogue flags when creating TOC entries
+  - Updated MarkdownManuscriptEngine._render_toc() to display '序章：' and '尾声：' prefixes instead of chapter numbers for prologue/epilogue
+  - Updated PDFManuscriptEngine._create_toc() to set prologue/epilogue flags
+  - Updated PDFManuscriptEngine._build_toc() to display prologue/epilogue with correct prefixes
+  - Added 2 new unit tests: test_toc_prologue_epilogue_flags and test_toc_renders_prologue_epilogue_correctly
+- Verification: smoke_test.py passed, pytest 842/842 passed (66 skipped - async tests without pytest-asyncio)
+- Risks: AI integration not required for this feature; async tests skipped without pytest-asyncio
+- Next: Pick the next unfinished feature in the next session.

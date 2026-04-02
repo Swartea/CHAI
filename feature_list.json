@@ -497,9 +497,9 @@
         "Implement or refine the repo behavior needed for '全书结构：章节目录完整，有序章与尾声'.",
         "Verify '全书结构：章节目录完整，有序章与尾声' through repository smoke tests or targeted checks."
       ],
-      "passes": false,
-      "notes": null,
-      "last_updated": null
+      "passes": true,
+      "notes": "Added is_prologue/is_epilogue fields to TableOfContentsEntry and PDFTableOfContentsEntry models. Updated MarkdownManuscriptEngine._create_toc() and _render_toc() to properly track and display prologue/epilogue in TOC. Updated PDFManuscriptEngine._create_toc() and _build_toc() similarly. TOC now correctly shows '序章：' and '尾声：' prefixes for prologue/epilogue chapters instead of chapter numbers. Added 2 new unit tests for TOC prologue/epilogue flags and rendering.",
+      "last_updated": "2026-04-03T04:00:00+00:00"
     },
     {
       "id": "feat-042",

@@ -219,6 +219,131 @@ class TestMarkdownManuscriptEngine:
         assert "序章" in result.content
         assert "尾声" in result.content
 
+    def test_toc_prologue_epilogue_flags(self):
+        """Test that TOC entries have correct prologue/epilogue flags."""
+        prologue = Chapter(
+            id="ch_0",
+            number=0,
+            title="序章",
+            content="这是序章内容。",
+            word_count=10,
+            is_prologue=True,
+        )
+        chapter1 = Chapter(
+            id="ch_1",
+            number=1,
+            title="第一章",
+            content="这是第一章内容。",
+            word_count=10,
+        )
+        epilogue = Chapter(
+            id="ch_99",
+            number=99,
+            title="尾声",
+            content="这是尾声内容。",
+            word_count=10,
+            is_epilogue=True,
+        )
+        volume = Volume(
+            id="vol_1",
+            title="第一卷",
+            number=1,
+            chapters=[prologue, chapter1, epilogue],
+        )
+        novel = Novel(
+            id="novel_1",
+            title="测试小说",
+            genre="玄幻",
+            volumes=[volume],
+        )
+
+        config = ManuscriptExportConfig(template=ManuscriptTemplate.STANDARD)
+        engine = MarkdownManuscriptEngine(config)
+        result = engine.generate_manuscript(novel)
+
+        # Verify TOC entries have correct flags
+        assert result.toc is not None
+        entries = result.toc.entries
+
+        # Volume entry
+        vol_entry = entries[0]
+        assert vol_entry.level == 1
+        assert vol_entry.title == "第一卷"
+
+        # Prologue entry
+        prologue_entry = entries[1]
+        assert prologue_entry.level == 2
+        assert prologue_entry.is_prologue is True
+        assert prologue_entry.is_epilogue is False
+
+        # Chapter entry
+        chapter_entry = entries[2]
+        assert chapter_entry.level == 2
+        assert chapter_entry.is_prologue is False
+        assert chapter_entry.is_epilogue is False
+
+        # Epilogue entry
+        epilogue_entry = entries[3]
+        assert epilogue_entry.level == 2
+        assert epilogue_entry.is_prologue is False
+        assert epilogue_entry.is_epilogue is True
+
+    def test_toc_renders_prologue_epilogue_correctly(self):
+        """Test that TOC renders prologue/epilogue with correct prefixes."""
+        prologue = Chapter(
+            id="ch_0",
+            number=0,
+            title="序章",
+            content="这是序章内容。",
+            word_count=10,
+            is_prologue=True,
+        )
+        chapter1 = Chapter(
+            id="ch_1",
+            number=1,
+            title="第一章",
+            content="这是第一章内容。",
+            word_count=10,
+        )
+        epilogue = Chapter(
+            id="ch_99",
+            number=99,
+            title="尾声",
+            content="这是尾声内容。",
+            word_count=10,
+            is_epilogue=True,
+        )
+        volume = Volume(
+            id="vol_1",
+            title="第一卷",
+            number=1,
+            chapters=[prologue, chapter1, epilogue],
+        )
+        novel = Novel(
+            id="novel_1",
+            title="测试小说",
+            genre="玄幻",
+            volumes=[volume],
+        )
+
+        config = ManuscriptExportConfig(template=ManuscriptTemplate.STANDARD)
+        engine = MarkdownManuscriptEngine(config)
+        result = engine.generate_manuscript(novel)
+
+        # Verify rendered TOC contains prologue/epilogue with correct prefixes
+        assert result.toc is not None
+        toc_content = engine._render_toc(result.toc)
+
+        # TOC should contain "序章：" prefix for prologue
+        assert "序章：" in toc_content
+        # TOC should contain "尾声：" prefix for epilogue
+        assert "尾声：" in toc_content
+        # TOC should NOT have "第0章" or "第99章" for prologue/epilogue
+        assert "第0章" not in toc_content
+        assert "第99章" not in toc_content
+        # Regular chapters should have "第X章" prefix
+        assert "第1章" in toc_content
+
     def test_export_to_file(self):
         """Test exporting to a file."""
         chapter = Chapter(

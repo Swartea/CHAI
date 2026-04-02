@@ -190,6 +190,8 @@ class PDFTableOfContentsEntry(BaseModel):
     level: int = Field(default=1, description="TOC level (1=volume, 2=chapter)")
     volume_number: Optional[int] = None
     chapter_number: Optional[int] = None
+    is_prologue: bool = False
+    is_epilogue: bool = False
 
 
 class PDFExportResult(BaseModel):

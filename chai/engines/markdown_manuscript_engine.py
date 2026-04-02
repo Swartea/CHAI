@@ -137,6 +137,8 @@ class MarkdownManuscriptEngine:
                     chapter_number=chapter.number,
                     volume_number=volume.number,
                     anchor=ch_anchor,
+                    is_prologue=chapter.is_prologue,
+                    is_epilogue=chapter.is_epilogue,
                 ))
 
         return ManuscriptTOC(entries=entries)
@@ -371,8 +373,13 @@ class MarkdownManuscriptEngine:
             if entry.level == 1:
                 lines.append(f"{indent}**{entry.title}**")
             else:
-                ch_num = f"第{entry.chapter_number}章 " if entry.chapter_number else ""
-                lines.append(f"{indent}- {ch_num}{entry.title}")
+                if entry.is_prologue:
+                    ch_prefix = "序章："
+                elif entry.is_epilogue:
+                    ch_prefix = "尾声："
+                else:
+                    ch_prefix = f"第{entry.chapter_number}章 " if entry.chapter_number else ""
+                lines.append(f"{indent}- {ch_prefix}{entry.title}")
 
             if entry.level == 1:
                 lines.append("")

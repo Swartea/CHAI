@@ -119,6 +119,8 @@ class TableOfContentsEntry(BaseModel):
     chapter_number: Optional[int] = None
     volume_number: Optional[int] = None
     anchor: str = ""
+    is_prologue: bool = False
+    is_epilogue: bool = False
 
 
 class ManuscriptTOC(BaseModel):

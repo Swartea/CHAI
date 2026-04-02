@@ -254,6 +254,8 @@ class PDFManuscriptEngine:
                     level=2,
                     volume_number=volume_ref.volume_number,
                     chapter_number=chapter_ref.chapter_number,
+                    is_prologue=chapter_ref.is_prologue,
+                    is_epilogue=chapter_ref.is_epilogue,
                 ))
 
         return toc
@@ -289,7 +291,17 @@ class PDFManuscriptEngine:
         for entry in toc:
             indent = "　" * (entry.level - 1) * 2
             style = self._get_toc_volume_style() if entry.level == 1 else self._get_toc_chapter_style()
-            story.append(Paragraph(f"{indent}{entry.title}", style))
+            # Add prologue/epilogue prefix for chapter entries
+            if entry.level == 2:
+                if entry.is_prologue:
+                    title = f"序章：{entry.title}"
+                elif entry.is_epilogue:
+                    title = f"尾声：{entry.title}"
+                else:
+                    title = entry.title
+            else:
+                title = entry.title
+            story.append(Paragraph(f"{indent}{title}", style))
 
         story.append(Spacer(1, 30))
         story.append(Paragraph("—— 正文 ——", self._get_toc_header_style()))
