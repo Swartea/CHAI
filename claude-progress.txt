@@ -417,3 +417,19 @@ Agent execution note: returncode=1
 - Verification: returncode=0; stdout=/Users/swarteachou/Desktop/CHAI | ?? .agent_harness/session_prompts/20260402T130243Z.md | No automated smoke test detected - baseline inspection only.
 - Risks: None recorded.
 - Next: Pick the next unfinished feature in the next session.
+## 2026-04-02T13:25:00+00:00 | Session 20260402T131749Z
+- Session: 20260402T131749Z
+- Feature: feat-017
+- Summary: Implemented subplot and foreshadowing design system for CHAI novel writing.
+- What changed:
+  - Created chai/models/subplot_foreshadowing.py with comprehensive models: SubplotType (14 types), SubplotStatus, SubplotImportance, SubplotConnection, ForeshadowingTechnique (16 techniques), ForeshadowingStrength, ForeshadowingPattern (14 patterns), ForeshadowingPlanting, ForeshadowingPayoff, SubplotChapterBeat, SubplotArc, Subplot, ForeshadowingElementDetail, SubplotForeshadowingSystem, SubplotAnalysis, ForeshadowingAnalysis, SubplotForeshadowingDesign
+  - Created chai/engines/subplot_foreshadowing_engine.py with SubplotForeshadowingEngine class supporting: generate_subplot() for subplot generation, generate_foreshadowing() for foreshadowing element creation, generate_complete_design() for full design generation, add_subplot_to_design()/add_foreshadowing_to_design() for design updates, plant_foreshadowing_in_chapter()/payoff_foreshadowing_in_chapter() for lifecycle tracking, link_foreshadowing_to_subplot() for relationship management, analyze_subplot()/analyze_foreshadowing_system() for quality analysis, get_design_summary() and export_design() for output
+  - Added 8 subplot templates (romantic, rivalry, redemption, mystery, growth, betrayal, conspiracy, sacrifice)
+  - Added 16 foreshadowing techniques (direct_hint, chekhovs_gun, dramatic_irony, atmospheric_hint, symbolic, etc.)
+  - Added 14 foreshadowing patterns (early_plant_late_payoff, multi_stage_reveal, parallel_structure, etc.)
+  - Updated models/__init__.py to export all new models
+  - Updated engines/__init__.py to export SubplotForeshadowingEngine
+  - Added 22 unit tests in tests/test_subplot_foreshadowing_engine.py (22 pass, 3 async skipped)
+- Verification: smoke_test.py passed, pytest 337/337 passed (40 skipped - async tests without pytest-asyncio)
+- Risks: AI integration requires ANTHROPIC_API_KEY for AI-powered subplot/foreshadowing generation; async tests skipped without pytest-asyncio
+- Next: Pick the next unfinished feature in the next session.
