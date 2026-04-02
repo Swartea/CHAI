@@ -234,6 +234,23 @@ from chai.models.dialogue import (
     DialogueAnalysis,
     DialogueTemplate,
 )
+from chai.models.action_plot import (
+    ActionType,
+    ActionIntensity,
+    ActionPhase,
+    ActionBeat,
+    ActionSequence,
+    PlotAdvancementType,
+    PlotBeatType,
+    PlotAdvancementBeat,
+    PlotArcAdvancement,
+    PacingType,
+    ActionPlotPlan,
+    ActionPlotDraft,
+    ActionPlotRevision,
+    ActionPlotAnalysis,
+    ActionPlotTemplate,
+)
 
 # Rebuild models to resolve forward references after all imports
 Novel.model_rebuild()
@@ -465,4 +482,20 @@ __all__ = [
     "DialogueRevision",
     "DialogueAnalysis",
     "DialogueTemplate",
+    # Action and plot models
+    "ActionType",
+    "ActionIntensity",
+    "ActionPhase",
+    "ActionBeat",
+    "ActionSequence",
+    "PlotAdvancementType",
+    "PlotBeatType",
+    "PlotAdvancementBeat",
+    "PlotArcAdvancement",
+    "PacingType",
+    "ActionPlotPlan",
+    "ActionPlotDraft",
+    "ActionPlotRevision",
+    "ActionPlotAnalysis",
+    "ActionPlotTemplate",
 ]
