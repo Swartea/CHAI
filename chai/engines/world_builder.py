@@ -9,6 +9,62 @@ from chai.models import (
 from chai.services import AIService
 
 
+class PowerSystemBuilder:
+    """Builder for magic/tech/superpower systems using MagicSystemEngine."""
+
+    def __init__(self, ai_service: AIService):
+        """Initialize with AI service."""
+        from chai.engines.magic_system_engine import MagicSystemEngine
+        self._engine = MagicSystemEngine(ai_service)
+
+    async def build(
+        self,
+        genre: str,
+        theme: str,
+        system_type: str = "mixed",
+        world_context: Optional[dict] = None,
+    ) -> MagicSystem:
+        """Build a complete power system.
+
+        Args:
+            genre: Novel genre
+            theme: Central theme
+            system_type: Type of system (magic, technology, superpower, mixed)
+            world_context: Optional world context
+
+        Returns:
+            Complete MagicSystem
+        """
+        return await self._engine.build_power_system(
+            genre=genre,
+            theme=theme,
+            system_type=system_type,
+            world_context=world_context,
+        )
+
+    def analyze(self, magic_system: MagicSystem) -> dict[str, Any]:
+        """Analyze system consistency.
+
+        Args:
+            magic_system: System to analyze
+
+        Returns:
+            Analysis results
+        """
+        return self._engine.analyze_system_consistency(magic_system)
+
+    def summarize(self, magic_system: MagicSystem) -> str:
+        """Get system summary.
+
+        Args:
+            magic_system: System to summarize
+
+        Returns:
+            Formatted summary string
+        """
+        return self._engine.get_system_summary(magic_system)
+
+
 class WorldSystem:
     """Represents a complete world system with interconnected components.
 
@@ -223,14 +279,19 @@ class WorldBuilder:
 
         magic_system = None
         if self._uses_magic_system(genre):
-            magic_system = await self.ai_service.generate_magic_system(
+            # Use PowerSystemBuilder for comprehensive magic system generation
+            power_builder = PowerSystemBuilder(self.ai_service)
+            world_context = {
+                "geography": geography,
+                "politics": politics,
+                "culture": culture,
+            }
+            system_type = self._infer_power_system_type(genre)
+            magic_system = await power_builder.build(
                 genre=genre,
                 theme=theme,
-                world_context={
-                    "geography": geography,
-                    "politics": politics,
-                    "culture": culture,
-                },
+                system_type=system_type,
+                world_context=world_context,
             )
 
         social_structure = await self.ai_service.generate_social_structure(
@@ -310,26 +371,33 @@ class WorldBuilder:
 
         elif expansion_type == "magic":
             if world_setting.magic_system is None:
-                world_setting.magic_system = await self.ai_service.generate_magic_system(
+                # Build new magic system using PowerSystemBuilder
+                power_builder = PowerSystemBuilder(self.ai_service)
+                world_context = {
+                    "geography": world_setting.geography,
+                    "politics": world_setting.politics,
+                    "culture": world_setting.culture,
+                }
+                world_setting.magic_system = await power_builder.build(
                     genre=world_setting.genre,
                     theme="",
-                    world_context={
-                        "geography": world_setting.geography,
-                        "politics": world_setting.politics,
-                        "culture": world_setting.culture,
-                    },
+                    system_type=self._infer_power_system_type(world_setting.genre),
+                    world_context=world_context,
                 )
             else:
-                # Expand existing magic system
-                expanded = await self.ai_service.expand_magic_system(
-                    existing_magic=world_setting.magic_system.model_dump(),
-                    world_context={
-                        "geography": world_setting.geography,
-                        "politics": world_setting.politics,
-                        "culture": world_setting.culture,
-                    },
+                # Expand existing magic system using MagicSystemEngine
+                from chai.engines.magic_system_engine import MagicSystemEngine
+                engine = MagicSystemEngine(self.ai_service)
+                world_context = {
+                    "geography": world_setting.geography,
+                    "politics": world_setting.politics,
+                    "culture": world_setting.culture,
+                }
+                world_setting.magic_system = await engine.expand_magic_system(
+                    magic_system=world_setting.magic_system,
+                    expansion_type="schools",
+                    world_context=world_context,
                 )
-                world_setting.magic_system = MagicSystem(**expanded)
 
         elif expansion_type == "social":
             new_social = await self.ai_service.generate_social_structure(
@@ -352,6 +420,49 @@ class WorldBuilder:
             "fantasy", "sci-fi", "xianxia", "urban fantasy",
         }
         return genre.lower() in {g.lower() for g in magic_genres}
+
+    def _infer_power_system_type(self, genre: str) -> str:
+        """Infer the type of power system based on genre.
+
+        Args:
+            genre: Novel genre
+
+        Returns:
+            Power system type (magic, technology, superpower, mixed)
+        """
+        genre_lower = genre.lower()
+        if genre_lower in {"科幻", "sci-fi"}:
+            return "technology"
+        elif genre_lower in {"都市异能", "urban fantasy", "都市", "modern"}:
+            return "superpower"
+        elif genre_lower in {"玄幻", "奇幻", "仙侠", "fantasy", "xianxia"}:
+            return "magic"
+        else:
+            return "mixed"
+
+    async def build_power_system(
+        self,
+        genre: str,
+        theme: str,
+        system_type: Optional[str] = None,
+    ) -> MagicSystem:
+        """Build a standalone power system.
+
+        Args:
+            genre: Novel genre
+            theme: Central theme
+            system_type: Optional specific system type
+
+        Returns:
+            Complete MagicSystem
+        """
+        power_builder = PowerSystemBuilder(self.ai_service)
+        inferred_type = system_type or self._infer_power_system_type(genre)
+        return await power_builder.build(
+            genre=genre,
+            theme=theme,
+            system_type=inferred_type,
+        )
 
     async def build_core_world(
         self,

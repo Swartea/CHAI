@@ -417,6 +417,8 @@ voice, narrative style, and plot coherence."""
 {{
   "name": "系统名称",
   "system_type": "系统类型（magic=魔法/technology=科技/superpower=异能/mixed=混合）",
+  "source_of_power": "力量来源描述",
+  "power_origin_story": "系统起源与历史背景",
   "rules": [
     "规则1：系统运作的基本原理",
     "规则2：魔法的使用条件",
@@ -441,11 +443,57 @@ voice, narrative style, and plot coherence."""
       "description": "描述",
       "typical_users": ["典型使用者"],
       "strengths": ["优势"],
-      "weaknesses": ["劣势"]
+      "weaknesses": ["劣势"],
+      "core_techniques": ["核心技能"]
     }}
   ],
-  "source_of_power": "力量来源描述",
-  "world_influence": "对社会/世界的影响"
+  "training_methods": [
+    {{
+      "name": "修炼方法名称",
+      "description": "方法描述",
+      "requirements": ["前提条件"],
+      "duration": "所需时间",
+      "effects": ["效果"]
+    }}
+  ],
+  "typical_training_duration": "从入门到精通的典型时间跨度",
+  "artifacts": [
+    {{
+      "name": "神器名称",
+      "description": "描述与来历",
+      "power_level": "威力等级",
+      "requirements": "使用条件"
+    }}
+  ],
+  "consumables": ["消耗品名称"],
+  "organizations": [
+    {{
+      "name": "组织名称",
+      "type": "类型",
+      "leader": "领导者",
+      "goals": ["主要目标"]
+    }}
+  ],
+  "power_interactions": ["不同力量相遇时的相互作用"],
+  "weaknesses": ["已知弱点"],
+  "world_influence": "对社会/世界的影响",
+  "social_acceptance": "社会接受度",
+  "history": [
+    {{
+      "era": "时代",
+      "event": "事件",
+      "impact": "影响"
+    }}
+  ],
+  "forbidden_techniques": [
+    {{
+      "name": "禁术名称",
+      "description": "为何被禁止",
+      "original_purpose": "原本目的",
+      "consequences": "使用后果"
+    }}
+  ],
+  "associated_phenomena": ["使用时会伴随出现的现象"]
 }}"""
         result = await self.generate(prompt)
         data = self._parse_json(result)
@@ -455,6 +503,21 @@ voice, narrative style, and plot coherence."""
             rules=data.get("rules", []),
             limitations=data.get("limitations", []),
             levels=data.get("levels", []),
+            source_of_power=data.get("source_of_power", ""),
+            power_origin_story=data.get("power_origin_story", ""),
+            schools_or_types=data.get("schools_or_types", []),
+            training_methods=data.get("training_methods", []),
+            typical_training_duration=data.get("typical_training_duration", ""),
+            artifacts=data.get("artifacts", []),
+            consumables=data.get("consumables", []),
+            organizations=data.get("organizations", []),
+            power_interactions=data.get("power_interactions", []),
+            weaknesses=data.get("weaknesses", []),
+            world_influence=data.get("world_influence", ""),
+            social_acceptance=data.get("social_acceptance", ""),
+            history=data.get("history", []),
+            forbidden_techniques=data.get("forbidden_techniques", []),
+            associated_phenomena=data.get("associated_phenomena", []),
         )
 
     async def expand_magic_system(

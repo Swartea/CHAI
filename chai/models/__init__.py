@@ -1,6 +1,6 @@
 """Data models for CHAI novel writing system."""
 
-from chai.models.world import WorldSetting, MagicSystem, SocialStructure
+from chai.models.world import WorldSetting, MagicSystem, SocialStructure, PowerTechnique, PowerConflict
 from chai.models.character import Character, CharacterRelationship, CharacterRole
 from chai.models.plot import PlotOutline, PlotArc, PlotPoint, PlotPointType, PlotStructure
 from chai.models.novel import Novel, Volume, Chapter, Scene, SceneType
@@ -26,6 +26,8 @@ __all__ = [
     "WorldSetting",
     "MagicSystem",
     "SocialStructure",
+    "PowerTechnique",
+    "PowerConflict",
     "Character",
     "CharacterRelationship",
     "CharacterRole",
