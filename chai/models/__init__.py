@@ -79,6 +79,18 @@ from chai.models.character_relationship_network import (
     ShortestPathResult,
     CommunityResult,
 )
+from chai.models.character_growth_arc import (
+    GrowthArcType,
+    ArcStageType,
+    GrowthMetricType,
+    GrowthTrigger,
+    GrowthObstacle,
+    GrowthLesson,
+    GrowthStage,
+    GrowthArcProfile,
+    CharacterGrowthArcSystem,
+    GrowthArcAnalysis,
+)
 from chai.models.plot import PlotOutline, PlotArc, PlotPoint, PlotPointType, PlotStructure
 from chai.models.novel import Novel, Volume, Chapter, Scene, SceneType
 from chai.models.deconstruct import (
@@ -170,6 +182,17 @@ __all__ = [
     "NetworkAnalysisResult",
     "ShortestPathResult",
     "CommunityResult",
+    # Character growth arc models
+    "GrowthArcType",
+    "ArcStageType",
+    "GrowthMetricType",
+    "GrowthTrigger",
+    "GrowthObstacle",
+    "GrowthLesson",
+    "GrowthStage",
+    "GrowthArcProfile",
+    "CharacterGrowthArcSystem",
+    "GrowthArcAnalysis",
     # Plot models
     "PlotOutline",
     "PlotArc",
