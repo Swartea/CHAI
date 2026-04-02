@@ -32,6 +32,7 @@ from chai.engines.foreshadowing_check_engine import ForeshadowingCheckEngine
 from chai.engines.grammar_check_engine import GrammarCheckEngine
 from chai.engines.sentence_quality_engine import SentenceQualityEngine
 from chai.engines.dialogue_tag_check_engine import DialogueTagCheckEngine
+from chai.engines.punctuation_check_engine import PunctuationCheckEngine
 
 __all__ = [
     "StoryPlanner",
@@ -70,4 +71,5 @@ __all__ = [
     "GrammarCheckEngine",
     "SentenceQualityEngine",
     "DialogueTagCheckEngine",
+    "PunctuationCheckEngine",
 ]

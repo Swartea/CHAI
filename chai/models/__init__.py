@@ -366,6 +366,21 @@ from chai.models.dialogue_tag_check import (
     DialogueTagCheckReport,
     DialogueTagTemplate,
 )
+from chai.models.punctuation_check import (
+    PunctuationErrorType,
+    PunctuationSeverity,
+    PunctuationStyle,
+    PunctuationPattern,
+    PunctuationIssue,
+    PunctuationCheckResult,
+    ChapterPunctuationProfile,
+    PunctuationCheckAnalysis,
+    PunctuationCheckRevision,
+    PunctuationCheckPlan,
+    PunctuationCheckReport,
+    PunctuationTemplate,
+    STANDARD_TEMPLATES,
+)
 
 # Rebuild models to resolve forward references after all imports
 Novel.model_rebuild()
@@ -720,4 +735,18 @@ __all__ = [
     "DialogueTagCheckPlan",
     "DialogueTagCheckReport",
     "DialogueTagTemplate",
+    # Punctuation check models
+    "PunctuationErrorType",
+    "PunctuationSeverity",
+    "PunctuationStyle",
+    "PunctuationPattern",
+    "PunctuationIssue",
+    "PunctuationCheckResult",
+    "ChapterPunctuationProfile",
+    "PunctuationCheckAnalysis",
+    "PunctuationCheckRevision",
+    "PunctuationCheckPlan",
+    "PunctuationCheckReport",
+    "PunctuationTemplate",
+    "STANDARD_TEMPLATES",
 ]
