@@ -146,9 +146,9 @@
         "Implement or refine the repo behavior needed for '配角与反派设计'.",
         "Verify '配角与反派设计' through repository smoke tests or targeted checks."
       ],
-      "passes": false,
-      "notes": null,
-      "last_updated": null
+      "passes": true,
+      "notes": "Created SupportingCharacter model with 14 role types (mentor, sidekick, best_friend, love_interest, ally, contact, expert, comic_relief, wisdom_keeper, foil, fallen_ally, retired_hero, mentee, informant). Created Antagonist model with 15 villain types (villain, dark_hero, temporary_antagonist, eternal_rival, tyrant, manipulator, revenge_seeker, corrupted, ideological, tragic_antagonist, minion, big_bad, tempter, shadow, nemesis). Created SupportingCharacterEngine and AntagonistEngine with comprehensive generation methods. Added 38 new unit tests (177 total tests pass).",
+      "last_updated": "2026-04-02T11:55:00+00:00"
     },
     {
       "id": "feat-012",
