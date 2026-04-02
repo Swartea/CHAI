@@ -5,5 +5,14 @@ from chai.engines.writer import ChapterWriter
 from chai.engines.editor import Editor
 from chai.engines.novel_engine import NovelEngine
 from chai.engines.deconstructor import BookDeconstructor
+from chai.engines.style_engine import StyleEngine, StyleProfile
 
-__all__ = ["StoryPlanner", "ChapterWriter", "Editor", "NovelEngine", "BookDeconstructor"]
+__all__ = [
+    "StoryPlanner",
+    "ChapterWriter",
+    "Editor",
+    "NovelEngine",
+    "BookDeconstructor",
+    "StyleEngine",
+    "StyleProfile",
+]

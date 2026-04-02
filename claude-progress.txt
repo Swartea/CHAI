@@ -80,3 +80,20 @@ Agent execution note: returncode=1
 - Verification: returncode=0; stdout=/Users/swarteachou/Desktop/CHAI | ?? .agent_harness/session_prompts/20260402T103101Z.md | No automated smoke test detected - baseline inspection only.
 - Risks: None recorded.
 - Next: Pick the next unfinished feature in the next session.
+## 2026-04-02T10:45:00+00:00 | Session 20260402T104224Z
+- Session: 20260402T104224Z
+- Feature: feat-004
+- Summary: Enhanced core functionality modules for CHAI novel writing system.
+- What changed:
+  - Enhanced StoryPlanner with multiple plot structures (Three-Act, Hero's Journey, Seven-Point, Save-the-Cat)
+  - Added create_subplot_arc() method for subplot generation
+  - Enhanced Editor with dialogue tag checking, punctuation consistency, pacing analysis, foreshadowing checks
+  - Added generate_full_report() for comprehensive editorial reports
+  - Enhanced ChapterWriter with scene-level generation (write_scene, write_chapter_with_scenes)
+  - Added SceneType enum and Scene model integration
+  - Created StyleEngine for tone/style consistency, character voice, descriptive density
+  - Added StyleProfile dataclass for style analysis
+  - Added 14 new tests in tests/test_engines.py
+- Verification: smoke_test.py passed, pytest 50/50 tests passed (5 async tests skipped - pytest-asyncio not installed)
+- Risks: AI integration requires ANTHROPIC_API_KEY; async tests skipped without pytest-asyncio
+- Next: Work on feat-005 (世界观与设定生成) or other feature enhancements
