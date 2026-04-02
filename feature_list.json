@@ -250,9 +250,9 @@
         "Implement or refine the repo behavior needed for '章节内容生成'.",
         "Verify '章节内容生成' through repository smoke tests or targeted checks."
       ],
-      "passes": false,
-      "notes": null,
-      "last_updated": null
+      "passes": true,
+      "notes": "Created ChapterContentEngine with 6 chapter templates (normal/prologue/epilogue/climax/bridge/transition). Models: ChapterContentPlan, ChapterContentDraft, ChapterContentRevision, ChapterContentAnalysis. Supports generate_content(), revise_content(), analyze_content(). 26 tests pass. Total 397 tests pass.",
+      "last_updated": "2026-04-02T13:50:00+00:00"
     },
     {
       "id": "feat-020",

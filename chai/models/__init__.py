@@ -176,6 +176,18 @@ from chai.models.climax_ending import (
     EndingAnalysis,
     ClimaxEndingAnalysis,
 )
+from chai.models.chapter_content import (
+    ChapterContentType,
+    ChapterContentStatus,
+    NarrativePoint,
+    DialogueStyle,
+    ChapterSectionContent,
+    ChapterContentPlan,
+    ChapterContentDraft,
+    ChapterContentRevision,
+    ChapterContentAnalysis,
+    ChapterContentTemplate,
+)
 
 # Rebuild models to resolve forward references after all imports
 Novel.model_rebuild()
@@ -353,4 +365,15 @@ __all__ = [
     "ClimaxAnalysis",
     "EndingAnalysis",
     "ClimaxEndingAnalysis",
+    # Chapter content models
+    "ChapterContentType",
+    "ChapterContentStatus",
+    "NarrativePoint",
+    "DialogueStyle",
+    "ChapterSectionContent",
+    "ChapterContentPlan",
+    "ChapterContentDraft",
+    "ChapterContentRevision",
+    "ChapterContentAnalysis",
+    "ChapterContentTemplate",
 ]

@@ -20,6 +20,7 @@ from chai.engines.main_story_structure_engine import MainStoryStructureEngine
 from chai.engines.chapter_synopsis_engine import ChapterSynopsisEngine
 from chai.engines.subplot_foreshadowing_engine import SubplotForeshadowingEngine
 from chai.engines.climax_ending_engine import ClimaxEndingEngine
+from chai.engines.chapter_content_engine import ChapterContentEngine
 
 __all__ = [
     "StoryPlanner",
@@ -47,4 +48,5 @@ __all__ = [
     "ChapterSynopsisEngine",
     "SubplotForeshadowingEngine",
     "ClimaxEndingEngine",
+    "ChapterContentEngine",
 ]
