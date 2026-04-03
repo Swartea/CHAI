@@ -24,7 +24,10 @@ while true; do
     # Check for complete OR completed
     if echo "$OUTPUT" | grep -qE "status=(complete|completed)"; then
         # Check if actually done (no remaining features)
-        if ! grep -q '"passes": false' "$REPO_PATH/feature_list.json" 2>/dev/null; then
+        # grep returns exit code 0 if found, 1 if not found
+        if grep -q '"passes": false' "$REPO_PATH/feature_list.json" 2>/dev/null; then
+            :  # There are remaining features, continue
+        else
             echo "========================================"
             echo "ALL FEATURES COMPLETED at $(date)!"
             echo "========================================"
