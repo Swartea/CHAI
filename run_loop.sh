@@ -21,8 +21,8 @@ while true; do
     OUTPUT=$(cd "$HARNESS_DIR" && python3 main.py run --repo-path "$REPO_PATH" 2>&1)
     echo "$OUTPUT"
 
-    # Check for complete OR completed
-    if echo "$OUTPUT" | grep -qE "status=(complete|completed)"; then
+    # Check for complete OR completed (output format: "session_id: status feature_id")
+    if echo "$OUTPUT" | grep -qE "^[^:]+: (complete|completed) "; then
         # Check if actually done (no remaining features)
         # grep returns exit code 0 if found, 1 if not found
         if grep -q '"passes": false' "$REPO_PATH/feature_list.json" 2>/dev/null; then
